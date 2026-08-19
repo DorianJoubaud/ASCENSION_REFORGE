@@ -1,0 +1,200 @@
+% GNUPLOT: LaTeX picture with Postscript
+\begingroup
+  \makeatletter
+  \providecommand\color[2][]{%
+    \GenericError{(gnuplot) \space\space\space\@spaces}{%
+      Package color not loaded in conjunction with
+      terminal option `colourtext'%
+    }{See the gnuplot documentation for explanation.%
+    }{Either use 'blacktext' in gnuplot or load the package
+      color.sty in LaTeX.}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\includegraphics[2][]{%
+    \GenericError{(gnuplot) \space\space\space\@spaces}{%
+      Package graphicx or graphics not loaded%
+    }{See the gnuplot documentation for explanation.%
+    }{The gnuplot epslatex terminal needs graphicx.sty or graphics.sty.}%
+    \renewcommand\includegraphics[2][]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \@ifundefined{ifGPcolor}{%
+    \newif\ifGPcolor
+    \GPcolortrue
+  }{}%
+  \@ifundefined{ifGPblacktext}{%
+    \newif\ifGPblacktext
+    \GPblacktexttrue
+  }{}%
+  % define a \g@addto@macro without @ in the name:
+  \let\gplgaddtomacro\g@addto@macro
+  % define empty templates for all commands taking text:
+  \gdef\gplbacktext{}%
+  \gdef\gplfronttext{}%
+  \makeatother
+  \ifGPblacktext
+    % no textcolor at all
+    \def\colorrgb#1{}%
+    \def\colorgray#1{}%
+  \else
+    % gray or color?
+    \ifGPcolor
+      \def\colorrgb#1{\color[rgb]{#1}}%
+      \def\colorgray#1{\color[gray]{#1}}%
+      \expandafter\def\csname LTw\endcsname{\color{white}}%
+      \expandafter\def\csname LTb\endcsname{\color{black}}%
+      \expandafter\def\csname LTa\endcsname{\color{black}}%
+      \expandafter\def\csname LT0\endcsname{\color[rgb]{1,0,0}}%
+      \expandafter\def\csname LT1\endcsname{\color[rgb]{0,1,0}}%
+      \expandafter\def\csname LT2\endcsname{\color[rgb]{0,0,1}}%
+      \expandafter\def\csname LT3\endcsname{\color[rgb]{1,0,1}}%
+      \expandafter\def\csname LT4\endcsname{\color[rgb]{0,1,1}}%
+      \expandafter\def\csname LT5\endcsname{\color[rgb]{1,1,0}}%
+      \expandafter\def\csname LT6\endcsname{\color[rgb]{0,0,0}}%
+      \expandafter\def\csname LT7\endcsname{\color[rgb]{1,0.3,0}}%
+      \expandafter\def\csname LT8\endcsname{\color[rgb]{0.5,0.5,0.5}}%
+    \else
+      % gray
+      \def\colorrgb#1{\color{black}}%
+      \def\colorgray#1{\color[gray]{#1}}%
+      \expandafter\def\csname LTw\endcsname{\color{white}}%
+      \expandafter\def\csname LTb\endcsname{\color{black}}%
+      \expandafter\def\csname LTa\endcsname{\color{black}}%
+      \expandafter\def\csname LT0\endcsname{\color{black}}%
+      \expandafter\def\csname LT1\endcsname{\color{black}}%
+      \expandafter\def\csname LT2\endcsname{\color{black}}%
+      \expandafter\def\csname LT3\endcsname{\color{black}}%
+      \expandafter\def\csname LT4\endcsname{\color{black}}%
+      \expandafter\def\csname LT5\endcsname{\color{black}}%
+      \expandafter\def\csname LT6\endcsname{\color{black}}%
+      \expandafter\def\csname LT7\endcsname{\color{black}}%
+      \expandafter\def\csname LT8\endcsname{\color{black}}%
+    \fi
+  \fi
+    \setlength{\unitlength}{0.0500bp}%
+    \ifx\gptboxheight\undefined%
+      \newlength{\gptboxheight}%
+      \newlength{\gptboxwidth}%
+      \newsavebox{\gptboxtext}%
+    \fi%
+    \setlength{\fboxrule}{0.5pt}%
+    \setlength{\fboxsep}{1pt}%
+    \definecolor{tbcol}{rgb}{1,1,1}%
+\begin{picture}(8640.00,2520.00)%
+    \gplgaddtomacro\gplbacktext{%
+      \csname LTb\endcsname%%
+      
+      
+
+% \put(594,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D63}}}}%
+% \put(668,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D88}}}}%
+% \put(742,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D50}}}}%
+% \put(816,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D42}}}}%
+% \put(890,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D23}}}}%
+% \put(964,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D11}}}}%
+% \put(1038,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D121}}}}%
+% \put(1112,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D29}}}}%
+% \put(1186,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D56}}}}%
+% \put(1260,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D64}}}}%
+% \put(1334,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D72}}}}%
+% \put(1408,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D93}}}}%
+% \put(1482,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D51}}}}%
+% \put(1556,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D6}}}}%
+% \put(1630,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D89}}}}%
+% \put(1704,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D67}}}}%
+% \put(1778,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D61}}}}%
+% \put(1852,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D118}}}}%
+% \put(1926,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D7}}}}%
+% \put(2000,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D86}}}}%
+% \put(2074,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D71}}}}%
+% \put(2148,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D20}}}}%
+% \put(2222,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D77}}}}%
+% \put(2296,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D15}}}}%
+% \put(2370,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D55}}}}%
+% \put(2444,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D100}}}}%
+% \put(2518,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D94}}}}%
+% \put(2592,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D123}}}}%
+% \put(2666,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D60}}}}%
+% \put(2740,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D9}}}}%
+% \put(2814,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D1}}}}%
+% \put(2888,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D58}}}}%
+% \put(2962,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D40}}}}%
+% \put(3036,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D96}}}}%
+% \put(3110,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D35}}}}%
+% \put(3184,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D119}}}}%
+% \put(3258,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D43}}}}%
+% \put(3332,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D16}}}}%
+% \put(3406,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D112}}}}%
+% \put(3480,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D48}}}}%
+% \put(3554,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D75}}}}%
+% \put(3628,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D59}}}}%
+% \put(3702,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D70}}}}%
+% \put(3776,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D95}}}}%
+% \put(3850,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D10}}}}%
+% \put(3924,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D102}}}}%
+% \put(3998,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D114}}}}%
+% \put(4072,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D24}}}}%
+% \put(4146,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D13}}}}%
+% \put(4220,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D41}}}}%
+% \put(4294,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D14}}}}%
+% \put(4368,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D120}}}}%
+% \put(4442,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D22}}}}%
+% \put(4516,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D79}}}}%
+% \put(4590,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D111}}}}%
+% \put(4664,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D109}}}}%
+% \put(4738,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D124}}}}%
+% \put(4812,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D90}}}}%
+% \put(4886,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D73}}}}%
+% \put(4960,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D105}}}}%
+% \put(5034,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D116}}}}%
+% \put(5108,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D28}}}}%
+% \put(5182,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D65}}}}%
+% \put(5256,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D31}}}}%
+% \put(5330,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D76}}}}%
+% \put(5404,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D92}}}}%
+% \put(5478,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D115}}}}%
+% \put(5552,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D91}}}}%
+% \put(5626,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D27}}}}%
+% \put(5700,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D36}}}}%
+% \put(5774,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D106}}}}%
+% \put(5848,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D53}}}}%
+% \put(5922,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D8}}}}%
+% \put(5996,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D54}}}}%
+% \put(6070,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D37}}}}%
+% \put(6144,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D98}}}}%
+% \put(6218,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D99}}}}%
+% \put(6292,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D30}}}}%
+% \put(6366,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D49}}}}%
+% \put(6440,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D122}}}}%
+% \put(6514,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D52}}}}%
+% \put(6588,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D39}}}}%
+% \put(6662,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D32}}}}%
+% \put(6736,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D33}}}}%
+% \put(6810,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D117}}}}%
+% \put(6884,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D104}}}}%
+% \put(6958,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D110}}}}%
+% \put(7032,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D103}}}}%
+% \put(7106,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D108}}}}%
+% \put(7180,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D62}}}}%
+% \put(7254,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D69}}}}%
+% \put(7328,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D57}}}}%
+% \put(7402,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D2}}}}%
+% \put(7476,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D74}}}}%
+% \put(7550,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D87}}}}%
+% \put(7624,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D78}}}}%
+% \put(7698,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D113}}}}%
+% \put(7772,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D34}}}}%
+% \put(7846,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D101}}}}%
+% \put(7920,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D66}}}}%
+% \put(7994,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D107}}}}%
+% \put(8068,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D101}}}}%
+% \put(8142,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D66}}}}%
+% \put(8216,220){\makebox(0,0){\strut{}\rotatebox{90}{\scriptsize \scalebox{.7}{D107}}}}%
+
+}
+   
+    \gplbacktext
+    \put(0,0){\includegraphics[width={600.00bp},height={750.00bp}]{images/legend.eps}}%
+    \gplfronttext
+  \end{picture}%
+\endgroup

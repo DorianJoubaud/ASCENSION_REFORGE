@@ -1,0 +1,93 @@
+\section{Introduction}
+\label{sec:intro}
+
+Time series (TS) classification (TSC) is challenging due to temporal
+dependencies, non-stationarity, or scarce labelled data, often
+limited by acquisition costs and privacy. Data augmentation (DA)
+mitigates these issues by enriching the training set with
+synthetic samples.
+% REVISED FOR TMLR (rebuttal Hzd4 minor, duplication with Section 2.1)
+In practice, however, no DA method is reliable across the
+heterogeneous datasets that TSC covers
+\citep{iwana2021empirical, iglesias2023data}, an inconsistency
+whose practical cost we detail in
+Section~\ref{sec:setup:ts-da}. This motivates the search for an
+augmentation method that is safe to apply by default.
+
+Existing in-distribution generative DA methods for TSC learn to model the training distribution
+faithfully but, by design, rarely produce samples that extend
+beyond its empirical support, leaving the decision boundary
+under-supplied near its hardest regions, precisely where
+augmentation could help the most.
+\begin{figure}[t]
+    \centering
+    \includesvg[inkscapelatex=false,width=\textwidth]{images/ASCENSION_SVG.svg}
+\caption{Comparison of latent space dynamics between
+state-of-the-art generative DA methods and ASCENSION.
+State-of-the-art methods generate samples confined to the
+learned distribution, limiting diversity (left). ASCENSION
+(right) introduces a novel $\alpha$-scaling mechanism,
+controlled by a parameter~$\alpha$, which progressively expands
+class regions, promoting intra-class compactness, inter-class
+separation, and reduced overlap during sampling.}
+    \label{fig:SoTaVSASCENSION}
+\end{figure}
+
+We posit that progressively exploring under-represented regions
+of the latent space by expanding the initial data distribution
+can enhance DA effectiveness, particularly under train/test
+discrepancy. To this end, we propose ASCENSION, a DA framework
+that leverages a variational autoencoder (VAE) architecture and
+introduces a tunable $\alpha$-scaling mechanism to gradually
+explore these under-represented regions while maintaining
+intra-class compactness and inter-class separation.
+Figure~\ref{fig:SoTaVSASCENSION} illustrates the core concept.
+% REVISED FOR TMLR (rebuttal C2)
+This strategy yields more diverse synthetic data and improved
+mean classification performance, as shown in
+Section~\ref{sec:results:main}.
+
+The key contributions of this paper are:
+
+\begin{itemize}
+    \item \textbf{Novel VAE-based DA method.} A progressive,
+    controllable boundary-expansion strategy via an
+    $\alpha$-scaling mechanism, with ablations mapping the
+    dataset conditions where it is most beneficial.
+
+    % REVISED FOR TMLR (rebuttal C2)
+    \item \textbf{Comprehensive benchmark \& low-risk gains.}
+    ASCENSION is evaluated across 102 UCR datasets against one
+    traditional (FAA) and eight generative baselines
+    (Diffusion-TS, ImagenTime, KoVAE, LatentAugment, TTS-GAN,
+    Time-DDPM, VaDE, MODALS). It is the only method with a
+    positive mean gain on each of the three classifiers, it
+    degrades the fewest datasets, and it is never significantly
+    worse than any competitor, making it a low-risk DA method.
+
+    \item \textbf{Data-driven insights.} We investigate how
+    ASCENSION's components and TS features influence
+    DA effectiveness, showing that $\alpha$-scaling is the
+    single most impactful component.
+\end{itemize}
+
+% -----------------------------------------------------------------
+% ADDED FOR TMLR (no ICML page limit; addresses reviewers'
+% "consistency" framing directly)
+% -----------------------------------------------------------------
+% Beyond the three contributions above, we leverage the TMLR
+% format to add, on top of the ICML submission, a series of
+% additions prompted by ICML reviewers:
+% \begin{itemize}
+%   \item A direct \textbf{cVAE-with-matched-$\alpha$ baseline} on
+%         all 102 UCR datasets, isolating the contribution of the
+%         contrastive loss (Section~\ref{sec:results:cvae}).
+%   \item \textbf{Macro-$F_1$} companion tables alongside accuracy
+%         (Section~\ref{sec:results:f1}).
+%   \item A \textbf{complexity and wall-clock} analysis against
+%         the nine baselines (Section~\ref{sec:complexity}).
+%   \item A sharpened positioning against GMM-structured VAEs
+%         (Section~\ref{sec:related:positioning}) and an
+%         OOD-discussion subsection
+%         (Section~\ref{sec:limitations:ood}).
+% \end{itemize}

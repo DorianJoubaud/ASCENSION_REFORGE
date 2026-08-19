@@ -1,0 +1,182 @@
+%% ============================================================
+%% ASCENSION: Autoencoder-Based Latent Space Class Expansion
+%%            for Time Series Data Augmentation
+%% ============================================================
+
+\documentclass[10pt]{article}
+
+% Default: anonymous review version. For preprint / camera-ready,
+% swap to one of the lines below.
+\usepackage{tmlr}
+% \usepackage[preprint]{tmlr}   % de-anonymise for arXiv / preprints
+% \usepackage[accepted]{tmlr}   % camera-ready (also set \month/\year)
+
+% TMLR's optional notation shortcuts
+\input{math_commands.tex}
+
+% ---- Packages ----
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\graphicspath{{images/}}  % gnuplot \input{} files reference graphics by basename;
+                          % without this, \includegraphics{cumulative_sum_*} fails
+                          % silently (axis labels render but curve images don't).
+\usepackage{wrapfig}    % side-by-side figure beside the Reading paragraph in §3.3
+\usepackage{pdflscape}  % ICML appendix uses \begin{landscape} for wide tables
+\usepackage{pstricks}   % ICML appendix uses pspicture envs for PSTricks figures
+\usepackage{morefloats} % raises the 18-float queue to ~256; detailed classif
+                        % appendix has many large tables whose floats would
+                        % otherwise overflow at \clearpage ("Float(s) lost")
+
+% Custom commands ported from ICML main.tex preamble
+\newcommand{\NA}{--}
+\newcommand{\imgsize}{0.15\linewidth}
+
+% Figures directory is named `images/` (matches the `images/...` path prefix
+% used in the ICML-ported \includegraphics calls).
+\usepackage{subcaption}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+% Theorem environments for the formal description in
+% Section~\ref{sec:method:alpha} (Definitions 1--2 + Proposition 1).
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+% Gray box around Definition and Proposition environments (visual
+% emphasis; TMLR has no rule against this --- mdframed is widely
+% used in accepted papers).
+\usepackage{mdframed}
+\mdfdefinestyle{definitionbox}{%
+  backgroundcolor=black!5,
+  linewidth=0pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  skipabove=8pt,
+  skipbelow=8pt,
+}
+\surroundwithmdframed[style=definitionbox]{definition}
+\surroundwithmdframed[style=definitionbox]{proposition}
+% `lscape` is already pulled in by `pdflscape` above; loading it a second
+% time here caused \begin{landscape} to be redefined to the non-rotating
+% variant, breaking float placement and triggering "Float(s) lost" at
+% \clearpage. Keep only pdflscape.
+\usepackage{svg}
+\usepackage{bm}
+\usepackage{float}          % enables [H] float placement
+\usepackage{algorithm}
+\usepackage{placeins}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+% todonotes warns if marginparwidth < 2cm — set it before loading.
+% `textsize` must be a package load-time option; the remaining knobs
+% are configured via \setuptodonotes{} once the package is loaded.
+\setlength{\marginparwidth}{2cm}
+\usepackage[textsize=footnotesize]{todonotes}
+\setuptodonotes{linecolor=orange!50,backgroundcolor=orange!10,bordercolor=orange}
+
+% ---- Drafting shortcuts ----
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\newcommand{\rev}[2]{\textit{[R\##1:}~#2\textit{]}}     % mark review-driven additions inline
+
+% ---- Title & metadata ----
+\title{ASCENSION: Autoencoder-Based Latent Space Class Expansion for Time Series Data Augmentation}
+
+% Anonymous review version. Camera-ready: restore the full author block.
+\author{\name Anonymous Authors \email anonymous@example.org \\
+      \addr Anonymous Affiliation}
+
+\def\month{MM}
+\def\year{YYYY}
+\def\openreview{\url{https://openreview.net/forum?id=XXXX}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Achieving effective data augmentation (DA) in time series (TS)
+classification is challenging due to the complex nature of
+temporal data. While state-of-the-art generative models for DA,
+based on generative adversarial networks, diffusion models and variational autoencoders (VAEs), demonstrate potential,
+they often fail to yield consistent performance gains across
+diverse domains (e.g., ECG, power, vibration). To overcome this,
+we propose \textbf{ASCENSION} (\textbf{A}utoencoder-based latent
+\textbf{S}pace \textbf{C}lass \textbf{ExpaNSION}), a novel
+generative framework that leverages the probabilistic nature of a
+VAE latent space together with a contrastive loss to promote
+intra-class compactness and inter-class separability. Its key
+innovation is an $\alpha$-scaling mechanism that progressively
+expands per-class posterior covariances while preserving class
+identity, populating under-represented neighbourhoods beyond the
+training distribution. We evaluate ASCENSION on 102 univariate datasets
+from the UCR benchmark using two established deep TS
+classifiers and a recent TS foundation model, comparing
+it against eight state-of-the-art DA methods. Empirical results
+% REVISED FOR TMLR (rebuttal C2/C3)
+demonstrate that, under a single fixed configuration and
+averaged over three runs, ASCENSION increases mean
+classification accuracy by $+1.3\%$ (ResNet), $+0.6\%$ (FCN) and
+$+0.8\%$ (Moment), while the strongest baseline, VaDE, results
+in a $-0.9\%$ decrease. Notably, ASCENSION delivers non-negative
+gains on $71.9\%$, $62.7\%$ and $62.4\%$ of the datasets,
+respectively. An ablation study
+further highlights the significant impact of the $\alpha$-scaling
+mechanism on these gains. These findings position ASCENSION as
+a low-risk DA method on the 102-dataset UCR archive. It is the
+only method in our benchmark with a positive mean gain on each
+of the three classifiers, and it is never significantly worse
+than any competitor under a Friedman--Nemenyi analysis, without
+requiring prior knowledge of method suitability.
+\end{abstract}
+
+% ==========================================================
+% 1. Introduction
+% ==========================================================
+\input{sections/01_introduction}
+
+% ==========================================================
+% 2. Problem Setup (folds Related Work — TMLR DA paper convention)
+% ==========================================================
+\input{sections/02_problem_setup}
+
+% ==========================================================
+% 3. Proposed Method (with new 3.1 Motivation subsection)
+% ==========================================================
+\input{sections/03_method}
+
+% ==========================================================
+% 4. Experiments (setup + results + analysis merged)
+% ==========================================================
+\input{sections/04_experiments}
+
+% ==========================================================
+% 5. Conclusion
+% ==========================================================
+\input{sections/05_conclusion}
+
+% ==========================================================
+% 6. Limitations and Future Work
+% ==========================================================
+\input{sections/06_limitations}
+
+% ==========================================================
+% Broader Impact Statement (TMLR-required)
+% ==========================================================
+\input{sections/07_broader_impact}
+
+% ==========================================================
+% Reproducibility Statement + Acknowledgements
+% ==========================================================
+\input{sections/08_reproducibility}
+
+\bibliography{references}
+\bibliographystyle{tmlr}
+\newpage
+\appendix
+\input{sections/appendix}
+
+\end{document}

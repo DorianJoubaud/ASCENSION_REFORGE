@@ -1,0 +1,33 @@
+% -----------------------------------------------------------------
+% Compact L&FW section, mirroring Mai & Lin (TMLR 2026, §6) — two
+% concrete limitations with future-work hooks woven in. ICML hooks
+% kept: univariate scope, single global α-factor.
+% -----------------------------------------------------------------
+\section{Limitations and Future Work}
+\label{sec:limitations}
+
+% REVISED FOR TMLR (rebuttal C2)
+Despite its contributions, this study has three limitations. First,
+our evaluation is restricted to \emph{univariate} TS;
+extending the contrastive clustering loss to a joint-channel latent
+space, where inter-channel dependencies are modelled directly, is
+the natural next step toward multivariate sensor data. Second,
+the expansion uses a single scalar $\alpha$ applied uniformly across all
+classes. Alternative expansion mechanisms that adapt to class-specific
+covariance structure would relax this restriction and may further
+improve gains on heterogeneous dataset families.
+% ADDED FOR TMLR (rebuttal C2)
+Third, the benefit is uneven across classifiers. FCN is the
+weakest case, with the median dataset unchanged in all three
+fixed-configuration runs, so on FCN we describe ASCENSION as
+low-risk rather than as broadly beneficial.
+
+% ADDED FOR TMLR (rebuttal Q5/Q6)
+Beyond these limitations, two extensions follow naturally from the
+design. ASCENSION could handle regression targets by conditioning
+the latent space on the continuous target, or by binning the
+target into pseudo-classes that take the role of labels in the
+contrastive clustering loss. It could also apply beyond univariate
+TS to other input domains, since only the encoder is
+domain-specific. We have evaluated neither extension and claim no
+benefit for either without supporting evidence.
