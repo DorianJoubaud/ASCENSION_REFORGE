@@ -434,9 +434,10 @@ collapses the mean augmentation gain from $+2.1\%$ to $-0.05\%$).
 This reference follows the protocol of \tablename~1 in the originally
 submitted version: \tablename~\ref{tab:best-config} reports ASCENSION
 at its best hyperparameter configuration per dataset, with baselines at
-their authors' recommended defaults, in a single run. The feature-based
-gain analysis of Section~\ref{sec:analysis:features} was originally
-built on these runs and is now computed on the fixed-configuration
+their authors' recommended defaults, in a single run. The
+feature-importance analysis of Figure~\ref{fig:catch22-importance}
+was built on these runs, while the discrepancy-axis analysis of
+Figure~\ref{fig:cumsum-disc} is computed on the fixed-configuration
 runs. Per-dataset selection widens ASCENSION's margins
 relative to the fixed configuration of
 \tablename~\ref{tab:main-results}, with net totals of $+1.9\%$,
@@ -734,7 +735,8 @@ deployed model is the unaugmented baseline itself, so a rejection can
 never cost accuracy relative to not augmenting.
 
 \paragraph{Strata}
-Two strata were pre-declared from training labels before execution:
+Two strata were pre-declared from training labels before execution
+(per-stratum results in \tablename~\ref{tab:valselect-strata}):
 small-$n$ (training set of at most 60 samples, 11 datasets: ArrowHead,
 BME, Car, GunPoint, HouseTwenty, Lightning2, Meat, ToeSegmentation1,
 ToeSegmentation2, UMD, Wine) and imbalanced (at most 3 classes and

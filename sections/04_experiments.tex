@@ -39,7 +39,7 @@ under distribution discrepancies.
 \label{sec:setup:experimental}
 
 % REVISED FOR TMLR (dataset selection fix)
-We use the UCR Archive of 128 univariate TSC datasets (see \tablename~\ref{app:datasets}), retaining 102 of the 128.
+We use the UCR Archive of 128 univariate TSC datasets (see Appendix~\ref{app:datasets}), retaining 102 of the 128.
 We exclude 15 datasets with missing values or variable lengths, 4
 datasets with single-instance classes, and 7 further datasets that
 were left out of the original experimental campaign and are kept out
@@ -63,8 +63,9 @@ boundary.
 
 We compare ASCENSION to nine related DA methods: one traditional
 (FAA) and eight generative (VaDE, TTS-GAN, KoVAE, Time-DDPM, LA,
-ImagenTime, Diffusion-TS, MODALS; see Section~\ref{sec:setup:gen-da}
-and Figure~\ref{fig:SoTa} for details). FAA provides a classical baseline,
+ImagenTime, Diffusion-TS, MODALS; see Section~\ref{sec:setup:gen-da},
+Figure~\ref{fig:SoTa}, and Appendix~\ref{app:related-extended} for
+details). FAA provides a classical baseline,
 while KoVAE, VaDE, and MODALS share architectural traits with
 ASCENSION. Diffusion-TS, ImagenTime, LA, Time-DDPM, and TTS-GAN
 are recent generative baselines. As MODALS' public code is
@@ -82,13 +83,12 @@ baselines use their authors' recommended defaults. The complementary
 analysis with ASCENSION at its best per-dataset configuration is
 given in Appendix~\ref{app:best-config}.
 % ADDED FOR TMLR (rebuttal C7)
-As the UCR archive provides no validation split, model selection
-follows the best-epoch-on-test convention standard in the UCR
-literature~\citep{fawaz2019deep}. We apply this rule identically to
+As the UCR archive provides no validation split, our protocol uses
+the best epoch on the test set. We apply this rule identically to
 every method and to the no-augmentation baseline in every ResNet and
 FCN experiment, so absolute accuracies are optimistic for every
 method. Moment uses a single deterministic fit with no epoch-based
-selection.
+selection (full specification in Appendix~\ref{app:moment-spec}).
 % ADDED FOR TMLR (rebuttal Q2)
 All methods use the same generation budget, which follows the
 empirical class distribution: at each iteration we draw
@@ -666,12 +666,15 @@ choice.
 As shown in Section~\ref{sec:results:main}, ASCENSION compares
 favourably to traditional and generative DA methods, but a
 substantial share of datasets shows no gain or even degradation
-(Unchanged/Worsened in \tablename~\ref{tab:main-results}; full
+(Unchanged/Worsened in \tablename~\ref{tab:main-results}, full
 results in Appendix~\ref{app:per_dataset}). To pinpoint which
-datasets benefit from DA, we perform a feature-based analysis,
-computed on the fixed-configuration runs, using ASCENSION with
-ResNet, FCN, and Moment as external classifiers for fair
-comparison.
+datasets benefit from DA, we perform a feature-based analysis
+using ASCENSION with ResNet, FCN, and Moment as external
+classifiers for fair comparison. The discrepancy-axis analysis of
+Figure~\ref{fig:cumsum-disc} is computed on the fixed-configuration
+runs, and the feature-importance analysis of
+Figure~\ref{fig:catch22-importance} is fitted on the
+best-configuration reference runs of Appendix~\ref{app:best-config}.
 
 \paragraph{Feature extraction}
 We use the 22 \textbf{CA}nonical \textbf{T}ime-series
@@ -718,7 +721,12 @@ frequency), F11 (2D distance change), and F17 (longest decreasing
 trend). Diffusion-TS to F14 (rapid fluctuations); Time-DDPM
 (ResNet) to F20 (slow fluctuations); and ASCENSION to F24
 (train--test distribution gap). With Moment, feature rankings
-% TODO(number): re-verify on fixed-config Figure 5 regeneration
+% TODO(Dorian): rebuttal C1 promised updating Figure 5 on the
+% fixed-config runs. The original catch22+RF pipeline was not found
+% on the Mac, endeavor, or the public repo. Regenerate the three
+% Catch22_Histo images and re-verify the 0.64/0.54 values, then
+% change the Ablation 2 opening sentence (and the app:best-config
+% framing sentence) to say Figure 5 uses the fixed-config runs.
 shift: F15 (rapid fluctuations) peaks sharply ($0.64$ for
 Diffusion-TS, $0.54$ for TTS-GAN), while ASCENSION depends less
 on F24, and VaDE more, showing that pretraining reshapes which
@@ -739,8 +747,8 @@ mean accuracy gain as datasets are added in this order
 \resizebox{\linewidth}{!}{\input{images/cumulative_sum_discrepancy_moment.tex}}
 
 \caption{Cumulative accuracy improvement (\%) vs.\ F24
-(train--test distribution discrepancy; see
-\tablename~\ref{app:datasets}). Datasets are sorted by increasing
+(train--test distribution discrepancy, see
+Appendix~\ref{app:datasets}). Datasets are sorted by increasing
 discrepancy. Per-dataset gains are averaged over the three
 fixed-configuration runs.}
 \label{fig:cumsum-disc}
@@ -749,9 +757,9 @@ fixed-configuration runs.}
 
 % REVISED FOR TMLR (rebuttal C2; curves regenerated on the fixed
 % configuration, per-dataset gains averaged over the three runs)
-ASCENSION's cumulative curve ends positive in eight of the nine
-classifier-run combinations, while 65 of the 72 baseline curves end
-negative. Crucially, the gap between ASCENSION and
+Computed per run, ASCENSION's cumulative curve ends positive in
+eight of the nine classifier-run combinations, while 65 of the 72
+baseline curves end negative. Crucially, the gap between ASCENSION and
 the strongest generative baseline does not close on the
 high-discrepancy datasets, \textit{i.e.}, where
 in-distribution generative augmentation cannot help. This
