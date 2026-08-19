@@ -431,8 +431,8 @@ collapses the mean augmentation gain from $+2.1\%$ to $-0.05\%$).
 \label{app:best-config}
 \label{app:single-config}% kept so stale references keep resolving
 
-This reference follows the protocol of \tablename~1 in the originally
-submitted version: \tablename~\ref{tab:best-config} reports ASCENSION
+This reference evaluates per-dataset hyperparameter selection.
+\tablename~\ref{tab:best-config} reports ASCENSION
 at its best hyperparameter configuration per dataset, with baselines at
 their authors' recommended defaults, in a single run. The
 feature-importance analysis of Figure~\ref{fig:catch22-importance}
@@ -708,8 +708,8 @@ from training labels only: the smallest class holds at least 10
 samples and the training set holds at least 30 samples. Seventy-five
 of them belong to the 102 datasets of the main comparison. The three
 Cricket datasets (CricketX, CricketY, CricketZ) meet the criteria but
-were not part of the original campaign, and we keep them for cohort
-completeness.
+are not among the 102 datasets of the main comparison, and we keep
+them for cohort completeness.
 
 \paragraph{Ladder and selection rule}
 For each dataset and seed, the training set is split once into a fit

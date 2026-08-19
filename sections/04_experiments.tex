@@ -42,8 +42,8 @@ under distribution discrepancies.
 We use the UCR Archive of 128 univariate TSC datasets (see Appendix~\ref{app:datasets}), retaining 102 of the 128.
 We exclude 15 datasets with missing values or variable lengths, 4
 datasets with single-instance classes, and 7 further datasets that
-were left out of the original experimental campaign and are kept out
-for comparability across all methods.
+our experimental campaign does not cover, kept out for comparability
+across all methods.
 
 
 Following \citep{fawaz2019deep}, which identifies ResNet-50 and
@@ -480,7 +480,7 @@ rule on the 78 UCR datasets whose training sets admit a stratified
 internal validation fold (smallest class at least 10 samples, at least
 30 training samples). Of these, 75 belong to the 102 datasets used
 above, and the remaining three (the Cricket family) meet the criteria
-but were not part of the original campaign. For each dataset and each
+but are not among the 102. For each dataset and each
 of three seeds, a validation fold is split from the training set,
 synthetic samples are anchored on the remaining fit fold only, and we
 train one classifier per rung of a ladder of $t \in \{0, 1, 2, 4, 8\}$
