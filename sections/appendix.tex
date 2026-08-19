@@ -698,10 +698,10 @@ reports the per-classifier Spearman correlation.}
 \section{Validation-selected iteration count: protocol details}
 \label{app:valselect}
 
-This appendix details the sealed protocol of
+This appendix details the protocol of
 Section~\ref{sec:results:valselect}.
 
-\paragraph{Cohort}
+\paragraph{Dataset selection}
 The 78 datasets are the UCR 2018 datasets whose training sets admit a
 stratified internal validation fold, defined by two criteria computed
 from training labels only: the smallest class holds at least 10
@@ -709,51 +709,52 @@ samples and the training set holds at least 30 samples. Seventy-five
 of them belong to the 102 datasets of the main comparison. The three
 Cricket datasets (CricketX, CricketY, CricketZ) meet the criteria but
 are not among the 102 datasets of the main comparison, and we keep
-them for cohort completeness.
+them for completeness.
 
-\paragraph{Ladder and selection rule}
+\paragraph{Candidate iteration counts and selection rule}
 For each dataset and seed, the training set is split once into a fit
 fold and a validation fold. Synthetic candidates are anchored on the
-fit fold only. The ladder evaluates $t \in \{0, 1, 2, 4, 8\}$
-cumulative augmentation iterations. At each iteration, candidates are
+fit fold only. We evaluate candidate iteration counts
+$t \in \{0, 1, 2, 4, 8\}$ (cumulative augmentation iterations). At each iteration, candidates are
 drawn with the one-to-one budget of Algorithm~\ref{alg:ascension},
 decoded, and filtered by the Bayes-region test. Two implementation
-choices matter for the sealed setting. First, each iteration retrains
+choices matter for this setting. First, each iteration retrains
 the VAE from scratch on the union of the real fit fold and all
 previously accepted synthetic samples, so the expansion compounds as
 described in Section~\ref{sec:method}. Second, the Bayes-region filter
-is evaluated by a fixed verifier, a VAE trained once on the real fit
-fold only. Candidates decoded by the current VAE are re-encoded by the
-verifier and must pass the test against its real-only class mixtures.
-This prevents the acceptance region from drifting as synthetic data
-accumulates over iterations. One classifier is trained per rung, with
-early stopping on the validation fold, and the test set is scored once
-per rung and consulted only after $t^{*}$ is fixed. The deployed rung
-maximises validation accuracy, ties are broken by validation
-cross-entropy, remaining ties by the smaller $t$. At $t^{*} = 0$ the
+is evaluated by a fixed VAE, trained once on the real fit fold only.
+Candidates decoded by the current VAE are re-encoded by this fixed VAE
+and must pass the rejection step against its real-only class mixtures.
+This prevents the Bayes region from drifting as synthetic data
+accumulates over iterations. One classifier is trained per candidate
+count, with early stopping on the validation fold, and the test set is
+scored once per candidate count and consulted only after $t^{*}$ is
+fixed. The deployed count maximises validation accuracy, ties are
+broken by validation cross-entropy, remaining ties by the smaller
+$t$. At $t^{*} = 0$ the
 deployed model is the unaugmented baseline itself, so a rejection can
 never cost accuracy relative to not augmenting.
 
-\paragraph{Strata}
-Two strata were pre-declared from training labels before execution
-(per-stratum results in \tablename~\ref{tab:valselect-strata}):
+\paragraph{Dataset groups}
+Two groups were pre-declared from training labels before execution
+(per-group results in \tablename~\ref{tab:valselect-strata}):
 small-$n$ (training set of at most 60 samples, 11 datasets: ArrowHead,
 BME, Car, GunPoint, HouseTwenty, Lightning2, Meat, ToeSegmentation1,
 ToeSegmentation2, UMD, Wine) and imbalanced (at most 3 classes and
 imbalance ratio at least 2.5, 8 datasets, evaluated in balanced
-accuracy). The remaining 59 datasets form the third stratum.
+accuracy). The remaining 59 datasets form the third group.
 
 \begin{table}[H]
 \centering
-\caption{Deployed gain per stratum (accuracy points, balanced accuracy
-for the imbalanced stratum), with cell-level $t$ statistics and cell
-counts. 3 seeds per dataset.}
+\caption{Deployed gain per dataset group (accuracy points, balanced
+accuracy for the imbalanced group), with $t$ statistics and counts
+over dataset--seed pairs. 3 seeds per dataset.}
 \label{tab:valselect-strata}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\bf Stratum & \bf ResNet & \bf FCN & \bf InceptionTime \\
+\bf Group & \bf ResNet & \bf FCN & \bf InceptionTime \\
 \midrule
-All cells ($n=234$)            & $+0.53$ $(t=1.83)$ & $+0.89$ $(t=2.95)$ & $+0.73$ $(t=2.66)$ \\
+All pairs ($n=234$)            & $+0.53$ $(t=1.83)$ & $+0.89$ $(t=2.95)$ & $+0.73$ $(t=2.66)$ \\
 Small-$n$ ($n=33$)             & $+2.72$ $(t=2.59)$ & $+3.50$ $(t=2.59)$ & $-0.12$ $(t=-0.27)$ \\
 Imbalanced, bal.\ acc.\ ($n=24$) & $-0.39$ $(t=-0.43)$ & $-0.21$ $(t=-0.53)$ & $-0.68$ $(t=-0.93)$ \\
 Remaining ($n=177$)            & $+0.07$ $(t=0.23)$ & $+0.57$ $(t=1.94)$ & $+0.97$ $(t=2.80)$ \\
@@ -763,19 +764,19 @@ Abstention ($t^{*}=0$)         & $49\%$ & $48\%$ & $46\%$ \\
 \end{table}
 
 \paragraph{Reading}
-No stratum is systematically harmed under any classifier, every
-negative stratum mean sits within noise. The imbalanced stratum is
+No group is systematically harmed under any classifier, every
+negative group mean sits within noise. The imbalanced group is
 dominated by datasets whose baselines are already near ceiling (Wafer,
-StarLightCurves), where the rule can only abstain or misfire, and its
+StarLightCurves), where the rule can only abstain or err, and its
 mean stays within noise for all three classifiers. The small-$n$
 gains appear for the two classifiers whose small-$n$ baselines are
 weakest and vanish for InceptionTime, whose architecture already
 extracts on 30 to 60 series what augmentation supplies to the weaker
-judges. The engaged cells use the whole ladder (on ResNet, 41/29/32/18
-cells at $t = 1/2/4/8$), so the per-dataset dosage is real rather than
-a constant choice. These observations about baseline headroom are
-post-hoc readings of pre-registered endpoints, and we label them as
-such.
+classifiers. The pairs with $t^{*} > 0$ use the whole range (on
+ResNet, 41/29/32/18 pairs at $t = 1/2/4/8$), so the selected iteration
+count genuinely varies per dataset rather than being a constant
+choice. These observations about baseline accuracy levels are post-hoc
+readings of pre-declared endpoints, and we label them as such.
 
 \section{Empirical acceptance rate of the rejection step}
 \label{app:acceptance}

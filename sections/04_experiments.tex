@@ -186,7 +186,7 @@ improvement; \textbf{bold} marks the best mean per column.}
 % REVISED FOR TMLR (rebuttal C1/C2)
 \tablename~\ref{tab:main-results} shows that no baseline reaches a
 positive three-run mean total on any classifier: 0 of the 27
-baseline method-classifier cells are positive, and across individual
+baseline method--classifier pairs are positive, and across individual
 runs the baselines end positive in only 7 of their 72 classifier-run
 combinations, with no single baseline exceeding 3 of its 9. The
 strongest baselines stay slightly below zero, KoVAE at
@@ -483,19 +483,19 @@ above, and the remaining three (the Cricket family) meet the criteria
 but are not among the 102. For each dataset and each
 of three seeds, a validation fold is split from the training set,
 synthetic samples are anchored on the remaining fit fold only, and we
-train one classifier per rung of a ladder of $t \in \{0, 1, 2, 4, 8\}$
-cumulative iterations. Each iteration retrains the VAE on the union of
+train one classifier for each candidate iteration count
+$t \in \{0, 1, 2, 4, 8\}$ (cumulative iterations). Each iteration retrains the VAE on the union of
 the real fit fold and the previously accepted synthetic samples,
 following Algorithm~\ref{alg:ascension}, while the Bayes-region filter
-is evaluated by a verifier trained on real data only, so the
-acceptance region cannot drift with the synthetic data. All early
+is evaluated by a fixed VAE trained on real data only, so the
+Bayes region cannot drift with the synthetic data. All early
 stopping uses the validation fold. The deployed count $t^{*}$
 maximises validation accuracy, with ties broken by validation
 cross-entropy and then by the smaller $t$, and $t^{*} = 0$ deploys the
-unaugmented baseline unchanged. Hypotheses, strata and the selection
+unaugmented baseline unchanged. Hypotheses, dataset groups and the selection
 rule were frozen before execution. Because every choice, training
 epochs included, is made on the internal fold, absolute gains under
-this sealed protocol are not comparable to
+this protocol are not comparable to
 \tablename~\ref{tab:main-results} and are expected to be smaller. The
 object of the analysis is the deployment rule. Full details are given
 in Appendix~\ref{app:valselect}.
@@ -503,15 +503,15 @@ in Appendix~\ref{app:valselect}.
 \begin{table}[H]
 \centering
 \caption{Deployed accuracy gain (points) of the validation-selected
-iteration rule, over 78 UCR datasets and 3 seeds (234 cells per
-classifier). Cell-level $t$ statistics in parentheses. The small-$n$
-stratum (training sets of at most 60 samples, 11 datasets) was
-pre-declared before execution. Abstention is the share of cells where
-the rule deploys the unaugmented baseline ($t^{*}=0$).}
+iteration rule, over 78 UCR datasets and 3 seeds (234 dataset--seed
+pairs per classifier), with $t$ statistics over pairs in parentheses.
+The small-$n$ group (training sets of at most 60 samples, 11 datasets)
+was pre-declared before execution. Abstention is the share of pairs
+where the rule deploys the unaugmented baseline ($t^{*}=0$).}
 \label{tab:valselect}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\bf Classifier & \bf All cells & \bf Small-$n$ stratum & \bf Abstention \\
+\bf Classifier & \bf All pairs & \bf Small-$n$ group & \bf Abstention \\
 \midrule
 ResNet        & $+0.53$ $(t=1.83)$ & $+2.72$ $(t=2.59)$ & $49\%$ \\
 FCN           & $+0.89$ $(t=2.95)$ & $+3.50$ $(t=2.59)$ & $48\%$ \\
@@ -523,26 +523,28 @@ InceptionTime & $+0.73$ $(t=2.66)$ & $-0.12$ $(t=-0.27)$ & $46\%$ \\
 \paragraph{Results}
 \tablename~\ref{tab:valselect} reports the deployed gains for ResNet,
 FCN and InceptionTime \citep{fawaz2020inceptiontime}. The rule
-abstains on about half of the dataset-seed cells and, when it engages,
-prefers small iteration counts (on ResNet, 41/29/32/18 engaged cells
-at $t = 1/2/4/8$), consistent with the budget-matched control of
+abstains on about half of the dataset--seed pairs and, when it
+selects $t^{*} > 0$, prefers small iteration counts (on ResNet,
+41/29/32/18 pairs at $t = 1/2/4/8$), consistent with the
+budget-matched control of
 Appendix~\ref{app:budget-matched}. The deployed mean gain is positive
-for all three classifiers, with cell-level $t$ statistics above 2.6
+for all three classifiers, with $t$ statistics above 2.6
 for FCN and InceptionTime, while for ResNet a per-dataset Wilcoxon
 test does not separate the mean from zero ($p = 0.165$). The gains
 concentrate where training data is scarce. On the pre-declared
-small-$n$ stratum the deployed gain reaches $+2.72$ (ResNet) and
+small-$n$ group the deployed gain reaches $+2.72$ (ResNet) and
 $+3.50$ (FCN) accuracy points, significant at the $5\%$ level, with
 UMD ($+7.9$), BME ($+6.7$) and ArrowHead ($+5.3$) leading on ResNet.
-The same stratum is flat for InceptionTime, whose small-$n$ baselines
+The same group is flat for InceptionTime, whose small-$n$ baselines
 average $86.1\%$ accuracy against $80.8\%$ for ResNet and $79.1\%$ for
 FCN, and its gains appear instead on the remaining mid-sized datasets
 ($+0.97$, $t = 2.80$). This mirrors the applicability profile of
 Section~\ref{sec:results:applicability}: augmentation pays where the
-classifier still has headroom on scarce data, and a stronger inductive
-bias moves that headroom, not the mechanism.
+classifier's baseline accuracy still leaves room for improvement on
+scarce data, and a stronger inductive bias moves where that room lies,
+not the mechanism.
 
-In summary, the validation-selected rule harms no stratum
+In summary, the validation-selected rule harms no dataset group
 systematically, abstains rather than harms where augmentation has
 nothing to offer, and delivers its significant gains in the
 small-training-set regime where augmentation has work to do. This
