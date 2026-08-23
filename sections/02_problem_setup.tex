@@ -100,9 +100,45 @@ provides a mechanism to control the extent of generation beyond the
 learned distribution. \textbf{MODALS} \citep{cheung2020modals} was
 the first study to explore class boundary expansion during synthetic
 data generation, though it lacks a mechanism to control the extent of
-this expansion. Other VAE variants target specific priors or
-modalities \citep{goubeaud2021using, naiman2023generative,
-dang2024vae, bogojeski2025data}. None of these approaches explore a
-progressive, tunable expansion of class representations in the latent
-space, as proposed in ASCENSION. The complete discussion is provided
-in Appendix~\ref{app:related-extended}.
+this expansion.
+% ADDED FOR TMLR (AE request: discuss KoVAE as the VAE generation
+% baseline)
+\textbf{KoVAE} \citep{naiman2023generative} is the strongest
+VAE-based generative baseline in our benchmark: it places a linear
+Koopman prior on the latent dynamics, which yields an interpretable
+model of both regular and irregular TS and high-fidelity samples
+from the learned distribution. Like VaDE and GMVAE, however, it
+provides no mechanism to generate beyond that distribution: its
+samples remain confined to the density it has learned. This
+difference is visible in our results, where KoVAE is the
+best-behaved generative baseline, with a mean accuracy change close
+to zero on ResNet and FCN, yet never positive
+(\tablename~\ref{tab:main-results}), while ASCENSION's gains come
+precisely from the controlled expansion of the class distributions.
+% ADDED FOR TMLR (AE request: covariance-based latent expansion
+% precedents)
+Expanding class representations through their covariance has
+precedents outside TS classification: \citet{wang2019implicit}
+implicitly augment deep features along class-conditional covariance
+directions for image classification, \citet{wang2020data} augment
+speaker embeddings with deep generative models, and
+\citet{lan2025cotton} sample from the Gaussian statistics of
+agronomic data before encoding them with a VAE. These methods
+operate in a feature space and apply a single expansion step,
+whereas ASCENSION decodes its samples back to the input space,
+filters them with the Bayes-region test to preserve class identity,
+and applies the expansion progressively over iterations. Other VAE
+variants target specific priors or modalities
+\citep{goubeaud2021using, dang2024vae, bogojeski2025data}. None of
+these approaches explore a progressive, tunable expansion of class
+representations in the latent space, as proposed in ASCENSION.
+% ADDED FOR TMLR (AE request: small-sample generative benchmark)
+Closest to our evaluation setting, \citet{gonen2025time} present
+the first large-scale study of generative TS models under data
+scarcity and address it with a diffusion model pretrained on a large
+collection of TS datasets. Their findings corroborate ours, since
+generative quality degrades precisely in the scarce regime where
+augmentation is most needed, but their answer is cross-dataset
+pretraining, whereas ASCENSION augments each dataset from its own
+training set alone. The complete discussion is provided in
+Appendix~\ref{app:related-extended}.

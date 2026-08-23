@@ -1,5 +1,5 @@
-% --- Manual DA-method legend used by Figures \ref{fig:catch22-importance}
-% and \ref{fig:cumsum-disc}.  The original ICML legend.eps only contains
+% --- Manual DA-method legend used by Figure \ref{fig:cumsum-disc}.
+% The original ICML legend.eps only contains
 % colour markers; its gnuplot wrapper has the text labels commented out,
 % so we render the legend natively in LaTeX with matching colours.
 \providecolor{daASC}{RGB}{31,67,142}
@@ -362,6 +362,13 @@ Moment, on FCN only the smallest group is positive, and above 50
 samples per class ASCENSION is close to neutral everywhere.
 Appendix~\ref{app:gain-vs-spc} shows the per-dataset scatter of gain
 against samples per class.
+% ADDED FOR TMLR (additional analysis, deployment rule; details in appendix)
+Appendix~\ref{app:valselect} complements this profile with a
+deployment analysis in which the number of augmentation iterations is
+selected per dataset on an internal validation fold, with the test set
+never consulted for any choice. The selected rule abstains from
+augmenting on about half of the cases and concentrates its gains on
+the datasets with the smallest training sets.
 
 % ADDED FOR TMLR (rebuttal WS8)
 \begin{table}[t]
@@ -456,115 +463,6 @@ more consistent.
 % -----------------------------------------------------------------
 
 
-
-% =====================================================================
-% ADDED FOR TMLR (additional analysis; AE points: model selection and
-% the conditions under which the method is expected to perform well).
-% Validation-selected iteration count under a fully sealed protocol.
-% =====================================================================
-\subsection{Selecting the iteration count without touching the test set}
-\label{sec:results:valselect}
-
-The comparisons above run every method under one fixed configuration,
-and the hyperparameter study of
-Section~\ref{sec:analysis:ablation} selects the best setting
-per dataset retrospectively. A practitioner must instead choose the
-iteration count from training data alone. We therefore evaluate a
-deployment rule that selects the number of augmentation iterations per
-dataset by internal validation, under a protocol in which the test set
-is never consulted for any choice.
-
-\paragraph{Protocol}
-We reimplemented the generation pipeline from scratch and evaluate the
-rule on the 78 UCR datasets whose training sets admit a stratified
-internal validation fold (smallest class at least 10 samples, at least
-30 training samples). Of these, 75 belong to the 102 datasets used
-above, and the remaining three (the Cricket family) meet the criteria
-but are not among the 102. For each dataset and each
-of three seeds, a validation fold is split from the training set,
-synthetic samples are anchored on the remaining fit fold only, and we
-train one classifier for each candidate iteration count
-$t \in \{0, 1, 2, 4, 8\}$ (cumulative iterations). Each iteration retrains the VAE on the union of
-the real fit fold and the previously accepted synthetic samples,
-following Algorithm~\ref{alg:ascension}, while the Bayes-region filter
-is evaluated by a fixed VAE trained on real data only, so the
-Bayes region cannot drift with the synthetic data. All early
-stopping uses the validation fold. The deployed count $t^{*}$
-maximises validation accuracy, with ties broken by validation
-cross-entropy and then by the smaller $t$, and $t^{*} = 0$ deploys the
-unaugmented baseline unchanged. Hypotheses, dataset groups and the selection
-rule were frozen before execution. Because every choice, training
-epochs included, is made on the internal fold, absolute gains under
-this protocol are not comparable to
-\tablename~\ref{tab:main-results} and are expected to be smaller. The
-object of the analysis is the deployment rule. Full details are given
-in Appendix~\ref{app:valselect}.
-
-\begin{table}[H]
-\centering
-\caption{Deployed accuracy gain (points) of the validation-selected
-iteration rule, over 78 UCR datasets and 3 seeds (234 dataset--seed
-pairs per classifier), with $t$ statistics over pairs in parentheses.
-The small-$n$ group (training sets of at most 60 samples, 11 datasets)
-was pre-declared before execution. Abstention is the share of pairs
-where the rule deploys the unaugmented baseline ($t^{*}=0$).}
-\label{tab:valselect}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\bf Classifier & \bf All pairs & \bf Small-$n$ group & \bf Abstention \\
-\midrule
-ResNet        & $+0.53$ $(t=1.83)$ & $+2.72$ $(t=2.59)$ & $49\%$ \\
-FCN           & $+0.89$ $(t=2.95)$ & $+3.50$ $(t=2.59)$ & $48\%$ \\
-InceptionTime & $+0.73$ $(t=2.66)$ & $-0.12$ $(t=-0.27)$ & $46\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\paragraph{Results}
-\tablename~\ref{tab:valselect} reports the deployed gains for ResNet,
-FCN and InceptionTime \citep{fawaz2020inceptiontime}. The rule
-abstains on about half of the dataset--seed pairs and, when it
-selects $t^{*} > 0$, prefers small iteration counts (on ResNet,
-41/29/32/18 pairs at $t = 1/2/4/8$), consistent with the
-budget-matched control of
-Appendix~\ref{app:budget-matched}. The deployed mean gain is positive
-for all three classifiers, with $t$ statistics above 2.6
-for FCN and InceptionTime, while for ResNet a per-dataset Wilcoxon
-test does not separate the mean from zero ($p = 0.165$). The gains
-concentrate where training data is scarce. On the pre-declared
-small-$n$ group the deployed gain reaches $+2.72$ (ResNet) and
-$+3.50$ (FCN) accuracy points, significant at the $5\%$ level, with
-UMD ($+7.9$), BME ($+6.7$) and ArrowHead ($+5.3$) leading on ResNet.
-The same group is flat for InceptionTime, whose small-$n$ baselines
-average $86.1\%$ accuracy against $80.8\%$ for ResNet and $79.1\%$ for
-FCN, and its gains appear instead on the remaining mid-sized datasets
-($+0.97$, $t = 2.80$). This mirrors the applicability profile of
-Section~\ref{sec:results:applicability}: augmentation pays where the
-classifier's baseline accuracy still leaves room for improvement on
-scarce data, and a stronger inductive bias moves where that room lies,
-not the mechanism.
-
-In summary, the validation-selected rule harms no dataset group
-systematically, abstains rather than harms where augmentation has
-nothing to offer, and delivers its significant gains in the
-small-training-set regime where augmentation has work to do. This
-complements the fixed-configuration comparison with a rule a
-practitioner can apply without touching the test set.
-
-% ---------------------------------------------------------------------
-% NOTE (Dorian): paragraphe hors-échantillon optionnel, à activer si tu
-% veux montrer le test hors archive (honnête mais élargit la surface).
-% ---------------------------------------------------------------------
-% \paragraph{Out-of-archive probe}
-% Applying the frozen rule unchanged to 11 datasets from the 2023
-% bake-off collection that the project had never loaded yields a mean
-% deployed delta of $-0.26$ points (median dataset $+0.20$), with the
-% loss concentrated on two datasets whose internal validation
-% systematically disagrees with their test split. The rule remains
-% safe on 9 of the 11, and the failure mode is a property of the
-% validation-test agreement, not of the generation step. We report
-% this probe as a limitation of validation-based selection rather
-% than as evidence for or against the augmentation itself.
 
 \subsection{Ablation 1: Hyperparameter analysis \& tuning}
 \label{sec:analysis:ablation}
@@ -672,11 +570,9 @@ substantial share of datasets shows no gain or even degradation
 results in Appendix~\ref{app:per_dataset}). To pinpoint which
 datasets benefit from DA, we perform a feature-based analysis
 using ASCENSION with ResNet, FCN, and Moment as external
-classifiers for fair comparison. The discrepancy-axis analysis of
-Figure~\ref{fig:cumsum-disc} is computed on the fixed-configuration
-runs, and the feature-importance analysis of
-Figure~\ref{fig:catch22-importance} is fitted on the
-best-configuration reference runs of Appendix~\ref{app:best-config}.
+classifiers for fair comparison. The analysis is computed on the
+fixed-configuration runs, with per-dataset gains averaged over the
+three runs.
 
 \paragraph{Feature extraction}
 We use the 22 \textbf{CA}nonical \textbf{T}ime-series
@@ -691,54 +587,48 @@ sizes and F24 requires the test set and is used here as a
 post-hoc indicator.
 
 \paragraph{Analysis methodology}
-We average TS features per dataset to identify those
-most and least responsive to augmentation. We then assess how DA
-affects classification to pinpoint key influencing features. A
-shallow random forest with a high number of estimators is used
-to predict augmentation outcomes from the averaged F1--F24
-features across DA methods. We repeat the protocol for ResNet,
-FCN, and Moment.
+We average the features of the training series per dataset and fit,
+for each DA method and each classifier, a shallow random forest
+(1000 trees of depth 2) that predicts the per-dataset accuracy gain
+from the averaged F1--F24 features. We then examine the resulting
+feature importances and, as a control, the out-of-bag $R^{2}$ of each
+forest.
 
-\newcommand{\panelTag}[1]{\noindent\hspace*{0.5em}\textit{\small #1}\par\vspace{-2pt}}
-\begin{figure}[!t]
-\centering
-\daLegendBlock\par\smallskip
-% REVISED FOR TMLR (minor: figure spacing)
-\panelTag{ResNet}\resizebox{\linewidth}{!}{\input{images/Resnet_Catch22_Histo.tex}}\\
-\panelTag{FCN}\resizebox{\linewidth}{!}{\input{images/FCN_Catch22_Histo.tex}}\\
-\panelTag{Moment}\resizebox{\linewidth}{!}{\input{images/Moment_Catch22_Histo.tex}}
-\caption{Feature importance over 24 features (F1--F24, see
-Appendix~\ref{app:feature_risk}). Key ones include F2: top
-$z$-score range, F14: mean time between extreme events, F20:
-slow fluctuations, F23: train/test size ratio, F24: train--test
-distribution discrepancy (Appendix~\ref{app:discrepancy}).}
-\label{fig:catch22-importance}
-\end{figure}
-
+% REVISED FOR TMLR (rebuttal C1: the feature-importance analysis was
+% recomputed on the fixed-configuration runs; its outcome is reported
+% as measured)
 \paragraph{Results}
-Figure~\ref{fig:catch22-importance} shows that each DA method
-aligns with specific dataset features depending on the
-classifier. For ResNet/FCN, VaDE links to F2 (high $z$-score
-frequency), F11 (2D distance change), and F17 (longest decreasing
-trend). Diffusion-TS to F14 (rapid fluctuations); Time-DDPM
-(ResNet) to F20 (slow fluctuations); and ASCENSION to F24
-(train--test distribution gap). With Moment, feature rankings
-% TODO(Dorian): rebuttal C1 promised updating Figure 5 on the
-% fixed-config runs. The original catch22+RF pipeline was not found
-% on the Mac, endeavor, or the public repo. Regenerate the three
-% Catch22_Histo images and re-verify the 0.64/0.54 values, then
-% change the Ablation 2 opening sentence (and the app:best-config
-% framing sentence) to say Figure 5 uses the fixed-config runs.
-shift: F15 (rapid fluctuations) peaks sharply ($0.64$ for
-Diffusion-TS, $0.54$ for TTS-GAN), while ASCENSION depends less
-on F24, and VaDE more, showing that pretraining reshapes which
-dataset traits drive augmentation gains.
+No dataset trait reliably predicts where augmentation pays. Across
+the 27 method--classifier forests, the out-of-bag $R^{2}$ has a
+median of $0.03$ and never exceeds $0.24$, and the feature-importance
+rankings are not stable across the three runs: the top-ranked feature
+of a method under one run typically drops out of the top ten under
+another. We therefore do not interpret individual feature
+importances. This outcome is consistent with the per-dataset
+variability of the gains (Appendix~\ref{app:per-dataset-std}) and
+with the weak correlations of the applicability profile
+(Section~\ref{sec:results:applicability}): the conditions that
+favour augmentation are visible in aggregate, in the training-set
+size and the class count, but no combination of the 24 measured
+dataset traits predicts the per-dataset outcome.
+
 \label{sec:analysis:discrepancy}
-To investigate the discrepancy axis directly, we sort the $102$
-UCR datasets by ascending discrepancy
-(F24, Appendix~\ref{app:discrepancy}) and report the cumulative
-mean accuracy gain as datasets are added in this order
-(Figure~\ref{fig:cumsum-disc}).
+% REVISED FOR TMLR (transition motivated by the mechanism, with the
+% direct discrepancy statistics)
+Since the $\alpha$-scaling mechanism is designed to expand beyond
+the training distribution, we examine the train--test discrepancy
+axis directly. ASCENSION's per-dataset gain is uncorrelated with F24
+(Spearman $\rho$ between $-0.04$ and $+0.24$ across the nine
+classifier-run combinations, not significant in eight of the nine),
+and its mean gain on the half of the datasets with the larger
+discrepancy ($+1.21$, $+0.83$, $+1.01$ accuracy points on ResNet,
+FCN, Moment, per-dataset gains averaged over the three runs) is
+comparable to the mean gain on the other half ($+1.38$, $+0.31$,
+$+0.67$). The benefit therefore does not fade as the discrepancy
+grows. To visualise this, we sort the $102$ UCR datasets by
+ascending discrepancy (F24, Appendix~\ref{app:discrepancy}) and
+report the cumulative mean accuracy gain as datasets are added in
+this order (Figure~\ref{fig:cumsum-disc}).
 
 \begin{figure}[!t]
 \centering

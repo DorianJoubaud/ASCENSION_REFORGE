@@ -18,8 +18,12 @@ with non-negative gains on $71.9\%$, $62.7\%$, and $62.4\%$ of
 datasets respectively, whereas the strongest baseline (VaDE) loses
 $0.9\%$ on average. ASCENSION is never significantly worse than
 any competitor, and its benefit concentrates on the datasets where
-training data is scarcest. An ablation study confirms that the
-$\alpha$-scaling mechanism is the single most impactful component
-of the method. These results position ASCENSION as a low-risk
-augmentation default across the heterogeneous domains of the UCR
-archive, without requiring prior knowledge of method suitability.
+training data is scarcest: below 20 training samples per class the
+median gain is clearly positive on ResNet and Moment, while above
+50 samples per class every method, ASCENSION included, is close to
+neutral. An ablation study confirms that the $\alpha$-scaling
+mechanism is the single most impactful component of the method.
+These results position ASCENSION as a low-risk augmentation default
+whose target regime is the small-training-set setting, a regime
+that remains underserved by generative DA, without requiring prior
+knowledge of method suitability.

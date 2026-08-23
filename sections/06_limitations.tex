@@ -7,7 +7,7 @@
 \label{sec:limitations}
 
 % REVISED FOR TMLR (rebuttal C2)
-Despite its contributions, this study has three limitations. First,
+Despite its contributions, this study has four limitations. First,
 our evaluation is restricted to \emph{univariate} TS;
 extending the contrastive clustering loss to a joint-channel latent
 space, where inter-channel dependencies are modelled directly, is
@@ -21,6 +21,17 @@ Third, the benefit is uneven across classifiers. FCN is the
 weakest case, with the median dataset unchanged in all three
 fixed-configuration runs, so on FCN we describe ASCENSION as
 low-risk rather than as broadly beneficial.
+% ADDED FOR TMLR (AE request: alpha-tuning asymmetry)
+Fourth, the main comparison is not symmetric in how
+hyperparameters were chosen. ASCENSION uses a single fixed
+configuration ($\alpha = 1.5$, one iteration) while the baselines
+use their authors' recommended defaults, and none of the methods
+was tuned per dataset on UCR. Using recommended defaults is
+standard evaluation practice, but the reported gains are small
+enough that residual differences in how well each default suits
+the archive could account for part of the effect. A comparison
+granting every method the same per-dataset tuning budget is future
+work.
 
 % ADDED FOR TMLR (rebuttal Q5/Q6)
 Beyond these limitations, two extensions follow naturally from the

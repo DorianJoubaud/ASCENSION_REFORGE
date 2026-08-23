@@ -434,11 +434,8 @@ collapses the mean augmentation gain from $+2.1\%$ to $-0.05\%$).
 This reference evaluates per-dataset hyperparameter selection.
 \tablename~\ref{tab:best-config} reports ASCENSION
 at its best hyperparameter configuration per dataset, with baselines at
-their authors' recommended defaults, in a single run. The
-feature-importance analysis of Figure~\ref{fig:catch22-importance}
-was built on these runs, while the discrepancy-axis analysis of
-Figure~\ref{fig:cumsum-disc} is computed on the fixed-configuration
-runs. Per-dataset selection widens ASCENSION's margins
+their authors' recommended defaults, in a single run.
+Per-dataset selection widens ASCENSION's margins
 relative to the fixed configuration of
 \tablename~\ref{tab:main-results}, with net totals of $+1.9\%$,
 $+1.4\%$ and $+2.4\%$ on ResNet, FCN and Moment, and ASCENSION remains
@@ -693,13 +690,25 @@ reports the per-classifier Spearman correlation.}
 
 % =====================================================================
 % ADDED FOR TMLR (additional analysis) — protocol details for the
-% validation-selected iteration count of Section sec:results:valselect.
+% validation-selected iteration count (additional analysis).
 % =====================================================================
-\section{Validation-selected iteration count: protocol details}
+\section{Selecting the iteration count without touching the test set}
 \label{app:valselect}
 
-This appendix details the protocol of
-Section~\ref{sec:results:valselect}.
+The comparisons of Section~\ref{sec:experiments} run every method
+under one fixed configuration, and the hyperparameter study of
+Section~\ref{sec:analysis:ablation} selects the best setting per
+dataset retrospectively. A practitioner must instead choose the
+iteration count from training data alone. This appendix evaluates a
+deployment rule that selects the number of augmentation iterations
+per dataset by internal validation, under a protocol in which the
+test set is never consulted for any choice. We reimplemented the
+generation pipeline from scratch for this analysis, and the
+hypotheses, dataset groups and selection rule were frozen before
+execution. Because every choice, training epochs included, is made
+on an internal fold, absolute gains under this protocol are not
+comparable to \tablename~\ref{tab:main-results} and are expected
+to be smaller. The object of the analysis is the deployment rule.
 
 \paragraph{Dataset selection}
 The 78 datasets are the UCR 2018 datasets whose training sets admit a
@@ -734,6 +743,54 @@ broken by validation cross-entropy, remaining ties by the smaller
 $t$. At $t^{*} = 0$ the
 deployed model is the unaugmented baseline itself, so a rejection can
 never cost accuracy relative to not augmenting.
+
+\begin{table}[H]
+\centering
+\caption{Deployed accuracy gain (points) of the validation-selected
+iteration rule, over 78 UCR datasets and 3 seeds (234 dataset--seed
+pairs per classifier), with $t$ statistics over pairs in parentheses.
+The small-$n$ group (training sets of at most 60 samples, 11 datasets)
+was pre-declared before execution. Abstention is the share of pairs
+where the rule deploys the unaugmented baseline ($t^{*}=0$).}
+\label{tab:valselect}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\bf Classifier & \bf All pairs & \bf Small-$n$ group & \bf Abstention \\
+\midrule
+ResNet        & $+0.53$ $(t=1.83)$ & $+2.72$ $(t=2.59)$ & $49\%$ \\
+FCN           & $+0.89$ $(t=2.95)$ & $+3.50$ $(t=2.59)$ & $48\%$ \\
+InceptionTime & $+0.73$ $(t=2.66)$ & $-0.12$ $(t=-0.27)$ & $46\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Results}
+\tablename~\ref{tab:valselect} reports the deployed gains for
+ResNet, FCN and InceptionTime \citep{fawaz2020inceptiontime}. The
+rule abstains on about half of the dataset--seed pairs and, when it
+selects $t^{*} > 0$, prefers small iteration counts (on ResNet,
+41/29/32/18 pairs at $t = 1/2/4/8$), consistent with the
+budget-matched control of Appendix~\ref{app:budget-matched}. The
+deployed mean gain is positive for all three classifiers, with $t$
+statistics above 2.6 for FCN and InceptionTime, while for ResNet a
+per-dataset Wilcoxon test does not separate the mean from zero
+($p = 0.165$). The gains concentrate where training data is scarce.
+On the pre-declared small-$n$ group the deployed gain reaches
+$+2.72$ (ResNet) and $+3.50$ (FCN) accuracy points, significant at
+the $5\%$ level, with UMD ($+7.9$), BME ($+6.7$) and ArrowHead
+($+5.3$) leading on ResNet. The same group is flat for
+InceptionTime, whose small-$n$ baselines average $86.1\%$ accuracy
+against $80.8\%$ for ResNet and $79.1\%$ for FCN, and its gains
+appear instead on the remaining mid-sized datasets ($+0.97$,
+$t = 2.80$). This mirrors the applicability profile of
+Section~\ref{sec:results:applicability}: augmentation pays where
+the classifier's baseline accuracy still leaves room for improvement
+on scarce data. In summary, the validation-selected rule harms no
+dataset group systematically, abstains rather than harms where
+augmentation has nothing to offer, and delivers its significant
+gains in the small-training-set regime, so it complements the
+fixed-configuration comparison with a rule a practitioner can apply
+without touching the test set.
 
 \paragraph{Dataset groups}
 Two groups were pre-declared from training labels before execution
