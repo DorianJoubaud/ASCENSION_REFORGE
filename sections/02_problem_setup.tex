@@ -103,16 +103,15 @@ data generation, though it lacks a mechanism to control the extent of
 this expansion.
 % ADDED FOR TMLR (AE request: discuss KoVAE as the VAE generation
 % baseline)
-\textbf{KoVAE} \citep{naiman2023generative} is the strongest
-VAE-based generative baseline in our benchmark: it places a linear
+\textbf{KoVAE} \citep{naiman2023generative} places a linear
 Koopman prior on the latent dynamics, which yields an interpretable
 model of both regular and irregular TS and high-fidelity samples
 from the learned distribution. Like VaDE and GMVAE, however, it
 provides no mechanism to generate beyond that distribution: its
 samples remain confined to the density it has learned. This
 difference is visible in our results, where KoVAE is the
-best-behaved generative baseline, with a mean accuracy change close
-to zero on ResNet and FCN, yet never positive
+best-behaved generative baseline on ResNet and FCN, with a mean
+accuracy change close to zero, yet never positive
 (\tablename~\ref{tab:main-results}), while ASCENSION's gains come
 precisely from the controlled expansion of the class distributions.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
