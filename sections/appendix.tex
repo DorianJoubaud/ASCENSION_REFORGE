@@ -13,7 +13,7 @@
 our experiments and their D-id labels.
 \begin{table}[H]
 \centering
-\caption{Mapping from D-id to UCR dataset name and raw UCR domain. Datasets are sorted alphabetically; the same numbering is used throughout the paper (\tablename s~\ref{Tab:app:bestconfig:resnet}--\ref{Tab:app:bestconfig:moment} and~\ref{Tab:app:Ablation_clustering_alpha}). The macro-domain grouping (Industrial, Image, Motion, Spectral, Biomedical) is defined in Appendix~\ref{app:domain-coverage}.}\label{Tab:app:dataset_list}
+\caption{Mapping from D-id to UCR dataset name and raw UCR domain. Datasets are sorted alphabetically. The same numbering is used throughout the paper (\tablename s~\ref{Tab:app:bestconfig:resnet}--\ref{Tab:app:bestconfig:moment} and~\ref{Tab:app:Ablation_clustering_alpha}). The macro-domain grouping (Industrial, Image, Motion, Spectral, Biomedical) is defined in Appendix~\ref{app:domain-coverage}.}\label{Tab:app:dataset_list}
 \setlength{\tabcolsep}{4pt}
 \scalebox{.85}{
 \begin{tabular}{lll || lll}
@@ -346,15 +346,15 @@ decoder inputs. To isolate the effect of ASCENSION's
 contrastive clustering loss from the effect of class
 conditioning, we evaluate three cVAE variants with ResNet and FCN on all 102 UCR
 datasets: (i) the standard cVAE formulation with a fixed prior
-$z \sim \mathcal{N}(0, I)$; (ii) a prior-scaled variant
-$z \sim \mathcal{N}(0, \alpha\,I)$ with $\alpha > 1$ ($\alpha = 2.6)$; and (iii) cVAE generations refined with
+$z \sim \mathcal{N}(0, I)$, (ii) a prior-scaled variant
+$z \sim \mathcal{N}(0, \alpha\,I)$ with $\alpha > 1$ ($\alpha = 2.6)$, and (iii) cVAE generations refined with
 ASCENSION's posterior-mixture sampling and filtering.
 The single $\alpha = 2.6$ matches the value used for wall-clock
 comparisons in Appendix~\ref{sec:complexity:wallclock}, the mean
 of the per-dataset best $\alpha$ values across the 102 UCR datasets
 (Tables~\ref{Tab:app:bestconfig:resnet}-\ref{Tab:app:bestconfig:moment}).
 % REVISED FOR TMLR (rebuttal C1)
-Variant (i) provides the no-scaling endpoint ($\alpha = 1$); variant
+Variant (i) provides the no-scaling endpoint ($\alpha = 1$), variant
 (iii) uses ASCENSION's per-dataset $\alpha$ values and therefore
 covers the same $\alpha$ range as the best-configuration reference
 (\tablename~\ref{tab:best-config}).
@@ -444,7 +444,7 @@ the only method with a positive net total on every classifier.
 \begin{table}[H]
 \centering
 
-\caption{For each DA method, we show the number of datasets (Nb$_{\text{data}}$), \emph{out of 102}, with improved, unchanged, or worsened accuracy, plus the mean accuracy change $\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$ averaged over each subset. Arrows $(\uparrow, \downarrow)$ mark direction of improvement; \textbf{bold} and \underline{underline} indicate \textbf{best} and \underline{second best}.}
+\caption{For each DA method, we show the number of datasets (Nb$_{\text{data}}$), \emph{out of 102}, with improved, unchanged, or worsened accuracy, plus the mean accuracy change $\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$ averaged over each subset. Arrows $(\uparrow, \downarrow)$ mark direction of improvement. \textbf{Bold} and \underline{underline} indicate best and second best.}
 \label{tab:best-config}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llrrrrrrrrrr@{}}
@@ -559,7 +559,7 @@ ahead of every other DA method. On ResNet, ASCENSION is
 significantly better than all baselines except KoVAE, whose
 rank gap to ASCENSION ($1.18$) is just inside the critical
 distance. On FCN, ASCENSION is significantly better than FAA,
-Time-DDPM, Diffusion-TS, and TTS-GAN; the remaining baselines
+Time-DDPM, Diffusion-TS, and TTS-GAN. The remaining baselines
 (KoVAE, LA, VaDE, ImagenTime) occupy a shared rank band with
 ASCENSION at its lower edge.
 

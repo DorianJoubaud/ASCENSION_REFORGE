@@ -63,7 +63,7 @@ boundary.
 
 We compare ASCENSION to nine related DA methods: one traditional
 (FAA) and eight generative (VaDE, TTS-GAN, KoVAE, Time-DDPM, LA,
-ImagenTime, Diffusion-TS, MODALS; see Section~\ref{sec:setup:gen-da},
+ImagenTime, Diffusion-TS, MODALS, see Section~\ref{sec:setup:gen-da},
 Figure~\ref{fig:SoTa}, and Appendix~\ref{app:related-extended} for
 details). FAA provides a classical baseline,
 while KoVAE, VaDE, and MODALS share architectural traits with
@@ -121,16 +121,17 @@ three runs. Full results appear in Appendix~\ref{app:per_dataset}.
 \begin{table}[t]
 \centering
 \caption{Main comparison under a \emph{single fixed hyperparameter
-configuration} per method ($\alpha = 1.5$, one iteration for ASCENSION;
-authors' recommended defaults for the baselines), applied uniformly across
-all 102 UCR datasets and all three classifiers, over \textbf{three
-independent runs}. Cells report the mean (std) over the three runs of the
-number of datasets (out of 102) with improved, unchanged, or worsened
-accuracy, of the mean accuracy change
+configuration} per method ($\alpha = 1.5$ and one iteration for
+ASCENSION, authors' recommended defaults for the baselines), applied
+uniformly across all 102 UCR datasets and all three classifiers, over
+\textbf{three independent runs}. Cells report the mean (std) over the
+three runs of the number of datasets (out of 102) with improved,
+unchanged, or worsened accuracy, of the mean accuracy change
 $\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} -
 \mathrm{base\_accuracy}$ over each subset, and of the net total over the
 102 datasets. Arrows $(\uparrow, \downarrow)$ mark direction of
-improvement; \textbf{bold} marks the best mean per column.}
+improvement. \textbf{Bold} and \underline{underline} mark the best and
+second-best mean per column.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llrrrrrrr@{}}
@@ -147,10 +148,10 @@ improvement; \textbf{bold} marks the best mean per column.}
   & $\overline{\Delta\mathrm{Acc}}$ \\
 \midrule
 \multirow{9}{*}{\rotatebox{90}{ResNet}}
- & VaDE & (IJCAI, 2016) & 37.3\,(7.6) & 2.4\,(0.3)\% & 26.0\,(14.7) & 38.7\,(10.5) & -3.9\,(2.8)\% & -0.75\,(1.33)\% \\
+ & VaDE & (IJCAI, 2016) & 37.3\,(7.6) & 2.4\,(0.3)\% & 26.0\,(14.7) & \underline{38.7\,(10.5)} & -3.9\,(2.8)\% & -0.75\,(1.33)\% \\
  & FAA & (NeurIPS, 2019) & 36.3\,(17.5) & 4.5\,(2.9)\% & 15.0\,(6.1) & 50.7\,(22.7) & -4.7\,(3.9)\% & -1.55\,(3.25)\% \\
  & TTS-GAN & (AIME, 2022) & 37.7\,(10.1) & 2.3\,(0.1)\% & 12.7\,(2.9) & 51.7\,(11.9) & -9.6\,(1.2)\% & -3.94\,(0.70)\% \\
- & KoVAE & (ICLR, 2024) & 43.3\,(4.6) & 1.9\,(0.3)\% & 15.7\,(3.5) & 43.0\,(2.6) & -2.7\,(0.5)\% & -0.32\,(0.04)\% \\
+ & KoVAE & (ICLR, 2024) & \underline{43.3\,(4.6)} & 1.9\,(0.3)\% & 15.7\,(3.5) & 43.0\,(2.6) & -2.7\,(0.5)\% & \underline{-0.32\,(0.04)\%} \\
  & Time-DDPM & (SENS.\,J., 2023) & 40.7\,(6.4) & 7.7\,(7.4)\% & 6.0\,(5.3) & 55.3\,(9.0) & -11.1\,(8.8)\% & -3.49\,(3.28)\% \\
  & LA & (ArXiv, 2023) & 29.7\,(13.6) & 2.6\,(0.6)\% & 14.7\,(1.5) & 57.7\,(15.0) & -2.5\,(1.2)\% & -0.81\,(1.40)\% \\
  & ImagenTime & (NeurIPS, 2024) & 39.3\,(21.1) & 1.7\,(0.5)\% & 14.3\,(1.5) & 48.3\,(22.2) & -4.1\,(1.8)\% & -1.47\,(2.41)\% \\
@@ -158,19 +159,19 @@ improvement; \textbf{bold} marks the best mean per column.}
  & \textbf{ASCENSION} &  & \textbf{59.0\,(4.4)} & 3.3\,(0.6)\% & 14.3\,(2.1) & \textbf{28.7\,(5.1)} & -2.2\,(0.4)\% & \textbf{+1.30\,(0.39)\%} \\
 \midrule
 \multirow{9}{*}{\rotatebox{90}{FCN}}
- & VaDE & (IJCAI, 2016) & 36.3\,(4.9) & 3.0\,(0.4)\% & 22.7\,(6.8) & 43.0\,(2.0) & -4.4\,(2.2)\% & -0.81\,(0.81)\% \\
+ & VaDE & (IJCAI, 2016) & 36.3\,(4.9) & 3.0\,(0.4)\% & 22.7\,(6.8) & \underline{43.0\,(2.0)} & -4.4\,(2.2)\% & -0.81\,(0.81)\% \\
  & FAA & (NeurIPS, 2019) & 23.7\,(14.2) & 5.2\,(1.8)\% & 11.7\,(7.8) & 66.7\,(20.8) & -6.7\,(7.2)\% & -4.08\,(6.48)\% \\
  & TTS-GAN & (AIME, 2022) & 32.3\,(4.7) & 2.5\,(0.3)\% & 13.0\,(4.6) & 56.7\,(7.8) & -9.6\,(1.2)\% & -4.61\,(1.47)\% \\
  & KoVAE & (ICLR, 2024) & 38.0\,(4.4) & 2.6\,(0.4)\% & 14.3\,(0.6) & 49.7\,(4.7) & -2.9\,(0.6)\% & -0.43\,(0.33)\% \\
  & Time-DDPM & (SENS.\,J., 2023) & 22.0\,(18.0) & 9.2\,(7.8)\% & 6.3\,(4.7) & 73.7\,(13.3) & -15.2\,(6.0)\% & -7.58\,(1.81)\% \\
- & LA & (ArXiv, 2023) & 37.7\,(6.5) & 2.7\,(0.4)\% & 15.3\,(3.2) & 49.0\,(9.2) & -2.5\,(0.2)\% & -0.18\,(0.20)\% \\
- & ImagenTime & (NeurIPS, 2024) & 39.3\,(3.2) & 2.8\,(0.1)\% & 12.7\,(3.8) & 50.0\,(2.6) & -3.3\,(0.3)\% & -0.52\,(0.08)\% \\
+ & LA & (ArXiv, 2023) & 37.7\,(6.5) & 2.7\,(0.4)\% & 15.3\,(3.2) & 49.0\,(9.2) & -2.5\,(0.2)\% & \underline{-0.18\,(0.20)\%} \\
+ & ImagenTime & (NeurIPS, 2024) & \underline{39.3\,(3.2)} & 2.8\,(0.1)\% & 12.7\,(3.8) & 50.0\,(2.6) & -3.3\,(0.3)\% & -0.52\,(0.08)\% \\
  & Diffusion-TS & (ICLR, 2024) & 38.0\,(3.5) & 3.4\,(0.3)\% & 12.7\,(4.2) & 51.3\,(7.0) & -6.5\,(6.2)\% & -2.24\,(3.79)\% \\
  & \textbf{ASCENSION} &  & \textbf{47.0\,(4.4)} & 3.3\,(0.4)\% & 17.0\,(3.6) & \textbf{38.0\,(4.6)} & -2.6\,(1.0)\% & \textbf{+0.55\,(0.52)\%} \\
 \midrule
 \multirow{9}{*}{\rotatebox{90}{Moment}}
  & VaDE & (IJCAI, 2016) & 34.0\,(1.7) & 2.2\,(0.6)\% & 12.7\,(4.2) & 55.3\,(4.0) & -3.3\,(1.9)\% & -1.11\,(0.93)\% \\
- & FAA & (NeurIPS, 2019) & 50.3\,(1.5) & 5.3\,(2.2)\% & 4.0\,(1.7) & 47.7\,(2.1) & -7.2\,(4.2)\% & -0.68\,(0.73)\% \\
+ & FAA & (NeurIPS, 2019) & \underline{50.3\,(1.5)} & 5.3\,(2.2)\% & 4.0\,(1.7) & \underline{47.7\,(2.1)} & -7.2\,(4.2)\% & \underline{-0.68\,(0.73)\%} \\
  & TTS-GAN & (AIME, 2022) & 34.0\,(6.1) & 2.5\,(0.8)\% & 9.7\,(6.4) & 58.3\,(6.7) & -4.1\,(2.1)\% & -1.51\,(1.22)\% \\
  & KoVAE & (ICLR, 2024) & 27.3\,(1.5) & 3.4\,(0.3)\% & 4.3\,(0.6) & 70.3\,(1.5) & -6.7\,(4.5)\% & -3.71\,(3.04)\% \\
  & Time-DDPM & (SENS.\,J., 2023) & 31.7\,(3.1) & 2.8\,(0.8)\% & 5.3\,(2.5) & 65.0\,(3.0) & -5.2\,(1.5)\% & -2.43\,(0.45)\% \\
@@ -191,7 +192,14 @@ runs the baselines end positive in only 7 of their 72 classifier-run
 combinations, with no single baseline exceeding 3 of its 9. The
 strongest baselines stay slightly below zero, KoVAE at
 $-0.32\,(0.04)\%$ on ResNet, LA at $-0.18\,(0.20)\%$ on FCN, and FAA
-at $-0.68\,(0.73)\%$ on Moment. Time-DDPM pairs the highest mean
+at $-0.68\,(0.73)\%$ on Moment.
+% ADDED FOR TMLR (AE request, KoVAE analysed here rather than in the
+% related work)
+KoVAE is the best-behaved generative baseline on ResNet and FCN, with
+a mean accuracy change close to zero, yet never positive in any run.
+Generating faithful samples from the learned distribution is
+therefore not sufficient, and ASCENSION's gains come precisely from
+the controlled expansion beyond the learned class distributions. Time-DDPM pairs the highest mean
 gains on its winning datasets ($7.7\%$ ResNet, $9.2\%$ FCN) with
 severe drops on the rest ($-11.1\%$, $-15.2\%$), yielding heavily
 negative totals. ASCENSION is the only method whose three-run mean
@@ -225,32 +233,22 @@ while ResNet is the favourable case and Moment sits in between.
 \begin{table}[t]
 \centering
 \small
-% ADDED FOR TMLR (rebuttal C2)
-\caption{Distribution of ASCENSION's per-dataset accuracy gains
-under the fixed configuration, run by run: median gain,
-interquartile range (IQR), number of datasets whose absolute change
-is within one accuracy point, and number of datasets with a
-non-negative change, out of 102.}
+% ADDED FOR TMLR (rebuttal C2), compact form: the three runs are
+% slash-separated within each cell
+\caption{Distribution of ASCENSION's per-dataset accuracy gains under
+the fixed configuration. Each cell reports the three runs as
+run\,1\,/\,run\,2\,/\,run\,3: median gain, interquartile range
+(IQR), number of datasets whose absolute change is within one accuracy
+point, and number of datasets with a non-negative change, out of 102.}
 \label{tab:gain-distribution}
-\begin{tabular}{@{}llrrrr@{}}
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Classifier} & \textbf{Run} & \textbf{Median (\%)} & \textbf{IQR (\%)}
+\textbf{Classifier} & \textbf{Median (\%)} & \textbf{IQR (\%)}
   & \textbf{Within 1 pt} & \textbf{Non-negative} \\
 \midrule
-\multirow{3}{*}{ResNet}
-  & 1 & $+0.65$ & $3.21$ & 35 & 72 \\
-  & 2 & $+0.32$ & $3.14$ & 39 & 69 \\
-  & 3 & $+0.84$ & $3.09$ & 39 & 79 \\
-\midrule
-\multirow{3}{*}{FCN}
-  & 1 & $0.00$ & $1.38$ & 59 & 63 \\
-  & 2 & $0.00$ & $2.56$ & 44 & 69 \\
-  & 3 & $0.00$ & $2.41$ & 43 & 60 \\
-\midrule
-\multirow{3}{*}{Moment}
-  & 1 & $0.00$ & $3.15$ & 41 & 58 \\
-  & 2 & $+1.03$ & $5.10$ & 22 & 67 \\
-  & 3 & $+0.35$ & $3.96$ & 31 & 66 \\
+ResNet & $+0.65$ / $+0.32$ / $+0.84$ & $3.21$ / $3.14$ / $3.09$ & 35 / 39 / 39 & 72 / 69 / 79 \\
+FCN    & $0.00$ / $0.00$ / $0.00$    & $1.38$ / $2.56$ / $2.41$ & 59 / 44 / 43 & 63 / 69 / 60 \\
+Moment & $0.00$ / $+1.03$ / $+0.35$  & $3.15$ / $5.10$ / $3.96$ & 41 / 22 / 31 & 58 / 67 / 66 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -405,7 +403,7 @@ head, with no external classifier.
 attaches an external classifier directly to the latent space
 (after encoder and reparameterisation) rather than to the decoder
 output. \tablename~\ref{tab:embedded} reports both alternative
-configurations; the ablation studies in
+configurations. The ablation studies in
 Section~\ref{sec:analysis:ablation} use
 ASCENSION$_{\text{ResNet-Emb}}$ and ASCENSION$_{\text{FCN-Emb}}$.
 For the embedded variants, augmentation gain is defined as the
@@ -422,7 +420,7 @@ baseline:
 \centering
 \small
 \caption{Number of datasets with improved, unchanged, or worsened
-accuracy per DA for each embedded classifier; mean accuracy
+accuracy per DA for each embedded classifier, and mean accuracy
 change ($\uparrow\overline{\Delta\mathrm{Acc}}$) per category.
 Arrows ($\uparrow, \downarrow$) show value preference.}
 \label{tab:embedded}
@@ -451,7 +449,7 @@ on 76 datasets) with the largest drop ($-5.7\%$ on 14).
 ASCENSION$_{\text{Emb}}$ is steadier ($1.9\%$ gain, $-1.6\%$
 drop), while ASCENSION$_{\text{FCN-Emb}}$ offers moderate gains
 ($2.9\%$) with balanced trade-offs. Overall, ResNet yields the
-largest gains but is less stable; FCN and the default classifier are
+largest gains but is less stable. FCN and the default classifier are
 more consistent.
 
 % -----------------------------------------------------------------

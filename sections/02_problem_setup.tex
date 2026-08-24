@@ -2,7 +2,7 @@
 \label{sec:setup}
 
 This section formalises the TS DA setting and surveys the landscape of existing generative DA methods.
-Section~\ref{sec:setup:ts-da} fixes notation; the remainder
+Section~\ref{sec:setup:ts-da} fixes notation. The remainder
 positions ASCENSION in the broader literature.
 
 % -----------------------------------------------------------------
@@ -108,12 +108,9 @@ Koopman prior on the latent dynamics, which yields an interpretable
 model of both regular and irregular TS and high-fidelity samples
 from the learned distribution. Like VaDE and GMVAE, however, it
 provides no mechanism to generate beyond that distribution: its
-samples remain confined to the density it has learned. This
-difference is visible in our results, where KoVAE is the
-best-behaved generative baseline on ResNet and FCN, with a mean
-accuracy change close to zero, yet never positive
-(\tablename~\ref{tab:main-results}), while ASCENSION's gains come
-precisely from the controlled expansion of the class distributions.
+samples remain confined to the density it has learned. We analyse
+the empirical consequence of this difference in
+Section~\ref{sec:results:main}.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
 % precedents)
 Expanding class representations through their covariance has
