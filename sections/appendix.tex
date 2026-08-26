@@ -930,8 +930,8 @@ baselines require $\sim 1000$ sequential denoising steps.
 \label{sec:complexity:wallclock}
 
 \tablename~\ref{tab:wallclock} reports end-to-end wall-clock time
-(generative-model training plus sample generation; downstream
-classifier training is excluded as it is identical for every
+(generative-model training plus sample generation, downstream
+classifier training being excluded as it is identical for every
 method) on three UCR datasets chosen to cover the dataset-size
 range. ASCENSION is run with $\alpha = 2.6$, the mean of the
 per-dataset best $\alpha$ values across our sweep
@@ -1139,7 +1139,7 @@ Spectrum    & \textbf{1/4} & \textbf{-0.2\%} & 3/4 & -3.9\% & 2/4 & -14.9\% & 2/
 \begin{landscape}
 \begin{table}[h]
     \centering
-    \caption{Macro-domain breakdown -- ResNet: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power; Spectral = Spectro + Spectrum; Biomedical = ECG + EPG + EOG; Image and Motion are unchanged.}\label{Tab:Macro_ResNet}
+    \caption{Macro-domain breakdown -- ResNet: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_ResNet}
     \scalebox{0.93}{
     \begin{tabular}{@{}lcccccccccccccccccc@{}}
     \toprule
@@ -1157,7 +1157,7 @@ Biomedical    & 5/10 & -0.1\% & 1/10 & -11.5\% & 1/10 & -11.7\% & 1/10 & -7.3\% 
 
     \vspace{1cm}
 
-    \caption{Macro-domain breakdown -- FCN: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power; Spectral = Spectro + Spectrum; Biomedical = ECG + EPG + EOG; Image and Motion are unchanged.}\label{Tab:Macro_FCN}
+    \caption{Macro-domain breakdown -- FCN: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_FCN}
     \scalebox{0.93}{
     \begin{tabular}{@{}lcccccccccccccccccc@{}}
     \toprule
@@ -1175,7 +1175,7 @@ Biomedical    & 6/10 & 1.6\% & 1/10 & -11.1\% & 0/10 & -16.4\% & 3/10 & 0.2\% & 
 
     \vspace{1cm}
 
-    \caption{Macro-domain breakdown -- Moment: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power; Spectral = Spectro + Spectrum; Biomedical = ECG + EPG + EOG; Image and Motion are unchanged.}\label{Tab:Macro_Moment}
+    \caption{Macro-domain breakdown -- Moment: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_Moment}
     \scalebox{0.93}{
     \begin{tabular}{@{}lcccccccccccccccccc@{}}
     \toprule
