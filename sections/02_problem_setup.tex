@@ -75,16 +75,21 @@ Generative models, such as Generative Adversarial Networks (GANs)
 \citep{yang2023diffusion}, and VAEs \citep{kingma2013auto}, learn a
 probabilistic representation of the data distribution and can
 generate TS that retain temporal dependencies and class-specific
-characteristics \citep{fu2020data}. GAN-based DA methods
-\citep{zhang2022data, yang2023ts, jeon2022gt, li2022tts, li2022ttsc,
-tronchin2023latentaugment, seon2024least, mousavi2025transformer}
-generate realistic sequences but are notoriously unstable to train
-and prone to mode collapse \citep{lei2019mode}. Diffusion-based DA
-methods \citep{liu2024adaptive, wang2024diffrul, solis2023,
-dai2023timeddpm, yuandiffusion, naiman2024utilizing, yu2025diffat,
-zhang2025time} produce stable outputs but still face challenges with
-long-range dependencies, error accumulation, and slow inference
-\citep{feng2024latent}. VAEs allow explicit control over the
+characteristics \citep{fu2020data}. GAN-based DA methods, from TimeGAN
+\citep{zhang2022data} and TS-GAN \citep{yang2023ts} to GT-GAN
+\citep{jeon2022gt}, TTS-GAN and its conditional variant
+\citep{li2022tts, li2022ttsc}, LatentAugment
+\citep{tronchin2023latentaugment}, LISGAN \citep{seon2024least},
+and TTS-WGAN-GP \citep{mousavi2025transformer}, generate realistic
+sequences but are notoriously unstable to train and prone to mode
+collapse \citep{lei2019mode}. Diffusion-based DA
+methods, from SE-DDPM \citep{liu2024adaptive} and DiffRUL
+\citep{wang2024diffrul} to D3A-TS \citep{solis2023}, Time-DDPM
+\citep{dai2023timeddpm}, Diffusion-TS \citep{yuandiffusion},
+ImagenTime \citep{naiman2024utilizing}, DiffAT \citep{yu2025diffat},
+and Diff-TI \citep{zhang2025time}, produce stable outputs but still
+face challenges with long-range dependencies, error accumulation, and
+slow inference \citep{feng2024latent}. VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
 space, are less prone to collapse than GANs, and are less
 computationally expensive than both alternatives

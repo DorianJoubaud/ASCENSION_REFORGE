@@ -30,10 +30,11 @@ expansion against it, cites covariance-based latent expansion precedents
 2025), and discusses Gonen et al. (NeurIPS 2025) on generative modelling
 under data scarcity.
 
-**Claim framing (decision request).** The abstract and conclusion now state
-that the benefit concentrates below 20 training samples per class, that the
-method is close to neutral above 50 samples per class, and position
-ASCENSION as a low-risk method whose target regime is the small-training-set
+**Claim framing (decision request).** The abstract now states that the
+benefit concentrates where training data is scarce, the conclusion
+quantifies this (the gain concentrates below 20 training samples per class,
+and the method is close to neutral above 50), and both position ASCENSION
+as a low-risk method whose target regime is the small-training-set
 setting.
 
 **Alpha-tuning asymmetry (decision request).** A fourth limitation now
