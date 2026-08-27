@@ -82,14 +82,18 @@ characteristics \citep{fu2020data}. GAN-based DA methods, from TimeGAN
 \citep{tronchin2023latentaugment}, LISGAN \citep{seon2024least},
 and TTS-WGAN-GP \citep{mousavi2025transformer}, generate realistic
 sequences but are notoriously unstable to train and prone to mode
-collapse \citep{lei2019mode}. Diffusion-based DA
+collapse \citep{lei2019mode}.
+
+Diffusion-based DA
 methods, from SE-DDPM \citep{liu2024adaptive} and DiffRUL
 \citep{wang2024diffrul} to D3A-TS \citep{solis2023}, Time-DDPM
 \citep{dai2023timeddpm}, Diffusion-TS \citep{yuandiffusion},
 ImagenTime \citep{naiman2024utilizing}, DiffAT \citep{yu2025diffat},
 and Diff-TI \citep{zhang2025time}, produce stable outputs but still
 face challenges with long-range dependencies, error accumulation, and
-slow inference \citep{feng2024latent}. VAEs allow explicit control over the
+slow inference \citep{feng2024latent}.
+
+VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
 space, are less prone to collapse than GANs, and are less
 computationally expensive than both alternatives
