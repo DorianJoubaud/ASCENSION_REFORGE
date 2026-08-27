@@ -92,6 +92,12 @@ ImagenTime \citep{naiman2024utilizing}, DiffAT \citep{yu2025diffat},
 and Diff-TI \citep{zhang2025time}, produce stable outputs but still
 face challenges with long-range dependencies, error accumulation, and
 slow inference \citep{feng2024latent}.
+% ADDED FOR TMLR (AE request: small-sample generative benchmark)
+In the data-scarce regime, \citet{gonen2025time} present the first
+large-scale study of generative TS models and address the
+degradation of generative quality on small training sets by
+pretraining a diffusion model across datasets, whereas ASCENSION
+augments each dataset from its own training set alone.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
@@ -128,11 +134,5 @@ Appendix~\ref{app:related-extended}. Other VAE variants target
 specific priors or modalities \citep{goubeaud2021using, dang2024vae,
 bogojeski2025data}. However, none of these approaches explore a
 progressive, tunable expansion of class representations in the
-latent space, as proposed in ASCENSION.
-% ADDED FOR TMLR (AE request: small-sample generative benchmark)
-Closest to our evaluation setting, \citet{gonen2025time} present
-the first large-scale study of generative TS models under data
-scarcity and address it with cross-dataset pretraining of a
-diffusion model, whereas ASCENSION augments each dataset from its
-own training set alone. The complete discussion is provided in
+latent space, as proposed in ASCENSION. The complete discussion is provided in
 Appendix~\ref{app:related-extended}.
