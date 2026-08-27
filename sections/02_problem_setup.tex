@@ -123,27 +123,18 @@ Section~\ref{sec:results:main}.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
 % precedents)
 Expanding class representations through their covariance has
-precedents outside TS classification: \citet{wang2019implicit}
-implicitly augment deep features along class-conditional covariance
-directions for image classification, \citet{wang2020data} augment
-speaker embeddings with deep generative models, and
-\citet{lan2025cotton} sample from the Gaussian statistics of
-agronomic data before encoding them with a VAE. These methods
-operate in a feature space and apply a single expansion step,
-whereas ASCENSION decodes its samples back to the input space,
-filters them with the Bayes-region test to preserve class identity,
-and applies the expansion progressively over iterations. Other VAE
-variants target specific priors or modalities
-\citep{goubeaud2021using, dang2024vae, bogojeski2025data}. None of
-these approaches explore a progressive, tunable expansion of class
-representations in the latent space, as proposed in ASCENSION.
+precedents outside TS classification, in image classification
+\citep{wang2019implicit}, speaker recognition \citep{wang2020data},
+and agronomic data \citep{lan2025cotton}, discussed in
+Appendix~\ref{app:related-extended}. Other VAE variants target
+specific priors or modalities \citep{goubeaud2021using, dang2024vae,
+bogojeski2025data}. However, none of these approaches explore a
+progressive, tunable expansion of class representations in the
+latent space, as proposed in ASCENSION.
 % ADDED FOR TMLR (AE request: small-sample generative benchmark)
 Closest to our evaluation setting, \citet{gonen2025time} present
 the first large-scale study of generative TS models under data
-scarcity and address it with a diffusion model pretrained on a large
-collection of TS datasets. Their findings corroborate ours, since
-generative quality degrades precisely in the scarce regime where
-augmentation is most needed, but their answer is cross-dataset
-pretraining, whereas ASCENSION augments each dataset from its own
-training set alone. The complete discussion is provided in
+scarcity and address it with cross-dataset pretraining of a
+diffusion model, whereas ASCENSION augments each dataset from its
+own training set alone. The complete discussion is provided in
 Appendix~\ref{app:related-extended}.

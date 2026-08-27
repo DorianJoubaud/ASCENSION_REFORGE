@@ -276,9 +276,30 @@ goal of enhancing classification performance. \textbf{Seq-MVAE}
 heterogeneous TS for industrial aging processes,
 enabling DA that preserves cross-modal temporal dependencies.
 
+Expanding class representations through their covariance also has
+precedents outside TS classification: \citet{wang2019implicit}
+implicitly augment deep features along class-conditional covariance
+directions for image classification, \citet{wang2020data} augment
+speaker embeddings with deep generative models, and
+\citet{lan2025cotton} sample from the Gaussian statistics of
+agronomic data before encoding them with a VAE. These methods
+operate in a feature space and apply a single expansion step,
+whereas ASCENSION decodes its samples back to the input space,
+filters them with the Bayes-region test to preserve class identity,
+and applies the expansion progressively over iterations.
+
 However, none of these approaches explore a
 progressive, tunable expansion of class representations in the
 latent space, as proposed in ASCENSION.
+
+Closest to our evaluation setting, \citet{gonen2025time} present
+the first large-scale study of generative TS models under data
+scarcity and address it with a diffusion model pretrained on a large
+collection of TS datasets. Their findings corroborate ours, since
+generative quality degrades precisely in the scarce regime where
+augmentation is most needed, but their answer is cross-dataset
+pretraining, whereas ASCENSION augments each dataset from its own
+training set alone.
 
 
 
