@@ -94,10 +94,11 @@ face challenges with long-range dependencies, error accumulation, and
 slow inference \citep{feng2024latent}.
 % ADDED FOR TMLR (AE request: small-sample generative benchmark)
 In the data-scarce regime, \citet{gonen2025time} present the first
-large-scale study of generative TS models and address the
-degradation of generative quality on small training sets by
-pretraining a diffusion model across datasets, whereas ASCENSION
-augments each dataset from its own training set alone.
+large-scale study of generative TS models, showing that generation
+quality collapses as training sets shrink, and answer it with a
+diffusion model pretrained on a large collection of datasets and
+fine-tuned on the target one, whereas ASCENSION augments each
+dataset from its own training set alone.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent

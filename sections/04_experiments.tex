@@ -350,7 +350,10 @@ correlation between gain and samples per class is weak and not
 significant (Spearman $\rho = -0.16$, $-0.05$, $-0.11$ with
 $p = 0.10$, $0.63$, $0.27$), yet the smallest group's mean gain is
 positive in all nine classifier-run combinations, ranging from
-$+0.2$ to $+2.7$ points. Gain correlates positively with class
+$+0.2$ to $+2.7$ points. The concentration on the smallest training
+sets aligns with \citet{gonen2025time}, who identify precisely this
+regime as the hardest for generative TS models trained on the
+target dataset alone. Gain correlates positively with class
 count: Spearman $\rho = +0.18$ ($p = 0.063$) on ResNet, $+0.22$
 ($p = 0.029$) on FCN, and $+0.23$ ($p = 0.019$) on Moment. Datasets
 with at least 15 classes ($n = 7$) show median gains of $+2.1$,
