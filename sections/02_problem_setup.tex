@@ -93,12 +93,12 @@ and Diff-TI \citep{zhang2025time}, produce stable outputs but still
 face challenges with long-range dependencies, error accumulation, and
 slow inference \citep{feng2024latent}.
 % ADDED FOR TMLR (AE request: small-sample generative benchmark)
-In the data-scarce regime, \citet{gonen2025time} present the first
-large-scale study of generative TS models, showing that generation
-quality collapses as training sets shrink, and answer it with a
-diffusion model pretrained on a large collection of datasets and
-fine-tuned on the target one, whereas ASCENSION augments each
-dataset from its own training set alone.
+Under data scarcity these models degrade further: in the first
+large-scale study of generative TS models in this regime,
+\citet{gonen2025time} show that generation quality collapses as
+training sets shrink, and mitigate this by pretraining a unified
+diffusion model on a large collection of datasets before
+fine-tuning it on the target one.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
