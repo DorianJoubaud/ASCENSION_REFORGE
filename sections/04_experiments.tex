@@ -591,44 +591,55 @@ post-hoc indicator.
 We average the features of the training series per dataset and fit,
 for each DA method and each classifier, a shallow random forest
 (1000 trees of depth 2) that predicts the per-dataset accuracy gain
-from the averaged F1--F24 features. We then examine the resulting
-feature importances and, as a control, the out-of-bag $R^{2}$ of each
-forest.
+from the averaged F1--F24 features, one forest per run. We then
+examine the resulting feature importances, averaged over the three
+runs.
+
+\begin{figure}[!t]
+\centering
+% REVISED FOR TMLR (rebuttal C1: figure regenerated on the
+% fixed-configuration runs, ASCENSION only, three runs shown; the
+% other DA methods are in Appendix app:feature_importance_all)
+\includegraphics[width=\linewidth]{figures/feature_importance_ascension.pdf}
+\caption{Feature importance of the 24 dataset features (F1--F24,
+Appendix~\ref{app:feature_risk}) for predicting ASCENSION's
+per-dataset accuracy gain, one panel per classifier. Bars give the
+mean importance over the three fixed-configuration runs, whiskers
+the minimum and maximum across runs. F24 (train--test distribution
+discrepancy, Appendix~\ref{app:discrepancy}) in red, F23 (train/test
+size ratio) in orange.}
+\label{fig:catch22-importance}
+\end{figure}
 
 % REVISED FOR TMLR (rebuttal C1: the feature-importance analysis was
-% recomputed on the fixed-configuration runs; its outcome is reported
-% as measured)
+% recomputed on the fixed-configuration runs)
 \paragraph{Results}
-No dataset trait reliably predicts where augmentation pays. Across
-the 27 method--classifier forests, the out-of-bag $R^{2}$ has a
-median of $0.03$ and never exceeds $0.24$, and the feature-importance
-rankings are not stable across the three runs: the top-ranked feature
-of a method under one run typically drops out of the top ten under
-another. We therefore do not interpret individual feature
-importances. This outcome is consistent with the per-dataset
-variability of the gains (Appendix~\ref{app:per-dataset-std}) and
-with the weak correlations of the applicability profile
-(Section~\ref{sec:results:applicability}): the conditions that
-favour augmentation are visible in aggregate, in the training-set
-size and the class count, but no combination of the 24 measured
-dataset traits predicts the per-dataset outcome.
+Figure~\ref{fig:catch22-importance} reports the importances for
+ASCENSION. The leading features change with the classifier and, as
+the whiskers show, from one run to the next, with one exception:
+F24, the train--test distribution discrepancy, is the only feature
+that stays among the six leading ones for the three classifiers,
+first under Moment, second under FCN and sixth under ResNet. This is
+consistent with how ASCENSION operates. The $\alpha$-scaling
+mechanism expands each class beyond the empirical support of its
+training samples, so the datasets on which such an expansion matters
+are those whose test distribution departs from the training one. The
+importances of the other DA methods are reported in
+Appendix~\ref{app:feature_importance_all}.
 
 \label{sec:analysis:discrepancy}
-% REVISED FOR TMLR (transition motivated by the mechanism, with the
-% direct discrepancy statistics)
-Since the $\alpha$-scaling mechanism is designed to expand beyond
-the training distribution, we examine the train--test discrepancy
-axis directly. ASCENSION's per-dataset gain is uncorrelated with F24
-(Spearman $\rho$ between $-0.04$ and $+0.24$ across the nine
-classifier-run combinations, not significant in eight of the nine),
-and its mean gain on the half of the datasets with the larger
-discrepancy ($+1.21$, $+0.83$, $+1.01$ accuracy points on ResNet,
-FCN, Moment, per-dataset gains averaged over the three runs) is
-comparable to the mean gain on the other half ($+1.38$, $+0.31$,
-$+0.67$). The benefit therefore does not fade as the discrepancy
-grows. To visualise this, we sort the $102$ UCR datasets by
-ascending discrepancy (F24, Appendix~\ref{app:discrepancy}) and
-report the cumulative mean accuracy gain as datasets are added in
+% REVISED FOR TMLR (direct discrepancy statistics)
+Examining this axis directly, ASCENSION's per-dataset gain shows at
+most a weak monotone relation with F24 (Spearman $\rho$ between
+$-0.04$ and $+0.24$ across the nine classifier-run combinations, not
+significant in eight of the nine), and its mean gain on the half of
+the datasets with the larger discrepancy ($+1.27$, $+0.71$, $+0.91$
+accuracy points on ResNet, FCN, Moment, per-dataset gains averaged
+over the three runs) is comparable to the mean gain on the other half
+($+1.33$, $+0.40$, $+0.75$). The benefit therefore does not fade as
+the discrepancy grows. To visualise this, we sort the $102$ UCR
+datasets by ascending discrepancy (F24, Appendix~\ref{app:discrepancy})
+and report the cumulative mean accuracy gain as datasets are added in
 this order (Figure~\ref{fig:cumsum-disc}).
 
 \begin{figure}[!t]

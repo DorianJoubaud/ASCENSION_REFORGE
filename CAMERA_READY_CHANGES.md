@@ -43,14 +43,16 @@ baselines' recommended defaults, and calls for an equal per-dataset tuning
 budget as future work.
 
 **Two disclosures.** First, the rebuttal promised to update Figure 5 (random
-forest feature importances) on the fixed-configuration runs. When we reran
-this analysis we found that its out-of-bag R2 is near zero for all 27
-method-classifier pairs (median 0.03, maximum 0.24) and that the importance
-rankings are not stable across the three runs. We therefore replaced the
-figure with this measured finding, and the discrepancy-axis analysis
-(Figure 6, unchanged) is now motivated by the mechanism and by the direct
-statistics, which show that ASCENSION's gain does not fade as the train-test
-discrepancy grows. Second, the appendix adds one additional analysis, a
+forest feature importances) on the fixed-configuration runs. The regenerated
+figure shows ASCENSION alone, one panel per classifier, with the importance
+of each feature averaged over the three runs and whiskers giving its range
+across runs, since the rankings vary from one run to the next. F24, the
+train-test distribution discrepancy, is the only feature that stays among the
+leading ones for the three classifiers, which motivates the discrepancy-axis
+analysis (Figure 6, unchanged). The text now also reports the direct
+statistics along this axis, which show that ASCENSION's gain does not fade as
+the train-test discrepancy grows. The corresponding figures for the other DA
+methods are given in a new appendix. Second, the appendix adds one additional analysis, a
 deployment rule that selects the iteration count per dataset on an internal
 validation fold without consulting the test set, evaluated on the 78 UCR
 datasets that admit such a fold. It addresses the model-selection concern

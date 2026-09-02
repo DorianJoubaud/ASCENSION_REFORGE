@@ -1486,7 +1486,7 @@ Using the range of $\alpha \in \{1, 2, 3, 4, 5\}$ and iteration counts $\in \{1,
 \begin{table*}[p]
 \centering
  
-\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, the train/test ratio (F23), and the train/test discrepancy}\label{Tab:app:Ablation_clustering_alpha} 
+\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, and the train--test discrepancy ratio (F24, column Ratio) with the intra-class dispersions of the test and train sets}\label{Tab:app:Ablation_clustering_alpha} 
 
 \setlength{\tabcolsep}{4pt} % Reduce space between columns
 
@@ -1494,7 +1494,7 @@ Using the range of $\alpha \in \{1, 2, 3, 4, 5\}$ and iteration counts $\in \{1,
 \begin{tabular}{lr | r | lr | rrr}
 
 \toprule
- &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F23 & \multicolumn{2}{c}{Discrepancy}\\
+ &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
 \# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
  \midrule
 D1 & ACSF1 & -0.01 & (1, 2) & -0.01 & 0.96 & $1.01\times10^{3}$ & $1.04\times10^{3}$ \\
@@ -1559,7 +1559,7 @@ D53 & MedicalImages & -0.01 & (1, 2) & -0.01 & 1.00 & $7.57\times10^{1}$ & $8.10
 \begin{table*}[p]
 \centering
  
-\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, the train/test ratio (F23), and the train/test discrepancy}
+\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, and the train--test discrepancy ratio (F24, column Ratio) with the intra-class dispersions of the test and train sets}
 
 \setlength{\tabcolsep}{4pt} % Reduce space between columns
 
@@ -1567,7 +1567,7 @@ D53 & MedicalImages & -0.01 & (1, 2) & -0.01 & 1.00 & $7.57\times10^{1}$ & $8.10
 \begin{tabular}{lr | r | lr | rrr}
 
 \toprule
- &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F23 & \multicolumn{2}{c}{Discrepancy}\\
+ &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
 \# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
  \midrule
 D54 & MiddlePhalanxOutlineAgeGroup & 0.01 & (1, 3) & -0.01 & 1.12 & $2.70\times10^{1}$ & $2.24\times10^{1}$ \\
@@ -1639,7 +1639,7 @@ D102 & Yoga & -0.02 & (1, 3) & -0.02 & 1.02 & $3.02\times10^{4}$ & $2.97\times10
 % \begin{tabular}{lr | r | rr | rrr}
 
 % \toprule
-%  &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F23 & \multicolumn{2}{c}{Discrepancy}\\
+%  &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
 % \# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & ( iter., $\alpha$) & $\overline{Acc}_{\Delta_1 Step}$ & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
 %  \midrule
 % D90 & TwoLeadECG & 0.01 & (1, 3) & 0.01 & 1.00 & $2.28\times10^{1}$ & $2.32\times10^{1}$ \\
@@ -2174,6 +2174,56 @@ We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba20
 % 
 % 
 % 
+% ========== Feature importances for all DA methods (camera-ready) ==========
+\section{Feature importances for all DA methods}\label{app:feature_importance_all}
+% ADDED FOR CAMERA-READY (rebuttal C1: companion to Figure fig:catch22-importance)
+Figures~\ref{fig:feature-importance-all-resnet},
+\ref{fig:feature-importance-all-fcn} and
+\ref{fig:feature-importance-all-moment} extend
+Figure~\ref{fig:catch22-importance} to VaDE, FAA, TTS-GAN, KoVAE,
+Time-DDPM, LA, ImagenTime and Diffusion-TS, for ResNet, FCN and
+Moment respectively. The protocol is the one of
+Section~\ref{sec:analysis:features}: one shallow random forest
+(1000 trees of depth 2) per DA method, classifier and run, predicting
+the per-dataset accuracy gain from the averaged F1--F24 features,
+with importances averaged over the three fixed-configuration runs
+and whiskers giving their minimum and maximum across runs. The
+horizontal axis is shared across all panels.
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{figures/feature_importance_all_resnet.pdf}
+\caption{Feature importance of F1--F24 for predicting the per-dataset
+accuracy gain of each DA method with ResNet. Bars give the mean
+importance over the three fixed-configuration runs, whiskers the
+minimum and maximum across runs. F24 (train--test distribution
+discrepancy) in red, F23 (train/test size ratio) in orange.}
+\label{fig:feature-importance-all-resnet}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{figures/feature_importance_all_fcn.pdf}
+\caption{Feature importance of F1--F24 for predicting the per-dataset
+accuracy gain of each DA method with FCN. Bars give the mean
+importance over the three fixed-configuration runs, whiskers the
+minimum and maximum across runs. F24 (train--test distribution
+discrepancy) in red, F23 (train/test size ratio) in orange.}
+\label{fig:feature-importance-all-fcn}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{figures/feature_importance_all_moment.pdf}
+\caption{Feature importance of F1--F24 for predicting the per-dataset
+accuracy gain of each DA method with Moment. Bars give the mean
+importance over the three fixed-configuration runs, whiskers the
+minimum and maximum across runs. F24 (train--test distribution
+discrepancy) in red, F23 (train/test size ratio) in orange.}
+\label{fig:feature-importance-all-moment}
+\end{figure}
+
+
 % ========== Train/test discrepancy (ICML app:PerfMetrics:Discrepancy) ==========
 \section{Discrepancy in distance between Training and Test sets}\label{app:discrepancy}\label{app:discrepancy:form}
 To quantify the discrepancy between training and test distributions, we assess intra-class dispersion using Dynamic Time Warping (DTW) as the distance metric. For each class \( k \in \{1, \ldots, K\} \), let the set of time series in class \( k \) be denoted by \( \mathcal{X}_k = \{x_{k,1}, \ldots, x_{k,n_k}\} \), where \( n_k \) is the number of instances in class \( k \). Let \( \mu_k \) denote the DTW barycenter (i.e., the average sequence under DTW alignment) of \( \mathcal{X}_k \). The intra-class dispersion for class \( k \) is then defined as $d_k = \frac{1}{n_k} \sum_{i=1}^{n_k} \text{DTW}(x_{k,i}, \mu_k)$
