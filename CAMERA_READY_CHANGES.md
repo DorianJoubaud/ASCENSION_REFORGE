@@ -21,7 +21,7 @@ rule, the one-to-one generation budget (Section 4.1 and Algorithm 1), the
 budget-matched iteration control, the applicability profile against class
 count and samples per class, the condensed Section 2.2 with the full
 discussion in the appendix, and the corrected abstract figures and claims.
-Figure 6 was regenerated on the fixed-configuration runs.
+Figure 6 of the submission (Figure 7 in the camera-ready) was regenerated on the fixed-configuration runs.
 
 **Related work (decision request).** Section 2.2 now discusses KoVAE as the
 strongest VAE-based generative baseline and positions ASCENSION's controlled
@@ -42,17 +42,17 @@ states the asymmetry between ASCENSION's fixed configuration and the
 baselines' recommended defaults, and calls for an equal per-dataset tuning
 budget as future work.
 
-**Two disclosures.** First, the rebuttal promised to update Figure 5 (random
+**Two disclosures.** First, the rebuttal promised to update Figure 5 of the submission (Figure 6 in the camera-ready, random
 forest feature importances) on the fixed-configuration runs. The regenerated
 figure shows ASCENSION alone, one panel per classifier, with the importance
 of each feature averaged over the three runs and whiskers giving its range
 across runs, since the rankings vary from one run to the next. F24, the
 train-test distribution discrepancy, is the only feature that stays among the
 leading ones for the three classifiers, which motivates the discrepancy-axis
-analysis (Figure 6, unchanged). The text now also reports the direct
+analysis (Figure 6 of the submission, now Figure 7, with its curves recomputed on the fixed-configuration runs). The text now also reports the direct
 statistics along this axis, which show that ASCENSION's gain does not fade as
-the train-test discrepancy grows. The corresponding figures for the other DA
-methods are given in a new appendix. Second, the appendix adds one additional analysis, a
+the train-test discrepancy grows. The corresponding importances for the other eight DA
+methods are given as a single figure in a new appendix. Second, the appendix adds one additional analysis, a
 deployment rule that selects the iteration count per dataset on an internal
 validation fold without consulting the test set, evaluated on the 78 UCR
 datasets that admit such a fold. It addresses the model-selection concern

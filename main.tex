@@ -10,12 +10,16 @@
 \usepackage{tmlr}
 % \usepackage[preprint]{tmlr}   % de-anonymise for arXiv / preprints
 % \usepackage[accepted]{tmlr}   % camera-ready (also set \month/\year)
+% Compact reference list: natbib hooks (\bibfont is natbib's font hook,
+% \bibsep is read at \begin{thebibliography}). tmlr.sty loads natbib.
+\renewcommand{\bibfont}{\small}
+\setlength{\bibsep}{3pt plus 1pt minus 1pt}
 
 % TMLR's optional notation shortcuts
 \input{math_commands.tex}
 
 % ---- Packages ----
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -24,7 +28,6 @@
                           % without this, \includegraphics{cumulative_sum_*} fails
                           % silently (axis labels render but curve images don't).
 \usepackage{wrapfig}    % side-by-side figure beside the Reading paragraph in §3.3
-\usepackage{pdflscape}  % ICML appendix uses \begin{landscape} for wide tables
 \usepackage{pstricks}   % ICML appendix uses pspicture envs for PSTricks figures
 \usepackage{morefloats} % raises the 18-float queue to ~256; detailed classif
                         % appendix has many large tables whose floats would
@@ -51,12 +54,12 @@
 \mdfdefinestyle{definitionbox}{%
   backgroundcolor=black!5,
   linewidth=0pt,
-  innertopmargin=6pt,
-  innerbottommargin=6pt,
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
   innerleftmargin=10pt,
   innerrightmargin=10pt,
-  skipabove=8pt,
-  skipbelow=8pt,
+  skipabove=5pt,
+  skipbelow=5pt,
 }
 \surroundwithmdframed[style=definitionbox]{definition}
 \surroundwithmdframed[style=definitionbox]{proposition}

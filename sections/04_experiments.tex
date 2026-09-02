@@ -120,18 +120,14 @@ three runs. Full results appear in Appendix~\ref{app:per_dataset}.
 % replaces the best-per-dataset-configuration table, now Appendix tab:best-config.
 \begin{table}[t]
 \centering
-\caption{Main comparison under a \emph{single fixed hyperparameter
-configuration} per method ($\alpha = 1.5$ and one iteration for
-ASCENSION, authors' recommended defaults for the baselines), applied
-uniformly across all 102 UCR datasets and all three classifiers, over
-\textbf{three independent runs}. Cells report the mean (std) over the
-three runs of the number of datasets (out of 102) with improved,
-unchanged, or worsened accuracy, of the mean accuracy change
-$\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} -
-\mathrm{base\_accuracy}$ over each subset, and of the net total over the
-102 datasets. Arrows $(\uparrow, \downarrow)$ mark direction of
-improvement. \textbf{Bold} and \underline{underline} mark the best and
-second-best mean per column.}
+\caption{Main comparison under a \emph{single fixed configuration}
+per method ($\alpha = 1.5$ and one iteration for ASCENSION, authors'
+defaults for the baselines) on 102 UCR datasets and three classifiers.
+Cells give the mean (std) over three runs, Total the net accuracy
+change over the 102 datasets. Arrows
+$(\uparrow, \downarrow)$ mark the direction of improvement,
+\textbf{bold} and \underline{underline} the best and second-best mean
+per column.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llrrrrrrr@{}}
@@ -268,19 +264,43 @@ Section~\ref{sec:setup:experimental}). Using MODALS improves
 baseline accuracy by $3.23\%$, while ASCENSION achieves a $4.78\%$
 improvement over the baseline. 
 
+% REVISED FOR TMLR (layout): Table tab:modals transposed and paired with
+% tab:gain-by-group (Section sec:results:applicability) in one float.
 \begin{table}[t]
 \centering
 \small
+\begin{minipage}[t]{0.40\textwidth}
+\centering
 \caption{ASCENSION and MODALS performance on HAR dataset from
 \citep{cheung2020modals}.}
 \label{tab:modals}
-\begin{tabular}{lccc}
+\begin{tabular}{@{}lc@{}}
 \toprule
-\textbf{Method} & \textbf{ASCENSION} & \textbf{MODALS} & \textbf{No Aug} \\
+\textbf{Method} & \textbf{Accuracy (\%)} \\
 \midrule
-Accuracy (\%) & $\mathbf{93.42}$ & $91.87$ & $88.64$ \\
+ASCENSION & $\mathbf{93.42}$ \\
+MODALS    & $91.87$ \\
+No Aug    & $88.64$ \\
 \bottomrule
 \end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.56\textwidth}
+\centering
+% ADDED FOR TMLR (rebuttal WS8)
+\caption{Median ASCENSION gain (accuracy points) per group of
+training samples per class, with each dataset's gain averaged over
+the three fixed-configuration runs.}
+\label{tab:gain-by-group}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Samples per class} & $n$ & \textbf{ResNet} & \textbf{FCN} & \textbf{Moment} \\
+\midrule
+Fewer than 20 & 32 & $+1.65$ & $+0.24$ & $+2.07$ \\
+20 to 49      & 23 & $+0.96$ & $-0.39$ & $+0.38$ \\
+50 or more    & 47 & $+0.42$ & $+0.13$ & $+0.35$ \\
+\bottomrule
+\end{tabular}
+\end{minipage}
 \end{table}
 
 % ADDED FOR TMLR (rebuttal C3)
@@ -300,40 +320,25 @@ Diffusion-TS leads by $0.10$, well inside the critical difference.
 Beyond the critical difference, ASCENSION separates from 7--8 of the
 8 baselines on ResNet, from 2 of 8 on FCN, and from 4--5 of 8 on
 Moment, and it is never significantly worse than any competitor.
-Figures~\ref{fig:cd-resnet-main}, \ref{fig:cd-fcn-main}, and
-\ref{fig:cd-moment-main} show the critical-difference diagrams
+Figure~\ref{fig:cd-main} shows the critical-difference diagrams
 computed on per-dataset accuracies averaged over the three
 fixed-configuration runs, where ASCENSION reaches mean ranks of
 $2.67$ (ResNet), $3.56$ (FCN), and $3.20$ (Moment).
 
-% ADDED FOR TMLR (rebuttal C3)
+% ADDED FOR TMLR (rebuttal C3), one float for the three CD diagrams
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_resnet_fixedconfig.pdf}
-\caption{Critical-difference diagram (Nemenyi post-hoc test, $5\%$
-level) for ResNet, computed on per-dataset accuracies averaged over
-the three fixed-configuration runs.}
-\label{fig:cd-resnet-main}
-\end{figure}
-
-% ADDED FOR TMLR (rebuttal C3)
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_fcn_fixedconfig.pdf}
-\caption{Critical-difference diagram (Nemenyi post-hoc test, $5\%$
-level) for FCN, computed on per-dataset accuracies averaged over the
-three fixed-configuration runs.}
-\label{fig:cd-fcn-main}
-\end{figure}
-
-% ADDED FOR TMLR (rebuttal C3)
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_moment_fixedconfig.pdf}
-\caption{Critical-difference diagram (Nemenyi post-hoc test, $5\%$
-level) for Moment, computed on per-dataset accuracies averaged over
-the three fixed-configuration runs.}
-\label{fig:cd-moment-main}
+\subcaptionbox{ResNet\label{fig:cd-resnet-main}}{%
+  \includegraphics[width=0.8\linewidth,trim=7 19 8 16,clip]{figures/cd_diagram_resnet_fixedconfig.pdf}}\\[4pt]
+\subcaptionbox{FCN\label{fig:cd-fcn-main}}{%
+  \includegraphics[width=0.8\linewidth,trim=7 19 8 16,clip]{figures/cd_diagram_fcn_fixedconfig.pdf}}\\[4pt]
+\subcaptionbox{Moment\label{fig:cd-moment-main}}{%
+  \includegraphics[width=0.8\linewidth,trim=7 19 8 16,clip]{figures/cd_diagram_moment_fixedconfig.pdf}}
+\caption{Critical-difference diagrams (Nemenyi post-hoc test, $5\%$
+level) for (a) ResNet, (b) FCN, and (c) Moment, computed on
+per-dataset accuracies averaged over the three fixed-configuration
+runs.}
+\label{fig:cd-main}
 \end{figure}
 
 % ADDED FOR TMLR (rebuttal WS8/Q4)
@@ -371,25 +376,6 @@ never consulted for any choice. The selected rule abstains from
 augmenting on about half of the cases, and its gains concentrate on
 the smallest training sets for ResNet and FCN.
 
-% ADDED FOR TMLR (rebuttal WS8)
-\begin{table}[t]
-\centering
-\small
-\caption{Median ASCENSION gain (accuracy points) per group of
-training samples per class, with each dataset's gain averaged over
-the three fixed-configuration runs.}
-\label{tab:gain-by-group}
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-\textbf{Samples per class} & $n$ & \textbf{ResNet} & \textbf{FCN} & \textbf{Moment} \\
-\midrule
-Fewer than 20 & 32 & $+1.65$ & $+0.24$ & $+2.07$ \\
-20 to 49      & 23 & $+0.96$ & $-0.39$ & $+0.38$ \\
-50 or more    & 47 & $+0.42$ & $+0.13$ & $+0.35$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \subsubsection{Embedded classifier performance}
 \label{sec:results:embedded}
 
@@ -419,7 +405,7 @@ baseline:
   - \mathrm{Acc}_{\text{base}}.
 \end{equation}
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \small
 \caption{Number of datasets with improved, unchanged, or worsened
@@ -519,7 +505,7 @@ effect in clustering-based methods like VaDE. As seen in
 Figure~\ref{fig:ablation-supp}(a), performance also declines
 progressively with each extra augmentation step.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \small
 \caption{Average accuracy gains for the full model
@@ -583,7 +569,7 @@ additional features: (F23) the train/test split ratio, and (F24)
 the distribution discrepancy ratio between train and test sets
 (see metric definitions in Appendix~\ref{app:feature_risk}). A full
 description of the 24 features (F1--F24) is provided in
-Appendix~\ref{app:per_dataset}. F23 is computable from dataset
+Appendix~\ref{app:feature_risk}. F23 is computable from dataset
 sizes and F24 requires the test set and is used here as a
 post-hoc indicator.
 
@@ -603,11 +589,8 @@ runs.
 \includegraphics[width=\linewidth]{figures/feature_importance_ascension.pdf}
 \caption{Feature importance of the 24 dataset features (F1--F24,
 Appendix~\ref{app:feature_risk}) for predicting ASCENSION's
-per-dataset accuracy gain, one panel per classifier. Bars give the
-mean importance over the three fixed-configuration runs, whiskers
-the minimum and maximum across runs. F24 (train--test distribution
-discrepancy, Appendix~\ref{app:discrepancy}) in red, F23 (train/test
-size ratio) in orange.}
+per-dataset accuracy gain, one panel per classifier, averaged over
+the three fixed-configuration runs.}
 \label{fig:catch22-importance}
 \end{figure}
 
@@ -652,7 +635,7 @@ this order (Figure~\ref{fig:cumsum-disc}).
 
 \caption{Cumulative accuracy improvement (\%) vs.\ F24
 (train--test distribution discrepancy, see
-Appendix~\ref{app:datasets}). Datasets are sorted by increasing
+Appendix~\ref{app:discrepancy}). Datasets are sorted by increasing
 discrepancy. Per-dataset gains are averaged over the three
 fixed-configuration runs.}
 \label{fig:cumsum-disc}

@@ -13,9 +13,9 @@
 our experiments and their D-id labels.
 \begin{table}[H]
 \centering
-\caption{Mapping from D-id to UCR dataset name and raw UCR domain. Datasets are sorted alphabetically. The same numbering is used throughout the paper (\tablename s~\ref{Tab:app:bestconfig:resnet}--\ref{Tab:app:bestconfig:moment} and~\ref{Tab:app:Ablation_clustering_alpha}). The macro-domain grouping (Industrial, Image, Motion, Spectral, Biomedical) is defined in Appendix~\ref{app:domain-coverage}.}\label{Tab:app:dataset_list}
+\caption{Mapping from D-id to UCR dataset name and raw UCR domain. Datasets are sorted alphabetically. The same numbering is used throughout the paper (\tablename s~\ref{Tab:app:bestconfig} and~\ref{Tab:app:Ablation_clustering_alpha}). The macro-domain grouping (Industrial, Image, Motion, Spectral, Biomedical) is defined in Appendix~\ref{app:domain-coverage}.}\label{Tab:app:dataset_list}
 \setlength{\tabcolsep}{4pt}
-\scalebox{.85}{
+\footnotesize
 \begin{tabular}{lll || lll}
 \toprule
 \# & Dataset & Domain & \# & Dataset & Domain \\
@@ -73,7 +73,6 @@ D50 & Lightning7 & Sensor & D101 & WormsTwoClass & Motion \\
 D51 & Mallat & Simulated & D102 & Yoga & Image \\
 \bottomrule
 \end{tabular}
-}
 \end{table}
 
 
@@ -115,7 +114,7 @@ assessment).
 % \end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=.8\textwidth]{figures/fig_domain_coverage.pdf}
 \caption{Domain coverage of the 102 UCR datasets used in our
@@ -315,37 +314,39 @@ Let
 $\mu_i = \mu_\phi(x_i)$ and $\Sigma_i = \Sigma_\phi(x_i)$
 and
 $\bar\mu_y = \tfrac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i$ for compactness, we have:
+\begingroup
+\allowdisplaybreaks
 \begin{align*}
 \mathrm{Cov}_{Z \sim d_y^{\,\alpha}}[Z]
-&= \mathbb{E}[Z\,Z^{\!\top}] - \mathbb{E}[Z]\,\mathbb{E}[Z]^{\!\top} \\[4pt]
+&= \mathbb{E}[Z\,Z^{\!\top}] - \mathbb{E}[Z]\,\mathbb{E}[Z]^{\!\top} \\
 &= \int z\,z^{\!\top}\,d_y^{\,\alpha}(z)\,\mathrm{d}z
  \;-\; \biggl(\int z\,d_y^{\,\alpha}(z)\,\mathrm{d}z\biggr)
-       \biggl(\int z\,d_y^{\,\alpha}(z)\,\mathrm{d}z\biggr)^{\!\!\top} \\[4pt]
-&= \int z\,z^{\!\top}\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z
-   \;-\; \biggl(\int z\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)
-         \biggl(\int z\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)^{\!\!\top} \\[4pt]
+       \biggl(\int z\,d_y^{\,\alpha}(z)\,\mathrm{d}z\biggr)^{\!\!\top} \\
+&= \int z\,z^{\!\top}\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z \\
+&\qquad - \biggl(\int z\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)
+         \biggl(\int z\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)^{\!\!\top} \\
 &= \frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
-     \int z\,z^{\!\top}\,\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z
-   \;-\; \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
+     \int z\,z^{\!\top}\,\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z \\
+&\qquad - \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
            \int z\,\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)
          \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
-           \int z\,\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)^{\!\!\top} \\[4pt]
+           \int z\,\mathcal{N}\!(z;\mu_i,\alpha\Sigma_i)\,\mathrm{d}z\biggr)^{\!\!\top} \\
 &= \frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
      \bigl[\,\alpha\Sigma_i + \mu_i\mu_i^{\!\top}\,\bigr]
    \;-\; \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i\biggr)
-         \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i\biggr)^{\!\!\top}
-   \quad\ \\[4pt]
+         \biggl(\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i\biggr)^{\!\!\top} \\
 &= \frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
      \bigl[\,\alpha\Sigma_i + \mu_i\mu_i^{\!\top}\,\bigr]
-   \;-\; \bar\mu_y\,\bar\mu_y^{\!\top} \\[4pt]
+   \;-\; \bar\mu_y\,\bar\mu_y^{\!\top} \\
 &= \alpha\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \Sigma_i
    \;+\; \frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i\,\mu_i^{\!\top}
-   \;-\; \bar\mu_y\,\bar\mu_y^{\!\top} \\[4pt]
+   \;-\; \bar\mu_y\,\bar\mu_y^{\!\top} \\
 &= \alpha\,\frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \Sigma_i
    \;+\; \frac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y}
-         \bigl(\mu_i - \bar\mu_y\bigr)\bigl(\mu_i - \bar\mu_y\bigr)^{\!\top} \\[4pt]
+         \bigl(\mu_i - \bar\mu_y\bigr)\bigl(\mu_i - \bar\mu_y\bigr)^{\!\top} \\
 &= \alpha\,\bar\Sigma_w(y) + \Sigma_b(y).
 \end{align*}
+\endgroup
 \qed
 
 
@@ -374,7 +375,7 @@ ASCENSION's posterior-mixture sampling and filtering.
 The single $\alpha = 2.6$ matches the value used for wall-clock
 comparisons in Appendix~\ref{sec:complexity:wallclock}, the mean
 of the per-dataset best $\alpha$ values across the 102 UCR datasets
-(Tables~\ref{Tab:app:bestconfig:resnet}-\ref{Tab:app:bestconfig:moment}).
+(\tablename~\ref{Tab:app:bestconfig}).
 % REVISED FOR TMLR (rebuttal C1)
 Variant (i) provides the no-scaling endpoint ($\alpha = 1$), variant
 (iii) uses ASCENSION's per-dataset $\alpha$ values and therefore
@@ -390,7 +391,7 @@ concatenated to both the encoder and the decoder inputs.
 \caption{ASCENSION vs.\ three cVAE variants (no contrastive loss)
 on 102 UCR datasets.}
 \label{tab:cvae}
-\resizebox{\textwidth}{!}{%
+\small
 \begin{tabular}{@{}llrrrrrrrrrr@{}}
 \toprule
  & \multirow{2}{*}{\bf DA method}
@@ -416,8 +417,7 @@ on 102 UCR datasets.}
   & cVAE + posterior mixture              & 42 & 1.9\% & 14 & 0\% & 46 & -2.5\% & 102 & $-0.32\%$ \\
   & \textbf{ASCENSION}                    & \textbf{56} & \textbf{4.0\%} & 12 & 0\% & \textbf{34} & \textbf{-2.5\%} & 102 & $\mathbf{+1.4\%}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
 \paragraph{Why label conditioning is not enough?}
@@ -463,12 +463,12 @@ relative to the fixed configuration of
 $+1.4\%$ and $+2.4\%$ on ResNet, FCN and Moment, and ASCENSION remains
 the only method with a positive net total on every classifier.
 
-\begin{table}[H]
+\begin{table}[t]
 \centering
-
 \caption{For each DA method, we show the number of datasets (Nb$_{\text{data}}$), \emph{out of 102}, with improved, unchanged, or worsened accuracy, plus the mean accuracy change $\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$ averaged over each subset. Arrows $(\uparrow, \downarrow)$ mark direction of improvement. \textbf{Bold} and \underline{underline} indicate best and second best.}
 \label{tab:best-config}
-\resizebox{\textwidth}{!}{%
+\small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}llrrrrrrrrrr@{}}
 \toprule
  & \multirow{2}{*}{\bf DA method} & \multirow{2}{*}{\bf (Venue, Year)}
@@ -518,8 +518,7 @@ the only method with a positive net total on every classifier.
  & \textbf{ASCENSION}   &          & \textbf{72} & 3.8\%
                                    & 10 & 0\% & \textbf{20} & \textbf{-1.6\%} & 102 & $\mathbf{+2.4\%}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
 
@@ -544,31 +543,17 @@ rejects the null hypothesis that all DA methods perform equally with
 $p < 10^{-18}$ on every classifier, and the critical-difference
 threshold for $k = 9$ methods and $N = 102$ datasets is
 $\mathrm{CD} \approx 1.19$.
-Figures~\ref{fig:cd-resnet}, \ref{fig:cd-fcn}, and~\ref{fig:cd-moment}
-show the resulting CD diagrams for ResNet, FCN, and Moment respectively.
+Figure~\ref{fig:cd-best-config} shows the resulting CD diagrams for
+ResNet, FCN, and Moment.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_resnet.pdf}
 % REVISED FOR TMLR (rebuttal C3)
-\caption{Critical-difference diagram, ResNet classifier (Friedman + Nemenyi at the $5\%$ significance level), computed on the best-per-dataset configuration reference of \tablename~\ref{tab:best-config}, single run.}
-\label{fig:cd-resnet}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_fcn.pdf}
-% REVISED FOR TMLR (rebuttal C3)
-\caption{Critical-difference diagram, FCN classifier (Friedman + Nemenyi at the $5\%$ significance level), computed on the best-per-dataset configuration reference of \tablename~\ref{tab:best-config}, single run.}
-\label{fig:cd-fcn}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\linewidth]{figures/cd_diagram_moment.pdf}
-% REVISED FOR TMLR (rebuttal C3)
-\caption{Critical-difference diagram, Moment classifier (Friedman + Nemenyi at the $5\%$ significance level), computed on the best-per-dataset configuration reference of \tablename~\ref{tab:best-config}, single run.}
-\label{fig:cd-moment}
+\subcaptionbox{ResNet\label{fig:cd-resnet}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_resnet.pdf}}\\[2pt]
+\subcaptionbox{FCN\label{fig:cd-fcn}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_fcn.pdf}}\\[2pt]
+\subcaptionbox{Moment\label{fig:cd-moment}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_moment.pdf}}
+\caption{Critical-difference diagrams (Friedman + Nemenyi at the $5\%$ significance level) for the ResNet, FCN and Moment classifiers, computed on the best-per-dataset configuration reference of \tablename~\ref{tab:best-config}, single run.}
+\label{fig:cd-best-config}
 \end{figure}
 
 % REVISED FOR TMLR (rebuttal C3)
@@ -600,70 +585,54 @@ FCN and $2.1$ on Moment, with maxima of $18.6$, $19.8$ and $10.4$
 respectively. The Moment classification stage is deterministic, so its
 per-dataset variability comes from the generation stage alone.
 
-\begin{table}[H]
+\begin{table}[!tb]
 \centering
 \caption{Per-dataset standard deviation (accuracy points) of the ASCENSION
 gain across the three fixed-configuration runs. The median is
 1.6 on ResNet, 1.6 on FCN and 2.1 on Moment, with maxima of
-18.6, 19.8 and 10.4 respectively, which motivates reporting
-distributions and ranks rather than single per-dataset values.}
+18.6, 19.8 and 10.4 respectively.}
 \label{tab:per-dataset-std}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lrrr@{\hspace{2em}}lrrr@{}}
+\begin{tabular}{@{}lrrrlrrrlrrr@{}}
 \toprule
-\bf Dataset & ResNet & FCN & Moment & \bf Dataset & ResNet & FCN & Moment \\
+\bf Dataset & \rotatebox{90}{ResNet} & \rotatebox{90}{FCN} & \rotatebox{90}{Moment} & \bf Dataset & \rotatebox{90}{ResNet} & \rotatebox{90}{FCN} & \rotatebox{90}{Moment} & \bf Dataset & \rotatebox{90}{ResNet} & \rotatebox{90}{FCN} & \rotatebox{90}{Moment} \\
 \midrule
-ACSF1 & 3.5 & 2.6 & 3.2 & Meat & 1.0 & 2.5 & 3.8 \\
-Adiac & 2.3 & 4.1 & 4.7 & MedicalImages & 0.8 & 1.2 & 3.5 \\
-ArrowHead & 3.0 & 0.9 & 3.8 & MiddlePhalanxOutlineAgeGroup & 1.5 & 0.4 & 4.3 \\
-BME & 1.7 & 11.2 & 5.6 & MiddlePhalanxOutlineCorrect & 2.8 & 1.0 & 1.2 \\
-Beef & 7.7 & 11.5 & 0.0 & MiddlePhalanxTW & 2.0 & 1.7 & 2.1 \\
-BeetleFly & 2.9 & 2.9 & 2.9 & MixedShapesRegularTrain & 1.3 & 1.0 & 2.3 \\
-BirdChicken & 8.7 & 10.0 & 2.9 & MixedShapesSmallTrain & 1.3 & 2.0 & 3.8 \\
-CBF & 0.2 & 0.5 & 3.3 & MoteStrain & 2.1 & 0.5 & 2.5 \\
-Car & 4.2 & 1.7 & 1.0 & NonInvasiveFetalECGThorax1 & 3.4 & 9.0 & 3.4 \\
-ChlorineConcentration & 2.3 & 0.7 & 8.6 & NonInvasiveFetalECGThorax2 & 2.8 & 6.5 & 1.6 \\
-CinCECGTorso & 2.8 & 4.2 & 1.8 & OSULeaf & 3.7 & 3.4 & 1.7 \\
-Coffee & 2.1 & 2.1 & 2.1 & OliveOil & 3.3 & 5.1 & 3.8 \\
-Computers & 5.5 & 8.7 & 2.6 & PhalangesOutlinesCorrect & 1.5 & 1.0 & 0.8 \\
-Crop & 1.2 & 0.8 & 1.5 & Plane & 0.0 & 0.0 & 0.5 \\
-DistalPhalanxOutlineAgeGroup & 1.4 & 5.4 & 1.9 & PowerCons & 0.3 & 1.7 & 5.3 \\
-DistalPhalanxOutlineCorrect & 0.8 & 0.7 & 2.4 & ProximalPhalanxOutlineAgeGroup & 0.3 & 0.7 & 0.6 \\
-DistalPhalanxTW & 2.9 & 0.8 & 2.3 & ProximalPhalanxOutlineCorrect & 1.2 & 1.3 & 1.4 \\
-ECG200 & 5.2 & 0.6 & 1.2 & ProximalPhalanxTW & 1.3 & 0.8 & 1.0 \\
-ECG5000 & 0.1 & 0.1 & 0.4 & RefrigerationDevices & 1.0 & 0.8 & 2.5 \\
-ECGFiveDays & 3.4 & 4.6 & 4.2 & Rock & 9.2 & 3.1 & 6.1 \\
-EOGHorizontalSignal & 0.4 & 4.0 & 4.9 & ScreenType & 1.1 & 4.0 & 1.1 \\
-EOGVerticalSignal & 2.5 & 3.1 & 5.4 & SemgHandGenderCh2 & 1.7 & 2.7 & 1.7 \\
-Earthquakes & 0.8 & 1.9 & 0.4 & SemgHandMovementCh2 & 5.4 & 3.0 & 3.2 \\
-ElectricDevices & 1.3 & 0.3 & 2.8 & SemgHandSubjectCh2 & 1.1 & 5.0 & 2.2 \\
-EthanolLevel & 18.6 & 19.8 & 3.2 & ShapeletSim & 2.0 & 0.6 & 3.1 \\
-FaceAll & 10.1 & 0.6 & 4.6 & ShapesAll & 2.8 & 5.2 & 1.4 \\
-FaceFour & 2.4 & 3.0 & 5.7 & SmallKitchenAppliances & 1.9 & 1.8 & 1.7 \\
-FacesUCR & 3.1 & 1.2 & 5.7 & SmoothSubspace & 0.0 & 0.4 & 2.8 \\
-Fish & 6.0 & 6.3 & 0.3 & SonyAIBORobotSurface1 & 1.4 & 0.3 & 10.4 \\
-FordA & 0.3 & 0.2 & 0.3 & SonyAIBORobotSurface2 & 1.5 & 0.7 & 1.1 \\
-FordB & 2.1 & 0.5 & 1.0 & StarLightCurves & 0.2 & 0.9 & 2.4 \\
-FreezerRegularTrain & 0.0 & 0.2 & 1.1 & Strawberry & 1.1 & 0.7 & 0.5 \\
-FreezerSmallTrain & 3.7 & 1.8 & 2.9 & SwedishLeaf & 1.3 & 1.1 & 1.4 \\
-GunPoint & 2.0 & 2.3 & 3.2 & Symbols & 2.7 & 12.8 & 1.4 \\
-GunPointAgeSpan & 0.2 & 1.3 & 1.1 & SyntheticControl & 0.2 & 0.2 & 1.8 \\
-GunPointMaleVersusFemale & 0.4 & 0.9 & 0.2 & ToeSegmentation1 & 0.9 & 0.9 & 1.2 \\
-GunPointOldVersusYoung & 0.0 & 0.0 & 0.3 & ToeSegmentation2 & 1.2 & 0.8 & 5.2 \\
-Ham & 1.0 & 1.0 & 1.1 & Trace & 0.6 & 0.0 & 2.3 \\
-HandOutlines & 0.4 & 2.0 & 0.9 & TwoLeadECG & 2.6 & 3.3 & 5.3 \\
-Haptics & 2.8 & 3.6 & 2.9 & TwoPatterns & 1.2 & 0.3 & 0.1 \\
-Herring & 4.1 & 0.9 & 1.6 & UMD & 6.7 & 3.5 & 3.7 \\
-HouseTwenty & 1.9 & 0.8 & 1.0 & UWaveGestureLibraryAll & 1.1 & 3.7 & 1.0 \\
-InlineSkate & 3.7 & 4.0 & 3.0 & UWaveGestureLibraryX & 0.1 & 0.3 & 1.0 \\
-InsectEPGRegularTrain & 0.0 & 0.0 & 1.5 & UWaveGestureLibraryY & 1.5 & 1.8 & 1.3 \\
-InsectEPGSmallTrain & 0.0 & 0.0 & 5.4 & UWaveGestureLibraryZ & 0.8 & 0.4 & 0.7 \\
-InsectWingbeatSound & 1.8 & 0.7 & 0.8 & Wafer & 0.0 & 0.1 & 0.1 \\
-ItalyPowerDemand & 0.6 & 0.1 & 2.4 & Wine & 8.6 & 4.3 & 5.7 \\
-LargeKitchenAppliances & 0.7 & 3.4 & 2.1 & WordSynonyms & 1.5 & 3.5 & 2.0 \\
-Lightning2 & 1.6 & 1.6 & 1.6 & Worms & 6.9 & 4.2 & 0.0 \\
-Lightning7 & 3.6 & 2.4 & 2.9 & WormsTwoClass & 3.0 & 1.5 & 1.5 \\
-Mallat & 1.4 & 9.7 & 3.7 & Yoga & 3.6 & 1.8 & 0.5 \\
+ACSF1 & 3.5 & 2.6 & 3.2 & GunPointAgeSpan & 0.2 & 1.3 & 1.1 & ProximalPhalanxTW & 1.3 & 0.8 & 1.0 \\
+Adiac & 2.3 & 4.1 & 4.7 & GunPointMaleVersusFemale & 0.4 & 0.9 & 0.2 & RefrigerationDevices & 1.0 & 0.8 & 2.5 \\
+ArrowHead & 3.0 & 0.9 & 3.8 & GunPointOldVersusYoung & 0.0 & 0.0 & 0.3 & Rock & 9.2 & 3.1 & 6.1 \\
+BME & 1.7 & 11.2 & 5.6 & Ham & 1.0 & 1.0 & 1.1 & ScreenType & 1.1 & 4.0 & 1.1 \\
+Beef & 7.7 & 11.5 & 0.0 & HandOutlines & 0.4 & 2.0 & 0.9 & SemgHandGenderCh2 & 1.7 & 2.7 & 1.7 \\
+BeetleFly & 2.9 & 2.9 & 2.9 & Haptics & 2.8 & 3.6 & 2.9 & SemgHandMovementCh2 & 5.4 & 3.0 & 3.2 \\
+BirdChicken & 8.7 & 10.0 & 2.9 & Herring & 4.1 & 0.9 & 1.6 & SemgHandSubjectCh2 & 1.1 & 5.0 & 2.2 \\
+CBF & 0.2 & 0.5 & 3.3 & HouseTwenty & 1.9 & 0.8 & 1.0 & ShapeletSim & 2.0 & 0.6 & 3.1 \\
+Car & 4.2 & 1.7 & 1.0 & InlineSkate & 3.7 & 4.0 & 3.0 & ShapesAll & 2.8 & 5.2 & 1.4 \\
+ChlorineConcentration & 2.3 & 0.7 & 8.6 & InsectEPGRegularTrain & 0.0 & 0.0 & 1.5 & SmallKitchenAppliances & 1.9 & 1.8 & 1.7 \\
+CinCECGTorso & 2.8 & 4.2 & 1.8 & InsectEPGSmallTrain & 0.0 & 0.0 & 5.4 & SmoothSubspace & 0.0 & 0.4 & 2.8 \\
+Coffee & 2.1 & 2.1 & 2.1 & InsectWingbeatSound & 1.8 & 0.7 & 0.8 & SonyAIBORobotSurface1 & 1.4 & 0.3 & 10.4 \\
+Computers & 5.5 & 8.7 & 2.6 & ItalyPowerDemand & 0.6 & 0.1 & 2.4 & SonyAIBORobotSurface2 & 1.5 & 0.7 & 1.1 \\
+Crop & 1.2 & 0.8 & 1.5 & LargeKitchenAppliances & 0.7 & 3.4 & 2.1 & StarLightCurves & 0.2 & 0.9 & 2.4 \\
+DistalPhalanxOutlineAgeGroup & 1.4 & 5.4 & 1.9 & Lightning2 & 1.6 & 1.6 & 1.6 & Strawberry & 1.1 & 0.7 & 0.5 \\
+DistalPhalanxOutlineCorrect & 0.8 & 0.7 & 2.4 & Lightning7 & 3.6 & 2.4 & 2.9 & SwedishLeaf & 1.3 & 1.1 & 1.4 \\
+DistalPhalanxTW & 2.9 & 0.8 & 2.3 & Mallat & 1.4 & 9.7 & 3.7 & Symbols & 2.7 & 12.8 & 1.4 \\
+ECG200 & 5.2 & 0.6 & 1.2 & Meat & 1.0 & 2.5 & 3.8 & SyntheticControl & 0.2 & 0.2 & 1.8 \\
+ECG5000 & 0.1 & 0.1 & 0.4 & MedicalImages & 0.8 & 1.2 & 3.5 & ToeSegmentation1 & 0.9 & 0.9 & 1.2 \\
+ECGFiveDays & 3.4 & 4.6 & 4.2 & MiddlePhalanxOutlineAgeGroup & 1.5 & 0.4 & 4.3 & ToeSegmentation2 & 1.2 & 0.8 & 5.2 \\
+EOGHorizontalSignal & 0.4 & 4.0 & 4.9 & MiddlePhalanxOutlineCorrect & 2.8 & 1.0 & 1.2 & Trace & 0.6 & 0.0 & 2.3 \\
+EOGVerticalSignal & 2.5 & 3.1 & 5.4 & MiddlePhalanxTW & 2.0 & 1.7 & 2.1 & TwoLeadECG & 2.6 & 3.3 & 5.3 \\
+Earthquakes & 0.8 & 1.9 & 0.4 & MixedShapesRegularTrain & 1.3 & 1.0 & 2.3 & TwoPatterns & 1.2 & 0.3 & 0.1 \\
+ElectricDevices & 1.3 & 0.3 & 2.8 & MixedShapesSmallTrain & 1.3 & 2.0 & 3.8 & UMD & 6.7 & 3.5 & 3.7 \\
+EthanolLevel & 18.6 & 19.8 & 3.2 & MoteStrain & 2.1 & 0.5 & 2.5 & UWaveGestureLibraryAll & 1.1 & 3.7 & 1.0 \\
+FaceAll & 10.1 & 0.6 & 4.6 & NonInvasiveFetalECGThorax1 & 3.4 & 9.0 & 3.4 & UWaveGestureLibraryX & 0.1 & 0.3 & 1.0 \\
+FaceFour & 2.4 & 3.0 & 5.7 & NonInvasiveFetalECGThorax2 & 2.8 & 6.5 & 1.6 & UWaveGestureLibraryY & 1.5 & 1.8 & 1.3 \\
+FacesUCR & 3.1 & 1.2 & 5.7 & OSULeaf & 3.7 & 3.4 & 1.7 & UWaveGestureLibraryZ & 0.8 & 0.4 & 0.7 \\
+Fish & 6.0 & 6.3 & 0.3 & OliveOil & 3.3 & 5.1 & 3.8 & Wafer & 0.0 & 0.1 & 0.1 \\
+FordA & 0.3 & 0.2 & 0.3 & PhalangesOutlinesCorrect & 1.5 & 1.0 & 0.8 & Wine & 8.6 & 4.3 & 5.7 \\
+FordB & 2.1 & 0.5 & 1.0 & Plane & 0.0 & 0.0 & 0.5 & WordSynonyms & 1.5 & 3.5 & 2.0 \\
+FreezerRegularTrain & 0.0 & 0.2 & 1.1 & PowerCons & 0.3 & 1.7 & 5.3 & Worms & 6.9 & 4.2 & 0.0 \\
+FreezerSmallTrain & 3.7 & 1.8 & 2.9 & ProximalPhalanxOutlineAgeGroup & 0.3 & 0.7 & 0.6 & WormsTwoClass & 3.0 & 1.5 & 1.5 \\
+GunPoint & 2.0 & 2.3 & 3.2 & ProximalPhalanxOutlineCorrect & 1.2 & 1.3 & 1.4 & Yoga & 3.6 & 1.8 & 0.5 \\
 \bottomrule
 \end{tabular}%
 }
@@ -697,7 +666,7 @@ Figure~\ref{fig:gain-vs-spc} plots the per-dataset ASCENSION gain
 against the number of training samples per class. It complements the
 applicability profile of Section~\ref{sec:results:applicability}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/gain_vs_samples_per_class.pdf}
 \caption{Per-dataset ASCENSION gain, averaged over the three
@@ -769,25 +738,28 @@ never cost accuracy relative to not augmenting.
 \begin{table}[H]
 \centering
 \caption{Deployed accuracy gain (points) of the validation-selected
-iteration rule, over 78 UCR datasets and 3 seeds (234 dataset--seed
-pairs per classifier), with $t$ statistics over pairs in parentheses.
-The small-$n$ group (training sets of at most 60 samples, 11 datasets)
-was pre-declared before execution. Abstention is the share of pairs
-where the rule deploys the unaugmented baseline ($t^{*}=0$).}
-\label{tab:valselect}
+iteration rule per dataset group, over 78 UCR datasets and 3 seeds
+(balanced accuracy for the imbalanced group), with $t$ statistics and
+counts over dataset--seed pairs. The small-$n$ group (training sets of
+at most 60 samples, 11 datasets) was pre-declared before execution.
+Abstention is the share of pairs where the rule deploys the
+unaugmented baseline ($t^{*}=0$).}
+\label{tab:valselect-strata}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\bf Classifier & \bf All pairs & \bf Small-$n$ group & \bf Abstention \\
+\bf Group & \bf ResNet & \bf FCN & \bf InceptionTime \\
 \midrule
-ResNet        & $+0.53$ $(t=1.83)$ & $+2.72$ $(t=2.59)$ & $49\%$ \\
-FCN           & $+0.89$ $(t=2.95)$ & $+3.50$ $(t=2.59)$ & $48\%$ \\
-InceptionTime & $+0.73$ $(t=2.66)$ & $-0.12$ $(t=-0.27)$ & $46\%$ \\
+All pairs ($n=234$)            & $+0.53$ $(t=1.83)$ & $+0.89$ $(t=2.95)$ & $+0.73$ $(t=2.66)$ \\
+Small-$n$ ($n=33$)             & $+2.72$ $(t=2.59)$ & $+3.50$ $(t=2.59)$ & $-0.12$ $(t=-0.27)$ \\
+Imbalanced, bal.\ acc.\ ($n=24$) & $-0.39$ $(t=-0.43)$ & $-0.21$ $(t=-0.53)$ & $-0.68$ $(t=-0.93)$ \\
+Remaining ($n=177$)            & $+0.07$ $(t=0.23)$ & $+0.57$ $(t=1.94)$ & $+0.97$ $(t=2.80)$ \\
+Abstention ($t^{*}=0$)         & $49\%$ & $48\%$ & $46\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \paragraph{Results}
-\tablename~\ref{tab:valselect} reports the deployed gains for
+\tablename~\ref{tab:valselect-strata} reports the deployed gains for
 ResNet, FCN and InceptionTime \citep{fawaz2020inceptiontime}. The
 rule abstains on about half of the dataset--seed pairs and, when it
 selects $t^{*} > 0$, prefers small iteration counts (on ResNet,
@@ -823,25 +795,6 @@ ToeSegmentation2, UMD, Wine) and imbalanced (at most 3 classes and
 imbalance ratio at least 2.5, 8 datasets, evaluated in balanced
 accuracy). The remaining 59 datasets form the third group.
 
-\begin{table}[H]
-\centering
-\caption{Deployed gain per dataset group (accuracy points, balanced
-accuracy for the imbalanced group), with $t$ statistics and counts
-over dataset--seed pairs. 3 seeds per dataset.}
-\label{tab:valselect-strata}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\bf Group & \bf ResNet & \bf FCN & \bf InceptionTime \\
-\midrule
-All pairs ($n=234$)            & $+0.53$ $(t=1.83)$ & $+0.89$ $(t=2.95)$ & $+0.73$ $(t=2.66)$ \\
-Small-$n$ ($n=33$)             & $+2.72$ $(t=2.59)$ & $+3.50$ $(t=2.59)$ & $-0.12$ $(t=-0.27)$ \\
-Imbalanced, bal.\ acc.\ ($n=24$) & $-0.39$ $(t=-0.43)$ & $-0.21$ $(t=-0.53)$ & $-0.68$ $(t=-0.93)$ \\
-Remaining ($n=177$)            & $+0.07$ $(t=0.23)$ & $+0.57$ $(t=1.94)$ & $+0.97$ $(t=2.80)$ \\
-Abstention ($t^{*}=0$)         & $49\%$ & $48\%$ & $46\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \paragraph{Reading}
 No group is systematically harmed under any classifier, every
 negative group mean sits within noise. The imbalanced group is
@@ -851,10 +804,9 @@ mean stays within noise for all three classifiers. The small-$n$
 gains appear for the two classifiers whose small-$n$ baselines are
 weakest and vanish for InceptionTime, whose architecture already
 extracts on 30 to 60 series what augmentation supplies to the weaker
-classifiers. The pairs with $t^{*} > 0$ use the whole range (on
-ResNet, 41/29/32/18 pairs at $t = 1/2/4/8$), so the selected iteration
-count genuinely varies per dataset rather than being a constant
-choice. These observations about baseline accuracy levels are post-hoc
+classifiers. The pairs with $t^{*} > 0$ use the whole range of candidate iteration counts,
+so the selected iteration count genuinely varies per dataset rather
+than being a constant choice. These observations about baseline accuracy levels are post-hoc
 readings of pre-declared endpoints, and we label them as such.
 
 \section{Empirical acceptance rate of the rejection step}
@@ -879,7 +831,7 @@ class.
 
 \begin{figure}[H]
 \centering
-\resizebox{0.75\textwidth}{!}{\input{images/boxPlot_risk.tex}}
+\resizebox{0.55\textwidth}{!}{\input{images/boxPlot_risk.tex}}
 % REVISED FOR TMLR (erratum)
 \caption{Empirical acceptance rate $\mathcal{C}$
 across six expansion iterations on the 102 UCR datasets.
@@ -957,7 +909,7 @@ classifier training being excluded as it is identical for every
 method) on three UCR datasets chosen to cover the dataset-size
 range. ASCENSION is run with $\alpha = 2.6$, the mean of the
 per-dataset best $\alpha$ values across our sweep
-(Tables~\ref{Tab:app:bestconfig:resnet}--\ref{Tab:app:bestconfig:moment}).
+(\tablename~\ref{Tab:app:bestconfig}).
 All measurements on the same NVIDIA RTX 4080 Super used
 for the main-results experiments.
 
@@ -1000,232 +952,10 @@ This section analyses average classification accuracy changes across the 11 UCR 
 % ADDED FOR TMLR (rebuttal C4)
 The per-dataset values reported in this section are single-run, and the cross-run variability of the ASCENSION gain under the fixed configuration is quantified in Appendix~\ref{app:per-dataset-std}.
 
-%This section presents the analysis of the average classification accuracy changes across the 11 dataset domains defined in the UCR archive (see \tablename~\ref{tab:datasets_types}). \tablename s~\ref{Tab:MeanImprov_ResNet}-\ref{Tab:MeanNegative_ResNet} and \tablename s~\ref{Tab:MeanImprov_FCN}-\ref{Tab:MeanNegative_FCN} report the mean improvements and deteriorations (worsened) for ResNet and FCN, respectively.
-
-
-% Flush any pending floats from the preceding section before entering landscape:
-% without this, LaTeX can error "Float(s) lost" at \begin{landscape} when the
-% main-body floats haven't placed yet (TMLR page area is narrower than ICML's
-% article class, which is why ICML compiled fine without the clearpage).
-
-\begin{landscape}
-\begin{table}[h]
+\begin{table}[!ht]
     \centering
-    \caption{Mean improvement in classification accuracy across dataset domains (ResNet) best in bold.\label{Tab:MeanImprov_ResNet}}
-    \scalebox{0.87}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & 3/8 & 1.4\% & 1/8 & 1.3\% & 4/8 & 4.4\% & 1/8 & 1.9\% & \textbf{5/8} & \textbf{1.0\%} & 1/8 & 8.9\% & 1/8 & 13.7\% & 2/8 & 0.3\% & 3/8 & 2.0\% \\
-Image    & \textbf{22/30} & \textbf{3.7\%} & 8/30 & 1.5\% & 4/30 & 8.2\% & 5/30 & 1.8\% & 11/30 & 1.6\% & 3/30 & 4.0\% & 11/30 & 11.8\% & 10/30 & 2.5\% & 17/30 & 2.9\% \\
-Simulated    & 1/8 & 0.6\% & \textbf{4/8} & \textbf{0.8\%} & 2/8 & 11.3\% & 1/8 & 0.6\% & 3/8 & 0.4\% & 2/8 & 1.3\% & 3/8 & 3.0\% & \textbf{4/8} & 0.8\% & 2/8 & 0.8\% \\
-Spectro    & \textbf{5/8} & \textbf{16.4\%} & 1/8 & 0.4\% & 2/8 & 10.8\% & 2/8 & 1.6\% & 2/8 & 4.2\% & 1/8 & 3.3\% & 3/8 & 17.7\% & 3/8 & 2.6\% & 4/8 & 7.5\% \\
-Sensor    & \textbf{12/19} & \textbf{2.8\%} & 4/19 & 0.6\% & 2/19 & 11.2\% & 3/19 & 0.3\% & 6/19 & 1.9\% & 5/19 & 2.5\% & 5/19 & 18.4\% & 4/19 & 3.9\% & 8/19 & 2.0\% \\
-ECG    & \textbf{5/6} & \textbf{2.7\%} & 1/6 & 1.2\% & 1/6 & 13.8\% & 1/6 & 2.0\% & 2/6 & 0.7\% & 1/6 & 5.5\% & 2/6 & 7.7\% & 1/6 & 1.0\% & 2/6 & 2.9\% \\
-EOG    & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 1/2 & 4.4\% & 1/2 & 1.1\% & \textbf{2/2} & \textbf{35.7\%} & 0/2 & 0.0\% & 0/2 & 0.0\% \\
-Motion    & \textbf{8/14} & \textbf{1.7\%} & 0/14 & 0.0\% & 1/14 & 2.2\% & 0/14 & 0.0\% & 5/14 & 0.5\% & 0/14 & 0.0\% & 7/14 & 17.0\% & 1/14 & 1.1\% & 5/14 & 1.4\% \\
-EPG    & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} \\
-Power    & \textbf{1/1} & \textbf{2.2\%} & \textbf{1/1} & 2.1\% & 0/1 & 0.0\% & \textbf{1/1} & 1.1\% & \textbf{1/1} & 1.7\% & 0/1 & 0.0\% & 0/1 & 0.0\% & \textbf{1/1} & \textbf{2.2\%} & \textbf{1/1} & 1.7\% \\
-Spectrum    & 2/4 & 4.4\% & 1/4 & 4.9\% & 3/4 & 5.1\% & 1/4 & 0.7\% & 2/4 & 2.6\% & 0/4 & 0.0\% & \textbf{4/4} & \textbf{29.1\%} & 0/4 & 0.0\% & 2/4 & 2.5\% \\
-    \bottomrule
-    \end{tabular}}
-
-    \vspace{1cm}
-    \caption{Mean worsened accuracy change across dataset domains (ResNet). Smallest reductions in bold.}\label{Tab:MeanNegative_ResNet}
-    \scalebox{0.87}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & 5/8 & -2.1\% & 7/8 & -2.3\% & 4/8 & -5.7\% & 7/8 & -2.7\% & \textbf{1/8} & \textbf{-3.2\%} & 7/8 & -2.6\% & 7/8 & -15.5\% & 5/8 & -3.7\% & 5/8 & -2.2\% \\
-Image    & \textbf{7/30} & \textbf{-1.5\%} & 22/30 & -11.9\% & 24/30 & -6.7\% & 21/30 & -7.3\% & 15/30 & -1.7\% & 24/30 & -4.4\% & 19/30 & -21.8\% & 18/30 & -6.1\% & 12/30 & -12.6\% \\
-Simulated    & 4/8 & -0.5\% & 4/8 & -18.1\% & 6/8 & -6.7\% & 6/8 & -9.2\% & \textbf{2/8} & \textbf{-0.4\%} & 6/8 & -2.6\% & 5/8 & -28.8\% & 3/8 & -3.3\% & 6/8 & -9.4\% \\
-Spectro    & \textbf{0/8} & \textbf{0.0\%} & 7/8 & -8.6\% & 6/8 & -20.6\% & 5/8 & -5.2\% & 5/8 & -5.3\% & 5/8 & -5.1\% & 5/8 & -23.3\% & 4/8 & -5.7\% & 3/8 & -1.6\% \\
-Sensor    & \textbf{5/19} & \textbf{-0.7\%} & 13/19 & -7.3\% & 15/19 & -6.0\% & 13/19 & -4.6\% & 9/19 & -1.0\% & 11/19 & -2.8\% & 14/19 & -18.0\% & 12/19 & -6.1\% & 8/19 & -3.5\% \\
-ECG    & \textbf{0/6} & \textbf{0.0\%} & 5/6 & -18.3\% & 4/6 & -25.3\% & 5/6 & -13.1\% & 4/6 & -2.2\% & 4/6 & -7.2\% & 4/6 & -36.0\% & 5/6 & -5.4\% & 4/6 & -16.6\% \\
-EOG    & 2/2 & -7.3\% & 2/2 & -12.4\% & 2/2 & -15.1\% & 2/2 & -4.7\% & 1/2 & -2.8\% & 1/2 & -9.4\% & \textbf{0/2} & \textbf{0.0\%} & 2/2 & -27.8\% & 2/2 & -3.0\% \\
-Motion    & \textbf{2/14} & \textbf{-1.6\%} & 13/14 & -5.3\% & 12/14 & -9.1\% & 12/14 & -3.9\% & 6/14 & -1.2\% & 13/14 & -4.2\% & 7/14 & -33.7\% & 12/14 & -15.6\% & 7/14 & -2.0\% \\
-EPG    & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & 2/2 & -2.8\% & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} \\
-Power    & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & 1/1 & -2.2\% & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & 1/1 & -1.1\% & 1/1 & -8.5\% & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} \\
-Spectrum    & 2/4 & -2.9\% & 3/4 & -5.0\% & 1/4 & -6.0\% & 3/4 & -5.9\% & 2/4 & -6.1\% & 3/4 & -1.7\% & \textbf{0/4} & \textbf{0.0\%} & 4/4 & -8.3\% & 2/4 & -4.7\% \\
-    \bottomrule
-    \end{tabular}}
-\end{table}
-\end{landscape}
-\clearpage
-\begin{landscape}
-\begin{table}[h]
-    \centering
-    \caption{Mean improvement in classification accuracy across dataset domains (FCN) best in bold.\label{Tab:MeanImprov_FCN}}
-    \scalebox{0.87}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & 4/8 & 3.5\% & \textbf{5/8} & \textbf{3.2\%} & 1/8 & 7.2\% & 4/8 & 0.7\% & 4/8 & 0.9\% & 4/8 & 1.0\% & 4/8 & 20.2\% & 3/8 & 0.9\% & 4/8 & 2.7\% \\
-Image    & \textbf{17/30} & \textbf{3.1\%} & 13/30 & 3.8\% & 2/30 & 7.3\% & 9/30 & 2.9\% & 12/30 & 2.3\% & 14/30 & 2.1\% & 13/30 & 17.0\% & 11/30 & 3.2\% & 15/30 & 3.5\% \\
-Simulated    & \textbf{5/8} & \textbf{0.4\%} & 3/8 & 2.8\% & 3/8 & 3.6\% & 0/8 & 0.0\% & 3/8 & 0.6\% & 0/8 & 0.0\% & 1/8 & 12.6\% & 4/8 & 0.9\% & 0/8 & 0.0\% \\
-Spectro    & \textbf{8/8} & \textbf{12.1\%} & 4/8 & 3.6\% & 2/8 & 11.3\% & 5/8 & 3.7\% & 2/8 & 6.8\% & 2/8 & 1.4\% & 4/8 & 8.3\% & 3/8 & 4.8\% & 3/8 & 3.7\% \\
-Sensor    & 7/19 & 1.8\% & 7/19 & 2.4\% & 3/19 & 10.1\% & \textbf{9/19} & \textbf{2.4\%} & 6/19 & 1.2\% & 8/19 & 1.9\% & 4/19 & 19.9\% & 6/19 & 3.4\% & 7/19 & 2.1\% \\
-ECG    & \textbf{5/6} & \textbf{3.5\%} & 1/6 & 4.7\% & 0/6 & 0.0\% & 2/6 & 5.5\% & 4/6 & 2.5\% & 4/6 & 3.7\% & 2/6 & 10.4\% & 4/6 & 4.8\% & 1/6 & 9.2\% \\
-EOG    & \textbf{1/2} & 1.9\% & 0/2 & 0.0\% & 0/2 & 0.0\% & \textbf{1/2} & 1.1\% & 0/2 & 0.0\% & \textbf{1/2} & 1.1\% & \textbf{1/2} & \textbf{39.3\%} & 0/2 & 0.0\% & 0/2 & 0.0\% \\
-Motion    & 7/14 & 2.1\% & 1/14 & 0.5\% & 2/14 & 3.3\% & 6/14 & 1.8\% & 6/14 & 1.3\% & \textbf{9/14} & 2.9\% & \textbf{9/14} & \textbf{13.6\%} & 3/14 & 1.7\% & \textbf{9/14} & 2.8\% \\
-EPG    & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} \\
-Power    & 0/1 & 0.0\% & 0/1 & 0.0\% & 0/1 & 0.0\% & \textbf{1/1} & \textbf{1.7\%} & 0/1 & 0.0\% & \textbf{1/1} & 0.6\% & 0/1 & 0.0\% & \textbf{1/1} & \textbf{1.7\%} & \textbf{1/1} & 0.6\% \\
-Spectrum    & 2/4 & 5.7\% & 2/4 & 5.5\% & 1/4 & 6.8\% & 1/4 & 9.3\% & \textbf{4/4} & 4.0\% & 1/4 & 7.5\% & \textbf{4/4} & \textbf{25.2\%} & 1/4 & 0.7\% & 2/4 & 8.9\% \\
-    \bottomrule
-    \end{tabular}}
-
-    \vspace{1cm}
-    \caption{Mean worsened accuracy change across dataset domains (FCN). Smallest reductions in bold.}\label{Tab:MeanNegative_FCN}
-    \scalebox{0.86}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & 4/8 & -2.2\% & \textbf{3/8} & -5.8\% & 7/8 & -9.0\% & 4/8 & -4.2\% & 4/8 & -3.7\% & 4/8 & -3.2\% & 4/8 & -27.9\% & \textbf{3/8} & -3.8\% & \textbf{3/8} & \textbf{-3.0\%} \\
-Image    & \textbf{12/30} & -3.1\% & 17/30 & -22.6\% & 28/30 & -15.9\% & 20/30 & -3.0\% & 16/30 & -1.7\% & \textbf{12/30} & \textbf{-2.0\%} & 17/30 & -20.0\% & 17/30 & -5.1\% & 13/30 & -10.2\% \\
-Simulated    & \textbf{1/8} & \textbf{-1.4\%} & 3/8 & -20.3\% & 5/8 & -18.2\% & 6/8 & -1.6\% & 5/8 & -1.0\% & 4/8 & -2.8\% & 6/8 & -20.2\% & 2/8 & -5.8\% & 6/8 & -10.4\% \\
-Spectro    & \textbf{0/8} & \textbf{0.0\%} & 4/8 & -11.7\% & 6/8 & -30.4\% & 2/8 & -6.1\% & 4/8 & -4.3\% & 4/8 & -4.9\% & 4/8 & -24.5\% & 3/8 & -3.2\% & 3/8 & -2.7\% \\
-Sensor    & 9/19 & -1.6\% & 10/19 & -8.4\% & 16/19 & -10.5\% & \textbf{7/19} & -2.2\% & \textbf{7/19} & \textbf{-1.1\%} & 8/19 & -1.7\% & 15/19 & -25.0\% & 9/19 & -5.4\% & 9/19 & -2.3\% \\
-ECG    & \textbf{1/6} & \textbf{-2.0\%} & 5/6 & -19.7\% & 6/6 & -22.0\% & 4/6 & -2.3\% & 2/6 & -9.5\% & 2/6 & -2.6\% & 4/6 & -13.1\% & 2/6 & -7.3\% & 4/6 & -12.3\% \\
-EOG    & 1/2 & -1.1\% & 2/2 & -8.6\% & 2/2 & -16.0\% & 1/2 & -0.6\% & 2/2 & -1.0\% & \textbf{0/2} & \textbf{0.0\%} & 1/2 & -11.3\% & 2/2 & -27.1\% & 2/2 & -6.2\% \\
-Motion    & 5/14 & -3.8\% & 12/14 & -6.4\% & 11/14 & -12.7\% & 7/14 & -3.1\% & 5/14 & -1.0\% & \textbf{3/14} & \textbf{-1.8\%} & 5/14 & -26.4\% & 8/14 & -14.5\% & \textbf{3/14} & -3.9\% \\
-EPG    & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} & 2/2 & -11.1\% & \textbf{0/2} & \textbf{0.0\%} & \textbf{0/2} & \textbf{0.0\%} \\
-Power    & \textbf{0/1} & \textbf{0.0\%} & 1/1 & -1.1\% & 1/1 & -3.9\% & \textbf{0/1} & \textbf{0.0\%} & 1/1 & -0.6\% & \textbf{0/1} & \textbf{0.0\%} & 1/1 & -89.6\% & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} \\
-Spectrum    & 1/4 & -2.0\% & 2/4 & -4.2\% & 3/4 & -6.1\% & 2/4 & -4.2\% & \textbf{0/4} & \textbf{0.0\%} & 2/4 & -5.0\% & \textbf{0/4} & \textbf{0.0\%} & 3/4 & -15.9\% & 2/4 & -4.7\% \\
-    \bottomrule
-    \end{tabular}}
-\end{table}
-\end{landscape}
-\clearpage
-\begin{landscape}
-\begin{table}[h]
-    \centering
-    \caption{Mean improvement in classification accuracy across dataset domains (Moment) best in bold.\label{Tab:MeanImprov_Moment}}
-    \scalebox{0.87}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\uparrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & \textbf{6/8} & \textbf{2.1\%} & 3/8 & 1.5\% & 5/8 & 15.1\% & 1/8 & 0.1\% & 1/8 & 2.4\% & 2/8 & 0.7\% & 2/8 & 0.9\% & 2/8 & 0.5\% & 1/8 & 0.5\% \\
-Image    & \textbf{24/30} & \textbf{3.5\%} & 11/30 & 4.5\% & 16/30 & 5.8\% & 9/30 & 2.8\% & 9/30 & 4.8\% & 10/30 & 3.6\% & 12/30 & 3.8\% & 14/30 & 3.9\% & 12/30 & 3.8\% \\
-Simulated    & \textbf{4/8} & 4.0\% & 1/8 & 2.3\% & \textbf{4/8} & \textbf{9.8\%} & 2/8 & 0.8\% & 1/8 & 2.7\% & 2/8 & 4.5\% & 3/8 & 4.1\% & 3/8 & 3.3\% & \textbf{4/8} & 3.1\% \\
-Spectro    & \textbf{5/8} & \textbf{5.0\%} & 1/8 & 1.1\% & 4/8 & 7.1\% & 0/8 & 0.0\% & 0/8 & 0.0\% & 0/8 & 0.0\% & 0/8 & 0.0\% & 1/8 & 3.6\% & 0/8 & 0.0\% \\
-Sensor    & \textbf{13/19} & \textbf{6.1\%} & 5/19 & 2.7\% & 9/19 & 9.1\% & 6/19 & 2.2\% & 10/19 & 3.8\% & 9/19 & 2.3\% & 8/19 & 5.4\% & 11/19 & 4.0\% & 9/19 & 2.6\% \\
-ECG    & \textbf{4/6} & 2.7\% & 1/6 & 0.4\% & 3/6 & 7.6\% & 2/6 & 3.3\% & 2/6 & 0.9\% & 2/6 & 0.7\% & \textbf{4/6} & 1.4\% & \textbf{4/6} & \textbf{2.9\%} & 2/6 & 2.1\% \\
-EOG    & \textbf{1/2} & \textbf{3.0\%} & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 0/2 & 0.0\% \\
-Motion    & \textbf{11/14} & \textbf{2.4\%} & 4/14 & 3.1\% & 5/14 & 4.6\% & 3/14 & 0.8\% & 3/14 & 3.8\% & 4/14 & 2.1\% & 4/14 & 2.6\% & 5/14 & 2.8\% & 6/14 & 2.5\% \\
-EPG    & 1/2 & 5.2\% & 1/2 & 1.2\% & \textbf{2/2} & \textbf{7.6\%} & 1/2 & 1.2\% & 0/2 & 0.0\% & 0/2 & 0.0\% & 1/2 & 2.4\% & 0/2 & 0.0\% & 0/2 & 0.0\% \\
-Power    & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} & \textbf{0/1} & \textbf{0.0\%} \\
-Spectrum    & \textbf{3/4} & \textbf{4.4\%} & 1/4 & 4.0\% & 2/4 & 5.4\% & 1/4 & 2.8\% & 1/4 & 0.8\% & 2/4 & 2.1\% & 1/4 & 12.0\% & 1/4 & 0.3\% & 1/4 & 2.0\% \\
-    \bottomrule
-    \end{tabular}}
-
-    \vspace{1cm}
-    \caption{Mean worsened accuracy change across dataset domains (Moment). Smallest reductions in bold.}\label{Tab:MeanNegative_Moment}
-    \scalebox{0.87}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ & $\downarrow$Nb & $\downarrow\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Device    & \textbf{1/8} & \textbf{-0.5\%} & 5/8 & -1.6\% & 3/8 & -4.5\% & 7/8 & -2.4\% & 7/8 & -3.4\% & 5/8 & -2.3\% & 6/8 & -1.9\% & 5/8 & -2.5\% & 6/8 & -1.7\% \\
-Image    & \textbf{5/30} & \textbf{-1.1\%} & 18/30 & -11.7\% & 12/30 & -9.8\% & 19/30 & -6.0\% & 21/30 & -10.9\% & 20/30 & -4.9\% & 17/30 & -5.6\% & 16/30 & -4.2\% & 17/30 & -3.7\% \\
-Simulated    & \textbf{2/8} & \textbf{-0.8\%} & 6/8 & -15.3\% & 4/8 & -12.4\% & 5/8 & -9.8\% & 6/8 & -12.6\% & 6/8 & -9.4\% & 5/8 & -8.5\% & 4/8 & -12.4\% & 4/8 & -9.9\% \\
-Spectro    & \textbf{2/8} & \textbf{-7.2\%} & 6/8 & -15.4\% & 4/8 & -24.2\% & 7/8 & -13.8\% & 7/8 & -9.5\% & 6/8 & -10.2\% & 7/8 & -8.1\% & 6/8 & -8.7\% & 6/8 & -5.9\% \\
-Sensor    & \textbf{4/19} & \textbf{-0.8\%} & 13/19 & -6.9\% & 7/19 & -9.7\% & 12/19 & -5.5\% & 7/19 & -5.0\% & 9/19 & -4.1\% & 9/19 & -5.4\% & 8/19 & -3.3\% & 9/19 & -4.0\% \\
-ECG    & \textbf{1/6} & \textbf{-0.1\%} & 5/6 & -7.8\% & 3/6 & -4.2\% & 4/6 & -4.6\% & 4/6 & -31.2\% & 4/6 & -4.2\% & 2/6 & -59.1\% & \textbf{1/6} & -1.6\% & 4/6 & -20.9\% \\
-EOG    & \textbf{1/2} & \textbf{-1.1\%} & 2/2 & -10.2\% & 2/2 & -12.6\% & 2/2 & -9.0\% & 2/2 & -9.4\% & 2/2 & -10.4\% & 2/2 & -7.3\% & 2/2 & -8.8\% & 2/2 & -7.5\% \\
-Motion    & \textbf{2/14} & \textbf{-0.9\%} & 9/14 & -3.8\% & 8/14 & -15.9\% & 10/14 & -4.2\% & 10/14 & -25.2\% & 8/14 & -5.2\% & 9/14 & -2.6\% & 7/14 & -4.1\% & 5/14 & -3.8\% \\
-EPG    & \textbf{0/2} & \textbf{0.0\%} & 1/2 & -4.8\% & \textbf{0/2} & \textbf{0.0\%} & 1/2 & -15.3\% & 2/2 & -5.2\% & 2/2 & -3.8\% & 1/2 & -12.4\% & 1/2 & -3.6\% & 2/2 & -8.4\% \\
-Power    & \textbf{1/1} & \textbf{-2.8\%} & \textbf{1/1} & -3.3\% & \textbf{1/1} & -4.4\% & \textbf{1/1} & \textbf{-2.8\%} & \textbf{1/1} & -4.4\% & \textbf{1/1} & -3.9\% & \textbf{1/1} & -4.4\% & \textbf{1/1} & -6.1\% & \textbf{1/1} & -6.1\% \\
-Spectrum    & \textbf{1/4} & \textbf{-0.2\%} & 3/4 & -3.9\% & 2/4 & -14.9\% & 2/4 & -1.6\% & 3/4 & -5.0\% & 2/4 & -1.7\% & 3/4 & -1.6\% & 3/4 & -4.1\% & 3/4 & -1.1\% \\
-    \bottomrule
-    \end{tabular}}
-\end{table}
-\end{landscape}
-\clearpage
-\begin{landscape}
-\begin{table}[h]
-    \centering
-    \caption{Macro-domain breakdown -- ResNet: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_ResNet}
-    \scalebox{0.93}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Industrial    & 17/36 & 0.7\% & 10/36 & -4.8\% & 8/36 & -2.6\% & 6/36 & -3.6\% & 15/36 & 0.2\% & 8/36 & -1.2\% & 9/36 & -11.1\% & 11/36 & -2.2\% & 14/36 & -1.9\% \\
-Image    & 22/30 & 2.4\% & 8/30 & -8.3\% & 4/30 & -4.3\% & 5/30 & -4.8\% & 11/30 & -0.3\% & 3/30 & -3.1\% & 11/30 & -9.5\% & 10/30 & -2.8\% & 17/30 & -3.4\% \\
-Motion    & 8/14 & 0.8\% & 0/14 & -4.9\% & 1/14 & -7.6\% & 0/14 & -3.3\% & 5/14 & -0.3\% & 0/14 & -3.9\% & 7/14 & -8.3\% & 1/14 & -13.3\% & 5/14 & -0.5\% \\
-Spectral    & 7/12 & 7.1\% & 2/12 & -5.8\% & 5/12 & -7.7\% & 3/12 & -3.3\% & 4/12 & -2.1\% & 1/12 & -2.3\% & 7/12 & 4.4\% & 3/12 & -4.0\% & 6/12 & 1.7\% \\
-Biomedical    & 5/10 & -0.1\% & 1/10 & -11.5\% & 1/10 & -11.7\% & 1/10 & -7.3\% & 3/10 & -0.6\% & 2/10 & -3.2\% & 4/10 & -6.3\% & 1/10 & -8.2\% & 2/10 & -6.7\% \\
-    \bottomrule
-    \end{tabular}}
-
-    \vspace{1cm}
-
-    \caption{Macro-domain breakdown -- FCN: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_FCN}
-    \scalebox{0.93}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Industrial    & 16/36 & 0.1\% & 15/36 & -3.4\% & 7/36 & -7.7\% & 14/36 & -0.4\% & 13/36 & -0.4\% & 13/36 & -0.5\% & 9/36 & -14.6\% & 14/36 & -1.2\% & 12/36 & -1.9\% \\
-Image    & 17/30 & 0.5\% & 13/30 & -11.2\% & 2/30 & -14.3\% & 9/30 & -1.2\% & 12/30 & 0.0\% & 14/30 & 0.2\% & 13/30 & -4.0\% & 11/30 & -1.7\% & 15/30 & -2.7\% \\
-Motion    & 7/14 & -0.3\% & 1/14 & -5.5\% & 2/14 & -9.5\% & 6/14 & -0.8\% & 6/14 & 0.2\% & 9/14 & 1.5\% & 9/14 & -0.7\% & 3/14 & -7.9\% & 9/14 & 1.0\% \\
-Spectral    & 10/12 & 8.9\% & 6/12 & -2.5\% & 3/12 & -14.3\% & 6/12 & 0.6\% & 6/12 & 1.0\% & 3/12 & -1.6\% & 8/12 & 3.0\% & 4/12 & -3.5\% & 5/12 & 1.0\% \\
-Biomedical    & 6/10 & 1.6\% & 1/10 & -11.1\% & 0/10 & -16.4\% & 3/10 & 0.2\% & 4/10 & -1.1\% & 5/10 & 1.1\% & 3/10 & -2.6\% & 4/10 & -4.9\% & 1/10 & -5.2\% \\
-    \bottomrule
-    \end{tabular}}
-
-    \vspace{1cm}
-
-    \caption{Macro-domain breakdown -- Moment: number of improved datasets ($\uparrow$Nb) out of total per macro-domain, and net mean accuracy change ($\overline{\Delta\mathrm{Acc}}$). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_Moment}
-    \scalebox{0.93}{
-    \begin{tabular}{@{}lcccccccccccccccccc@{}}
-    \toprule
-    \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
-    \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
-    & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ & $\uparrow$Nb & $\overline{\Delta\mathrm{Acc}}$ \\
-    \midrule
-Industrial    & 23/36 & 2.8\% & 9/36 & -4.8\% & 18/36 & 1.7\% & 9/36 & -3.3\% & 12/36 & -2.7\% & 13/36 & -2.1\% & 13/36 & -1.4\% & 16/36 & -1.1\% & 14/36 & -1.6\% \\
-Image    & 24/30 & 2.6\% & 11/30 & -5.4\% & 16/30 & -0.8\% & 9/30 & -3.0\% & 9/30 & -6.2\% & 10/30 & -2.0\% & 12/30 & -1.6\% & 14/30 & -0.4\% & 12/30 & -0.6\% \\
-Motion    & 11/14 & 1.8\% & 4/14 & -1.6\% & 5/14 & -7.4\% & 3/14 & -2.8\% & 3/14 & -17.2\% & 4/14 & -2.4\% & 4/14 & -0.9\% & 5/14 & -1.1\% & 6/14 & -0.3\% \\
-Spectral    & 8/12 & 2.0\% & 2/12 & -8.3\% & 6/12 & -7.3\% & 1/12 & -8.1\% & 1/12 & -6.8\% & 2/12 & -5.0\% & 1/12 & -4.1\% & 2/12 & -5.1\% & 1/12 & -3.1\% \\
-Biomedical    & 6/10 & 1.8\% & 2/10 & -6.3\% & 5/10 & 0.0\% & 3/10 & -4.4\% & 2/10 & -15.2\% & 2/10 & -4.4\% & 5/10 & -13.7\% & 4/10 & -1.1\% & 2/10 & -11.1\% \\
-    \bottomrule
-    \end{tabular}}
-\end{table}
-\end{landscape}
-
-
-
-% Hyperparameter Sensitivity Analysis
-%\input{sections/appendix/hyperparameter_sensibility_analysis}
-
-
-\begin{table*}[t]
-    \centering  
     \caption{UCR dataset domains and their selected representative datasets}\label{tab:datasets_types}
     \footnotesize
-    \scalebox{1}{
     \begin{tabular}{lll}
         \toprule
         \textbf{Type} & \textbf{Representative dataset} & \textbf{Description} \\
@@ -1248,211 +978,301 @@ Biomedical    & 6/10 & 1.8\% & 2/10 & -6.3\% & 5/10 & 0.0\% & 3/10 & -4.4\% & 2/
         Spectrum     & SemgHandMovementCh2   & Electromyography (EMG) data of hand movements, recorded across channels \\
         \bottomrule
     \end{tabular}
-    }
-\end{table*}
-% REVISED FOR TMLR (rebuttal C1)
-\tablename s~\ref{Tab:app:bestconfig:resnet}, \ref{Tab:app:bestconfig:fcn}, and~\ref{Tab:app:bestconfig:moment} report the best $(\text{iter.}, \alpha)$ configuration per dataset for each of the three classifiers used in \tablename~\ref{tab:best-config}, together with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{aug\_acc} - \mathrm{base\_acc}$).
+\end{table}
+
+%This section presents the analysis of the average classification accuracy changes across the 11 dataset domains defined in the UCR archive (see \tablename~\ref{tab:datasets_types}). \tablename s~\ref{Tab:MeanImprov_ResNet}-\ref{Tab:MeanNegative_ResNet} and \tablename s~\ref{Tab:MeanImprov_FCN}-\ref{Tab:MeanNegative_FCN} report the mean improvements and deteriorations (worsened) for ResNet and FCN, respectively.
+
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean improvement in classification accuracy across dataset domains (ResNet) best in bold. Nb: number of improved datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanImprov_ResNet}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & 3/8 & 1.4 & 1/8 & 1.3 & 4/8 & 4.4 & 1/8 & 1.9 & \textbf{5/8} & \textbf{1.0} & 1/8 & 8.9 & 1/8 & 13.7 & 2/8 & 0.3 & 3/8 & 2.0 \\
+    Image    & \textbf{22/30} & \textbf{3.7} & 8/30 & 1.5 & 4/30 & 8.2 & 5/30 & 1.8 & 11/30 & 1.6 & 3/30 & 4.0 & 11/30 & 11.8 & 10/30 & 2.5 & 17/30 & 2.9 \\
+    Simulated    & 1/8 & 0.6 & \textbf{4/8} & \textbf{0.8} & 2/8 & 11.3 & 1/8 & 0.6 & 3/8 & 0.4 & 2/8 & 1.3 & 3/8 & 3.0 & \textbf{4/8} & 0.8 & 2/8 & 0.8 \\
+    Spectro    & \textbf{5/8} & \textbf{16.4} & 1/8 & 0.4 & 2/8 & 10.8 & 2/8 & 1.6 & 2/8 & 4.2 & 1/8 & 3.3 & 3/8 & 17.7 & 3/8 & 2.6 & 4/8 & 7.5 \\
+    Sensor    & \textbf{12/19} & \textbf{2.8} & 4/19 & 0.6 & 2/19 & 11.2 & 3/19 & 0.3 & 6/19 & 1.9 & 5/19 & 2.5 & 5/19 & 18.4 & 4/19 & 3.9 & 8/19 & 2.0 \\
+    ECG    & \textbf{5/6} & \textbf{2.7} & 1/6 & 1.2 & 1/6 & 13.8 & 1/6 & 2.0 & 2/6 & 0.7 & 1/6 & 5.5 & 2/6 & 7.7 & 1/6 & 1.0 & 2/6 & 2.9 \\
+    EOG    & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 1/2 & 4.4 & 1/2 & 1.1 & \textbf{2/2} & \textbf{35.7} & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Motion    & \textbf{8/14} & \textbf{1.7} & 0/14 & 0.0 & 1/14 & 2.2 & 0/14 & 0.0 & 5/14 & 0.5 & 0/14 & 0.0 & 7/14 & 17.0 & 1/14 & 1.1 & 5/14 & 1.4 \\
+    EPG    & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Power    & \textbf{1/1} & \textbf{2.2} & \textbf{1/1} & 2.1 & 0/1 & 0.0 & \textbf{1/1} & 1.1 & \textbf{1/1} & 1.7 & 0/1 & 0.0 & 0/1 & 0.0 & \textbf{1/1} & \textbf{2.2} & \textbf{1/1} & 1.7 \\
+    Spectrum    & 2/4 & 4.4 & 1/4 & 4.9 & 3/4 & 5.1 & 1/4 & 0.7 & 2/4 & 2.6 & 0/4 & 0.0 & \textbf{4/4} & \textbf{29.1} & 0/4 & 0.0 & 2/4 & 2.5 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean worsened accuracy change across dataset domains (ResNet). Smallest reductions in bold. Nb: number of worsened datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanNegative_ResNet}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & 5/8 & -2.1 & 7/8 & -2.3 & 4/8 & -5.7 & 7/8 & -2.7 & \textbf{1/8} & \textbf{-3.2} & 7/8 & -2.6 & 7/8 & -15.5 & 5/8 & -3.7 & 5/8 & -2.2 \\
+    Image    & \textbf{7/30} & \textbf{-1.5} & 22/30 & -11.9 & 24/30 & -6.7 & 21/30 & -7.3 & 15/30 & -1.7 & 24/30 & -4.4 & 19/30 & -21.8 & 18/30 & -6.1 & 12/30 & -12.6 \\
+    Simulated    & 4/8 & -0.5 & 4/8 & -18.1 & 6/8 & -6.7 & 6/8 & -9.2 & \textbf{2/8} & \textbf{-0.4} & 6/8 & -2.6 & 5/8 & -28.8 & 3/8 & -3.3 & 6/8 & -9.4 \\
+    Spectro    & \textbf{0/8} & \textbf{0.0} & 7/8 & -8.6 & 6/8 & -20.6 & 5/8 & -5.2 & 5/8 & -5.3 & 5/8 & -5.1 & 5/8 & -23.3 & 4/8 & -5.7 & 3/8 & -1.6 \\
+    Sensor    & \textbf{5/19} & \textbf{-0.7} & 13/19 & -7.3 & 15/19 & -6.0 & 13/19 & -4.6 & 9/19 & -1.0 & 11/19 & -2.8 & 14/19 & -18.0 & 12/19 & -6.1 & 8/19 & -3.5 \\
+    ECG    & \textbf{0/6} & \textbf{0.0} & 5/6 & -18.3 & 4/6 & -25.3 & 5/6 & -13.1 & 4/6 & -2.2 & 4/6 & -7.2 & 4/6 & -36.0 & 5/6 & -5.4 & 4/6 & -16.6 \\
+    EOG    & 2/2 & -7.3 & 2/2 & -12.4 & 2/2 & -15.1 & 2/2 & -4.7 & 1/2 & -2.8 & 1/2 & -9.4 & \textbf{0/2} & \textbf{0.0} & 2/2 & -27.8 & 2/2 & -3.0 \\
+    Motion    & \textbf{2/14} & \textbf{-1.6} & 13/14 & -5.3 & 12/14 & -9.1 & 12/14 & -3.9 & 6/14 & -1.2 & 13/14 & -4.2 & 7/14 & -33.7 & 12/14 & -15.6 & 7/14 & -2.0 \\
+    EPG    & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & 2/2 & -2.8 & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} \\
+    Power    & \textbf{0/1} & \textbf{0.0} & \textbf{0/1} & \textbf{0.0} & 1/1 & -2.2 & \textbf{0/1} & \textbf{0.0} & \textbf{0/1} & \textbf{0.0} & 1/1 & -1.1 & 1/1 & -8.5 & \textbf{0/1} & \textbf{0.0} & \textbf{0/1} & \textbf{0.0} \\
+    Spectrum    & 2/4 & -2.9 & 3/4 & -5.0 & 1/4 & -6.0 & 3/4 & -5.9 & 2/4 & -6.1 & 3/4 & -1.7 & \textbf{0/4} & \textbf{0.0} & 4/4 & -8.3 & 2/4 & -4.7 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean improvement in classification accuracy across dataset domains (FCN) best in bold. Nb: number of improved datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanImprov_FCN}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & 4/8 & 3.5 & \textbf{5/8} & \textbf{3.2} & 1/8 & 7.2 & 4/8 & 0.7 & 4/8 & 0.9 & 4/8 & 1.0 & 4/8 & 20.2 & 3/8 & 0.9 & 4/8 & 2.7 \\
+    Image    & \textbf{17/30} & \textbf{3.1} & 13/30 & 3.8 & 2/30 & 7.3 & 9/30 & 2.9 & 12/30 & 2.3 & 14/30 & 2.1 & 13/30 & 17.0 & 11/30 & 3.2 & 15/30 & 3.5 \\
+    Simulated    & \textbf{5/8} & \textbf{0.4} & 3/8 & 2.8 & 3/8 & 3.6 & 0/8 & 0.0 & 3/8 & 0.6 & 0/8 & 0.0 & 1/8 & 12.6 & 4/8 & 0.9 & 0/8 & 0.0 \\
+    Spectro    & \textbf{8/8} & \textbf{12.1} & 4/8 & 3.6 & 2/8 & 11.3 & 5/8 & 3.7 & 2/8 & 6.8 & 2/8 & 1.4 & 4/8 & 8.3 & 3/8 & 4.8 & 3/8 & 3.7 \\
+    Sensor    & 7/19 & 1.8 & 7/19 & 2.4 & 3/19 & 10.1 & \textbf{9/19} & \textbf{2.4} & 6/19 & 1.2 & 8/19 & 1.9 & 4/19 & 19.9 & 6/19 & 3.4 & 7/19 & 2.1 \\
+    ECG    & \textbf{5/6} & \textbf{3.5} & 1/6 & 4.7 & 0/6 & 0.0 & 2/6 & 5.5 & 4/6 & 2.5 & 4/6 & 3.7 & 2/6 & 10.4 & 4/6 & 4.8 & 1/6 & 9.2 \\
+    EOG    & \textbf{1/2} & 1.9 & 0/2 & 0.0 & 0/2 & 0.0 & \textbf{1/2} & 1.1 & 0/2 & 0.0 & \textbf{1/2} & 1.1 & \textbf{1/2} & \textbf{39.3} & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Motion    & 7/14 & 2.1 & 1/14 & 0.5 & 2/14 & 3.3 & 6/14 & 1.8 & 6/14 & 1.3 & \textbf{9/14} & 2.9 & \textbf{9/14} & \textbf{13.6} & 3/14 & 1.7 & \textbf{9/14} & 2.8 \\
+    EPG    & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Power    & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & \textbf{1/1} & \textbf{1.7} & 0/1 & 0.0 & \textbf{1/1} & 0.6 & 0/1 & 0.0 & \textbf{1/1} & \textbf{1.7} & \textbf{1/1} & 0.6 \\
+    Spectrum    & 2/4 & 5.7 & 2/4 & 5.5 & 1/4 & 6.8 & 1/4 & 9.3 & \textbf{4/4} & 4.0 & 1/4 & 7.5 & \textbf{4/4} & \textbf{25.2} & 1/4 & 0.7 & 2/4 & 8.9 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean worsened accuracy change across dataset domains (FCN). Smallest reductions in bold. Nb: number of worsened datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanNegative_FCN}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & 4/8 & -2.2 & \textbf{3/8} & -5.8 & 7/8 & -9.0 & 4/8 & -4.2 & 4/8 & -3.7 & 4/8 & -3.2 & 4/8 & -27.9 & \textbf{3/8} & -3.8 & \textbf{3/8} & \textbf{-3.0} \\
+    Image    & \textbf{12/30} & -3.1 & 17/30 & -22.6 & 28/30 & -15.9 & 20/30 & -3.0 & 16/30 & -1.7 & \textbf{12/30} & \textbf{-2.0} & 17/30 & -20.0 & 17/30 & -5.1 & 13/30 & -10.2 \\
+    Simulated    & \textbf{1/8} & \textbf{-1.4} & 3/8 & -20.3 & 5/8 & -18.2 & 6/8 & -1.6 & 5/8 & -1.0 & 4/8 & -2.8 & 6/8 & -20.2 & 2/8 & -5.8 & 6/8 & -10.4 \\
+    Spectro    & \textbf{0/8} & \textbf{0.0} & 4/8 & -11.7 & 6/8 & -30.4 & 2/8 & -6.1 & 4/8 & -4.3 & 4/8 & -4.9 & 4/8 & -24.5 & 3/8 & -3.2 & 3/8 & -2.7 \\
+    Sensor    & 9/19 & -1.6 & 10/19 & -8.4 & 16/19 & -10.5 & \textbf{7/19} & -2.2 & \textbf{7/19} & \textbf{-1.1} & 8/19 & -1.7 & 15/19 & -25.0 & 9/19 & -5.4 & 9/19 & -2.3 \\
+    ECG    & \textbf{1/6} & \textbf{-2.0} & 5/6 & -19.7 & 6/6 & -22.0 & 4/6 & -2.3 & 2/6 & -9.5 & 2/6 & -2.6 & 4/6 & -13.1 & 2/6 & -7.3 & 4/6 & -12.3 \\
+    EOG    & 1/2 & -1.1 & 2/2 & -8.6 & 2/2 & -16.0 & 1/2 & -0.6 & 2/2 & -1.0 & \textbf{0/2} & \textbf{0.0} & 1/2 & -11.3 & 2/2 & -27.1 & 2/2 & -6.2 \\
+    Motion    & 5/14 & -3.8 & 12/14 & -6.4 & 11/14 & -12.7 & 7/14 & -3.1 & 5/14 & -1.0 & \textbf{3/14} & \textbf{-1.8} & 5/14 & -26.4 & 8/14 & -14.5 & \textbf{3/14} & -3.9 \\
+    EPG    & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} & 2/2 & -11.1 & \textbf{0/2} & \textbf{0.0} & \textbf{0/2} & \textbf{0.0} \\
+    Power    & \textbf{0/1} & \textbf{0.0} & 1/1 & -1.1 & 1/1 & -3.9 & \textbf{0/1} & \textbf{0.0} & 1/1 & -0.6 & \textbf{0/1} & \textbf{0.0} & 1/1 & -89.6 & \textbf{0/1} & \textbf{0.0} & \textbf{0/1} & \textbf{0.0} \\
+    Spectrum    & 1/4 & -2.0 & 2/4 & -4.2 & 3/4 & -6.1 & 2/4 & -4.2 & \textbf{0/4} & \textbf{0.0} & 2/4 & -5.0 & \textbf{0/4} & \textbf{0.0} & 3/4 & -15.9 & 2/4 & -4.7 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean improvement in classification accuracy across dataset domains (Moment) best in bold. Nb: number of improved datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanImprov_Moment}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & \textbf{6/8} & \textbf{2.1} & 3/8 & 1.5 & 5/8 & 15.1 & 1/8 & 0.1 & 1/8 & 2.4 & 2/8 & 0.7 & 2/8 & 0.9 & 2/8 & 0.5 & 1/8 & 0.5 \\
+    Image    & \textbf{24/30} & \textbf{3.5} & 11/30 & 4.5 & 16/30 & 5.8 & 9/30 & 2.8 & 9/30 & 4.8 & 10/30 & 3.6 & 12/30 & 3.8 & 14/30 & 3.9 & 12/30 & 3.8 \\
+    Simulated    & \textbf{4/8} & 4.0 & 1/8 & 2.3 & \textbf{4/8} & \textbf{9.8} & 2/8 & 0.8 & 1/8 & 2.7 & 2/8 & 4.5 & 3/8 & 4.1 & 3/8 & 3.3 & \textbf{4/8} & 3.1 \\
+    Spectro    & \textbf{5/8} & \textbf{5.0} & 1/8 & 1.1 & 4/8 & 7.1 & 0/8 & 0.0 & 0/8 & 0.0 & 0/8 & 0.0 & 0/8 & 0.0 & 1/8 & 3.6 & 0/8 & 0.0 \\
+    Sensor    & \textbf{13/19} & \textbf{6.1} & 5/19 & 2.7 & 9/19 & 9.1 & 6/19 & 2.2 & 10/19 & 3.8 & 9/19 & 2.3 & 8/19 & 5.4 & 11/19 & 4.0 & 9/19 & 2.6 \\
+    ECG    & \textbf{4/6} & 2.7 & 1/6 & 0.4 & 3/6 & 7.6 & 2/6 & 3.3 & 2/6 & 0.9 & 2/6 & 0.7 & \textbf{4/6} & 1.4 & \textbf{4/6} & \textbf{2.9} & 2/6 & 2.1 \\
+    EOG    & \textbf{1/2} & \textbf{3.0} & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Motion    & \textbf{11/14} & \textbf{2.4} & 4/14 & 3.1 & 5/14 & 4.6 & 3/14 & 0.8 & 3/14 & 3.8 & 4/14 & 2.1 & 4/14 & 2.6 & 5/14 & 2.8 & 6/14 & 2.5 \\
+    EPG    & 1/2 & 5.2 & 1/2 & 1.2 & \textbf{2/2} & \textbf{7.6} & 1/2 & 1.2 & 0/2 & 0.0 & 0/2 & 0.0 & 1/2 & 2.4 & 0/2 & 0.0 & 0/2 & 0.0 \\
+    Power    & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 & 0/1 & 0.0 \\
+    Spectrum    & \textbf{3/4} & \textbf{4.4} & 1/4 & 4.0 & 2/4 & 5.4 & 1/4 & 2.8 & 1/4 & 0.8 & 2/4 & 2.1 & 1/4 & 12.0 & 1/4 & 0.3 & 1/4 & 2.0 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Mean worsened accuracy change across dataset domains (Moment). Smallest reductions in bold. Nb: number of worsened datasets out of the domain total, $\Delta$: their mean accuracy change in percentage points.}\label{Tab:MeanNegative_Moment}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Type} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Device    & \textbf{1/8} & \textbf{-0.5} & 5/8 & -1.6 & 3/8 & -4.5 & 7/8 & -2.4 & 7/8 & -3.4 & 5/8 & -2.3 & 6/8 & -1.9 & 5/8 & -2.5 & 6/8 & -1.7 \\
+    Image    & \textbf{5/30} & \textbf{-1.1} & 18/30 & -11.7 & 12/30 & -9.8 & 19/30 & -6.0 & 21/30 & -10.9 & 20/30 & -4.9 & 17/30 & -5.6 & 16/30 & -4.2 & 17/30 & -3.7 \\
+    Simulated    & \textbf{2/8} & \textbf{-0.8} & 6/8 & -15.3 & 4/8 & -12.4 & 5/8 & -9.8 & 6/8 & -12.6 & 6/8 & -9.4 & 5/8 & -8.5 & 4/8 & -12.4 & 4/8 & -9.9 \\
+    Spectro    & \textbf{2/8} & \textbf{-7.2} & 6/8 & -15.4 & 4/8 & -24.2 & 7/8 & -13.8 & 7/8 & -9.5 & 6/8 & -10.2 & 7/8 & -8.1 & 6/8 & -8.7 & 6/8 & -5.9 \\
+    Sensor    & \textbf{4/19} & \textbf{-0.8} & 13/19 & -6.9 & 7/19 & -9.7 & 12/19 & -5.5 & 7/19 & -5.0 & 9/19 & -4.1 & 9/19 & -5.4 & 8/19 & -3.3 & 9/19 & -4.0 \\
+    ECG    & \textbf{1/6} & \textbf{-0.1} & 5/6 & -7.8 & 3/6 & -4.2 & 4/6 & -4.6 & 4/6 & -31.2 & 4/6 & -4.2 & 2/6 & -59.1 & \textbf{1/6} & -1.6 & 4/6 & -20.9 \\
+    EOG    & \textbf{1/2} & \textbf{-1.1} & 2/2 & -10.2 & 2/2 & -12.6 & 2/2 & -9.0 & 2/2 & -9.4 & 2/2 & -10.4 & 2/2 & -7.3 & 2/2 & -8.8 & 2/2 & -7.5 \\
+    Motion    & \textbf{2/14} & \textbf{-0.9} & 9/14 & -3.8 & 8/14 & -15.9 & 10/14 & -4.2 & 10/14 & -25.2 & 8/14 & -5.2 & 9/14 & -2.6 & 7/14 & -4.1 & 5/14 & -3.8 \\
+    EPG    & \textbf{0/2} & \textbf{0.0} & 1/2 & -4.8 & \textbf{0/2} & \textbf{0.0} & 1/2 & -15.3 & 2/2 & -5.2 & 2/2 & -3.8 & 1/2 & -12.4 & 1/2 & -3.6 & 2/2 & -8.4 \\
+    Power    & \textbf{1/1} & \textbf{-2.8} & \textbf{1/1} & -3.3 & \textbf{1/1} & -4.4 & \textbf{1/1} & \textbf{-2.8} & \textbf{1/1} & -4.4 & \textbf{1/1} & -3.9 & \textbf{1/1} & -4.4 & \textbf{1/1} & -6.1 & \textbf{1/1} & -6.1 \\
+    Spectrum    & \textbf{1/4} & \textbf{-0.2} & 3/4 & -3.9 & 2/4 & -14.9 & 2/4 & -1.6 & 3/4 & -5.0 & 2/4 & -1.7 & 3/4 & -1.6 & 3/4 & -4.1 & 3/4 & -1.1 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Macro-domain breakdown -- ResNet: number of improved datasets (Nb) out of total per macro-domain, and net mean accuracy change ($\Delta$, percentage points). Macro-domains group the 11 UCR raw types as follows: Industrial = Sensor + Device + Simulated + Power, Spectral = Spectro + Spectrum, Biomedical = ECG + EPG + EOG, Image and Motion are unchanged.}\label{Tab:Macro_ResNet}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Industrial    & 17/36 & 0.7 & 10/36 & -4.8 & 8/36 & -2.6 & 6/36 & -3.6 & 15/36 & 0.2 & 8/36 & -1.2 & 9/36 & -11.1 & 11/36 & -2.2 & 14/36 & -1.9 \\
+    Image    & 22/30 & 2.4 & 8/30 & -8.3 & 4/30 & -4.3 & 5/30 & -4.8 & 11/30 & -0.3 & 3/30 & -3.1 & 11/30 & -9.5 & 10/30 & -2.8 & 17/30 & -3.4 \\
+    Motion    & 8/14 & 0.8 & 0/14 & -4.9 & 1/14 & -7.6 & 0/14 & -3.3 & 5/14 & -0.3 & 0/14 & -3.9 & 7/14 & -8.3 & 1/14 & -13.3 & 5/14 & -0.5 \\
+    Spectral    & 7/12 & 7.1 & 2/12 & -5.8 & 5/12 & -7.7 & 3/12 & -3.3 & 4/12 & -2.1 & 1/12 & -2.3 & 7/12 & 4.4 & 3/12 & -4.0 & 6/12 & 1.7 \\
+    Biomedical    & 5/10 & -0.1 & 1/10 & -11.5 & 1/10 & -11.7 & 1/10 & -7.3 & 3/10 & -0.6 & 2/10 & -3.2 & 4/10 & -6.3 & 1/10 & -8.2 & 2/10 & -6.7 \\
+        \bottomrule
+        \end{tabular}}}
+
+\end{table}
+\begin{table}[!htbp]
+\centering
+    \caption{As \tablename~\ref{Tab:Macro_ResNet}, for FCN.}\label{Tab:Macro_FCN}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Industrial    & 16/36 & 0.1 & 15/36 & -3.4 & 7/36 & -7.7 & 14/36 & -0.4 & 13/36 & -0.4 & 13/36 & -0.5 & 9/36 & -14.6 & 14/36 & -1.2 & 12/36 & -1.9 \\
+    Image    & 17/30 & 0.5 & 13/30 & -11.2 & 2/30 & -14.3 & 9/30 & -1.2 & 12/30 & 0.0 & 14/30 & 0.2 & 13/30 & -4.0 & 11/30 & -1.7 & 15/30 & -2.7 \\
+    Motion    & 7/14 & -0.3 & 1/14 & -5.5 & 2/14 & -9.5 & 6/14 & -0.8 & 6/14 & 0.2 & 9/14 & 1.5 & 9/14 & -0.7 & 3/14 & -7.9 & 9/14 & 1.0 \\
+    Spectral    & 10/12 & 8.9 & 6/12 & -2.5 & 3/12 & -14.3 & 6/12 & 0.6 & 6/12 & 1.0 & 3/12 & -1.6 & 8/12 & 3.0 & 4/12 & -3.5 & 5/12 & 1.0 \\
+    Biomedical    & 6/10 & 1.6 & 1/10 & -11.1 & 0/10 & -16.4 & 3/10 & 0.2 & 4/10 & -1.1 & 5/10 & 1.1 & 3/10 & -2.6 & 4/10 & -4.9 & 1/10 & -5.2 \\
+        \bottomrule
+        \end{tabular}}}
+
+\end{table}
+\begin{table}[!htbp]
+\centering
+    \caption{As \tablename~\ref{Tab:Macro_ResNet}, for Moment.}\label{Tab:Macro_Moment}
+    {\footnotesize\setlength{\tabcolsep}{2.5pt}%
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccccccccccccccccc@{}}
+        \toprule
+        \textbf{Macro} & \multicolumn{2}{c}{\textbf{ASCENSION}} & \multicolumn{2}{c}{\textbf{Diffusion-TS}} & \multicolumn{2}{c}{\textbf{FAA}} & \multicolumn{2}{c}{\textbf{ImagenTime}} & \multicolumn{2}{c}{\textbf{KoVAE}} & \multicolumn{2}{c}{\textbf{LA}} & \multicolumn{2}{c}{\textbf{Time-DDPM}} & \multicolumn{2}{c}{\textbf{TTS-GAN}} & \multicolumn{2}{c}{\textbf{VaDE}} \\
+        \cmidrule(r){2-3} \cmidrule(r){4-5} \cmidrule(r){6-7} \cmidrule(r){8-9} \cmidrule(r){10-11} \cmidrule(r){12-13} \cmidrule(r){14-15} \cmidrule(r){16-17} \cmidrule(r){18-19}
+        & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ & Nb & $\Delta$ \\
+        \midrule
+    Industrial    & 23/36 & 2.8 & 9/36 & -4.8 & 18/36 & 1.7 & 9/36 & -3.3 & 12/36 & -2.7 & 13/36 & -2.1 & 13/36 & -1.4 & 16/36 & -1.1 & 14/36 & -1.6 \\
+    Image    & 24/30 & 2.6 & 11/30 & -5.4 & 16/30 & -0.8 & 9/30 & -3.0 & 9/30 & -6.2 & 10/30 & -2.0 & 12/30 & -1.6 & 14/30 & -0.4 & 12/30 & -0.6 \\
+    Motion    & 11/14 & 1.8 & 4/14 & -1.6 & 5/14 & -7.4 & 3/14 & -2.8 & 3/14 & -17.2 & 4/14 & -2.4 & 4/14 & -0.9 & 5/14 & -1.1 & 6/14 & -0.3 \\
+    Spectral    & 8/12 & 2.0 & 2/12 & -8.3 & 6/12 & -7.3 & 1/12 & -8.1 & 1/12 & -6.8 & 2/12 & -5.0 & 1/12 & -4.1 & 2/12 & -5.1 & 1/12 & -3.1 \\
+    Biomedical    & 6/10 & 1.8 & 2/10 & -6.3 & 5/10 & 0.0 & 3/10 & -4.4 & 2/10 & -15.2 & 2/10 & -4.4 & 5/10 & -13.7 & 4/10 & -1.1 & 2/10 & -11.1 \\
+        \bottomrule
+        \end{tabular}}}
+\end{table}
+
+
+
+% Hyperparameter Sensitivity Analysis
+%\input{sections/appendix/hyperparameter_sensibility_analysis}
+
 
 \paragraph{Augmentation budget.}
 % REVISED FOR TMLR (erratum, one-to-one budget)
 All methods use the same per-class generation budget, which follows the empirical class distribution: at each outer iteration, $|\mathcal{I}_y|$ candidate samples are drawn per class $y$, one per real sample, $n$ in total. Baselines add all $n$ candidates to the training set. For ASCENSION, the Bayes-region rejection step (Definition~\ref{def:bayes-region}) discards out-of-region candidates, so the realised number of synthetic samples that ASCENSION adds to the training set is in practice smaller than this budget and varies across datasets (median acceptance rate $\approx 0.71$-$0.73$, see Appendix~\ref{app:acceptance}).
 
-\begin{table}[H]
+\begin{table}[p]
 \centering
 % REVISED FOR TMLR (rebuttal C1)
-\caption{Best $(\text{iter.}, \alpha)$ configuration per dataset for the ResNet classifier in \tablename~\ref{tab:best-config}, with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$).}\label{Tab:app:bestconfig:resnet}
+\caption{Best $(\text{iter.}, \alpha)$ configuration per dataset for each of the three classifiers in \tablename~\ref{tab:best-config}, with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$). Dataset names for each D-id are given in \tablename~\ref{Tab:app:dataset_list}.}\label{Tab:app:bestconfig}
+\footnotesize
 \setlength{\tabcolsep}{3pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lr | lr || lr | lr}
+\begin{tabular}{l|lr|lr|lr||l|lr|lr|lr}
 \toprule
-\# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & \# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ \\
+ & \multicolumn{2}{c|}{ResNet} & \multicolumn{2}{c|}{FCN} & \multicolumn{2}{c||}{Moment} & & \multicolumn{2}{c|}{ResNet} & \multicolumn{2}{c|}{FCN} & \multicolumn{2}{c}{Moment} \\
+\# & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & \# & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ \\
 \midrule
-D1 & ACSF1 & (2, 3.2) & 0.03 & D52 & Meat & (1, 1.5) & -0.00 \\
-D2 & Adiac & (1, 2) & 0.02 & D53 & MedicalImages & (1, 4.2) & 0.02 \\
-D3 & ArrowHead & (3, 4.7) & 0.02 & D54 & MiddlePhalanxOutlineAgeGroup & (2, 4.9) & 0.01 \\
-D4 & BME & (3, 1.2) & -0.01 & D55 & MiddlePhalanxOutlineCorrect & (1, 3.7) & -0.01 \\
-D5 & Beef & (1, 1.3) & 0.20 & D56 & MiddlePhalanxTW & (1, 4) & 0.01 \\
-D6 & BeetleFly & (1, 1.2) & 0.00 & D57 & MixedShapesRegularTrain & (1, 1.3) & 0.01 \\
-D7 & BirdChicken & (2, 3.4) & 0.25 & D58 & MixedShapesSmallTrain & (1, 1.5) & 0.02 \\
-D8 & Car & (1, 1.2) & 0.07 & D59 & MoteStrain & (2, 1.8) & 0.00 \\
-D9 & CBF & (1, 1.1) & -0.00 & D60 & NonInvasiveFetalECGThorax1 & (1, 1.5) & 0.03 \\
-D10 & ChlorineConcentration & (3, 2.2) & 0.03 & D61 & NonInvasiveFetalECGThorax2 & (1, 4.4) & 0.01 \\
-D11 & CinCECGTorso & (3, 4) & 0.01 & D62 & OSULeaf & (1, 1) & -0.02 \\
-D12 & Coffee & (2, 4.3) & 0.00 & D63 & OliveOil & (2, 1.7) & 0.07 \\
-D13 & Computers & (1, 4.4) & 0.02 & D64 & PhalangesOutlinesCorrect & (2, 4.5) & -0.01 \\
-D14 & Crop & (3, 3.4) & 0.01 & D65 & Plane & (1, 4.1) & 0.00 \\
-D15 & DistalPhalanxOutlineAgeGroup & (2, 3.9) & -0.01 & D66 & PowerCons & (1, 3.9) & 0.02 \\
-D16 & DistalPhalanxOutlineCorrect & (1, 3.3) & 0.02 & D67 & ProximalPhalanxOutlineAgeGroup & (2, 3.7) & 0.01 \\
-D17 & DistalPhalanxTW & (1, 2.9) & 0.01 & D68 & ProximalPhalanxOutlineCorrect & (3, 3.6) & -0.01 \\
-D18 & ECG200 & (1, 1.1) & 0.00 & D69 & ProximalPhalanxTW & (1, 4.6) & 0.02 \\
-D19 & ECG5000 & (1, 2.5) & 0.00 & D70 & RefrigerationDevices & (1, 2.8) & -0.02 \\
-D20 & ECGFiveDays & (2, 4.6) & 0.08 & D71 & Rock & (2, 3) & 0.06 \\
-D21 & EOGHorizontalSignal & (2, 4.7) & -0.11 & D72 & ScreenType & (1, 2.4) & -0.02 \\
-D22 & EOGVerticalSignal & (2, 4.3) & -0.03 & D73 & SemgHandGenderCh2 & (1, 1.5) & 0.03 \\
-D23 & Earthquakes & (3, 3.6) & 0.03 & D74 & SemgHandMovementCh2 & (1, 4.2) & -0.02 \\
-D24 & ElectricDevices & (3, 2.9) & -0.02 & D75 & SemgHandSubjectCh2 & (2, 1.4) & -0.04 \\
-D25 & EthanolLevel & (2, 4.2) & 0.38 & D76 & ShapeletSim & (1, 2.8) & -0.01 \\
-D26 & FaceAll & (1, 2) & 0.09 & D77 & ShapesAll & (1, 3.3) & 0.02 \\
-D27 & FaceFour & (1, 2.9) & 0.09 & D78 & SmallKitchenAppliances & (2, 4.7) & 0.02 \\
-D28 & FacesUCR & (1, 3.7) & -0.01 & D79 & SmoothSubspace & (2, 1.3) & -0.01 \\
-D29 & Fish & (1, 3.7) & 0.10 & D80 & SonyAIBORobotSurface1 & (1, 3.4) & 0.00 \\
-D30 & FordA & (1, 1.5) & -0.00 & D81 & SonyAIBORobotSurface2 & (3, 1.3) & -0.00 \\
-D31 & FordB & (1, 1.5) & 0.02 & D82 & StarlightCurves & (1, 1.5) & -0.01 \\
-D32 & FreezerRegularTrain & (2, 1.6) & 0.00 & D83 & Strawberry & (1, 3.9) & 0.00 \\
-D33 & FreezerSmallTrain & (1, 2.8) & -0.04 & D84 & SwedishLeaf & (1, 1.9) & 0.00 \\
-D34 & GunPoint & (1, 3.6) & 0.01 & D85 & Symbols & (2, 2.2) & 0.02 \\
-D35 & GunPointAgeSpan & (1, 4.4) & -0.00 & D86 & SyntheticControl & (1, 2.7) & -0.00 \\
-D36 & GunPointMaleVersusFemale & (1, 2.1) & 0.00 & D87 & ToeSegmentation1 & (1, 2.5) & -0.01 \\
-D37 & GunPointOldVersusYoung & (1, 3.2) & 0.00 & D88 & ToeSegmentation2 & (2, 2.5) & 0.00 \\
-D38 & Ham & (3, 1.7) & 0.05 & D89 & Trace & (1, 2.7) & 0.00 \\
-D39 & HandOutlines & (1, 1.6) & 0.00 & D90 & TwoLeadECG & (1, 1.1) & 0.06 \\
-D40 & Haptics & (1, 1.6) & 0.03 & D91 & TwoPatterns & (1, 3.8) & 0.01 \\
-D41 & Herring & (1, 2.2) & 0.05 & D92 & UMD & (2, 3.4) & 0.00 \\
-D42 & HouseTwenty & (2, 3.5) & 0.03 & D93 & UWaveGestureLibraryAll & (1, 3.9) & 0.02 \\
-D43 & InlineSkate & (1, 1.5) & -0.02 & D94 & UWaveGestureLibraryX & (1, 3) & 0.02 \\
-D44 & InsectWingbeatSound & (3, 2) & 0.00 & D95 & UWaveGestureLibraryY & (1, 1.9) & 0.01 \\
-D45 & InsectEPGRegularTrain & (1, 1) & 0.00 & D96 & UWaveGestureLibraryZ & (1, 4.5) & 0.01 \\
-D46 & InsectEPGSmallTrain & (1, 2.7) & 0.00 & D97 & Wafer & (1, 1.5) & 0.00 \\
-D47 & ItalyPowerDemand & (1, 3) & -0.00 & D98 & Wine & (1, 2.1) & 0.13 \\
-D48 & LargeKitchenAppliances & (2, 5) & -0.01 & D99 & WordSynonyms & (1, 2.9) & -0.03 \\
-D49 & Lightning2 & (2, 3.7) & 0.05 & D100 & Worms & (1, 4.7) & 0.04 \\
-D50 & Lightning7 & (2, 4.9) & -0.01 & D101 & WormsTwoClass & (2, 3.7) & 0.00 \\
-D51 & Mallat & (1, 4.7) & -0.00 & D102 & Yoga & (1, 1.7) & 0.02 \\
+D1 & (2, 3.2) & 0.03 & (2, 1.5) & 0.02 & (1, 3.8) & 0.00 & D52 & (1, 1.5) & 0.00 & (1, 1.7) & 0.02 & (2, 3.5) & 0.05 \\
+D2 & (1, 2) & 0.02 & (1, 2.6) & 0.04 & (1, 4.4) & 0.01 & D53 & (1, 4.2) & 0.02 & (1, 1.5) & -0.03 & (1, 3.5) & 0.02 \\
+D3 & (3, 4.7) & 0.02 & (3, 1.4) & -0.02 & (1, 1.9) & 0.01 & D54 & (2, 4.9) & 0.01 & (1, 2) & -0.01 & (1, 2.5) & 0.03 \\
+D4 & (3, 1.2) & -0.01 & (2, 1.7) & 0.01 & (1, 1.9) & 0.08 & D55 & (1, 3.7) & -0.01 & (1, 1.8) & 0.02 & (2, 3.7) & 0.00 \\
+D5 & (1, 1.3) & 0.20 & (1, 2.9) & 0.23 & (1, 2.7) & 0.07 & D56 & (1, 4) & 0.01 & (1, 1.7) & 0.03 & (1, 3.2) & 0.04 \\
+D6 & (1, 1.2) & 0.00 & (1, 1.7) & 0.05 & (3, 2.3) & 0.15 & D57 & (1, 1.3) & 0.01 & (1, 1.5) & 0.01 & (1, 1.9) & 0.00 \\
+D7 & (2, 3.4) & 0.25 & (3, 2.3) & 0.20 & (2, 1.7) & 0.10 & D58 & (1, 1.5) & 0.02 & (1, 1.3) & -0.05 & (2, 1.9) & 0.00 \\
+D8 & (1, 1.2) & 0.07 & (1, 1) & -0.02 & (1, 3.6) & -0.02 & D59 & (2, 1.8) & 0.00 & (1, 2.4) & 0.01 & (2, 1.6) & 0.06 \\
+D9 & (1, 1.1) & 0.00 & (1, 1.1) & 0.00 & (1, 1.3) & 0.00 & D60 & (1, 1.5) & 0.03 & (1, 1.2) & 0.06 & (1, 2.3) & 0.00 \\
+D10 & (3, 2.2) & 0.03 & (1, 1.3) & -0.02 & (1, 4.3) & 0.06 & D61 & (1, 4.4) & 0.01 & (2, 1.5) & 0.07 & (1, 2.7) & 0.00 \\
+D11 & (3, 4) & 0.01 & (2, 1) & 0.03 & (1, 3.7) & 0.00 & D62 & (1, 1) & -0.02 & (1, 1.8) & -0.16 & (2, 2.9) & 0.05 \\
+D12 & (2, 4.3) & 0.00 & (1, 2.1) & 0.07 & (1, 4.5) & 0.04 & D63 & (2, 1.7) & 0.07 & (2, 1.6) & 0.07 & (2, 2.9) & 0.00 \\
+D13 & (1, 4.4) & 0.02 & (1, 1.5) & 0.09 & (1, 2.5) & 0.03 & D64 & (2, 4.5) & -0.01 & (2, 2) & 0.01 & (1, 3.2) & 0.03 \\
+D14 & (3, 3.4) & 0.01 & (2, 1.3) & 0.01 & (1, 4.4) & 0.00 & D65 & (1, 4.1) & 0.00 & (1, 2.8) & 0.00 & (1, 3) & 0.01 \\
+D15 & (2, 3.9) & -0.01 & (1, 1.1) & 0.01 & (1, 2.7) & 0.06 & D66 & (1, 3.9) & 0.02 & (1, 2.2) & 0.00 & (2, 1.9) & -0.03 \\
+D16 & (1, 3.3) & 0.02 & (2, 1.2) & -0.01 & (3, 1.5) & 0.03 & D67 & (2, 3.7) & 0.01 & (1, 1.4) & 0.01 & (2, 1.7) & 0.05 \\
+D17 & (1, 2.9) & 0.01 & (3, 1.2) & -0.01 & (1, 4) & -0.01 & D68 & (3, 3.6) & -0.01 & (1, 1.8) & 0.01 & (1, 4.5) & 0.01 \\
+D18 & (1, 1.1) & 0.00 & (3, 1.7) & -0.02 & (1, 1.7) & 0.02 & D69 & (1, 4.6) & 0.02 & (1, 4.7) & 0.00 & (1, 3.2) & 0.02 \\
+D19 & (1, 2.5) & 0.00 & (1, 2.5) & 0.00 & (1, 4.6) & 0.00 & D70 & (1, 2.8) & -0.02 & (2, 1.1) & 0.03 & (1, 3.9) & -0.01 \\
+D20 & (2, 4.6) & 0.08 & (3, 4) & 0.02 & (1, 2.9) & 0.08 & D71 & (2, 3) & 0.06 & (1, 3.2) & 0.04 & (1, 4.4) & 0.12 \\
+D21 & (2, 4.7) & -0.11 & (1, 1.4) & -0.01 & (1, 2) & -0.01 & D72 & (1, 2.4) & -0.02 & (1, 2.3) & -0.01 & (1, 2.8) & 0.00 \\
+D22 & (2, 4.3) & -0.03 & (2, 1.2) & 0.02 & (2, 2.9) & 0.03 & D73 & (1, 1.5) & 0.03 & (2, 1.5) & 0.07 & (2, 1.2) & 0.01 \\
+D23 & (3, 3.6) & 0.03 & (1, 2.2) & -0.01 & (3, 2.2) & 0.03 & D74 & (1, 4.2) & -0.02 & (1, 1.4) & -0.02 & (1, 3.4) & 0.00 \\
+D24 & (3, 2.9) & -0.02 & (1, 1.5) & 0.02 & (1, 4.6) & 0.01 & D75 & (2, 1.4) & -0.04 & (1, 1.6) & 0.00 & (1, 1.3) & 0.01 \\
+D25 & (2, 4.2) & 0.38 & (1, 4.8) & 0.43 & (2, 3.2) & 0.01 & D76 & (1, 2.8) & -0.01 & (1, 2.1) & 0.00 & (1, 2.8) & -0.01 \\
+D26 & (1, 2) & 0.09 & (1, 1.2) & 0.00 & (1, 2.2) & 0.01 & D77 & (1, 3.3) & 0.02 & (3, 2.9) & 0.05 & (1, 1.6) & 0.01 \\
+D27 & (1, 2.9) & 0.09 & (1, 1.4) & -0.01 & (1, 3.6) & 0.05 & D78 & (2, 4.7) & 0.02 & (2, 1.3) & 0.00 & (1, 3.5) & 0.02 \\
+D28 & (1, 3.7) & -0.01 & (1, 1.9) & 0.01 & (1, 2.6) & -0.01 & D79 & (2, 1.3) & -0.01 & (2, 2.4) & 0.00 & (1, 3) & 0.01 \\
+D29 & (1, 3.7) & 0.10 & (2, 1.2) & -0.03 & (1, 2.8) & -0.01 & D80 & (1, 3.4) & 0.00 & (1, 2.2) & 0.02 & (3, 2.3) & 0.27 \\
+D30 & (1, 1.5) & 0.00 & (1, 1.5) & 0.00 & (1, 1.5) & 0.00 & D81 & (3, 1.3) & 0.00 & (2, 2.4) & 0.02 & (2, 4.3) & 0.08 \\
+D31 & (1, 1.5) & 0.02 & (1, 1.2) & 0.00 & (1, 4) & 0.00 & D82 & (1, 1.5) & -0.01 & (2, 1.3) & -0.02 & (1, 4.3) & 0.01 \\
+D32 & (2, 1.6) & 0.00 & (1, 1.4) & 0.00 & (1, 3.2) & 0.00 & D83 & (1, 3.9) & 0.00 & (2, 4.9) & 0.01 & (1, 5) & -0.03 \\
+D33 & (1, 2.8) & -0.04 & (1, 1) & -0.03 & (2, 4.3) & 0.05 & D84 & (1, 1.9) & 0.00 & (1, 1.5) & -0.05 & (1, 4.4) & 0.01 \\
+D34 & (1, 3.6) & 0.01 & (2, 1.7) & 0.01 & (1, 2.6) & 0.03 & D85 & (2, 2.2) & 0.02 & (1, 1.1) & 0.00 & (1, 4.4) & 0.01 \\
+D35 & (1, 4.4) & 0.00 & (1, 3.4) & 0.00 & (1, 4.4) & 0.01 & D86 & (1, 2.7) & 0.00 & (2, 1.8) & 0.00 & (1, 4.4) & 0.00 \\
+D36 & (1, 2.1) & 0.00 & (2, 1) & 0.01 & (2, 4.8) & 0.00 & D87 & (1, 2.5) & -0.01 & (1, 1.1) & 0.00 & (1, 1.3) & 0.01 \\
+D37 & (1, 3.2) & 0.00 & (1, 4.4) & 0.00 & (1, 3.6) & 0.00 & D88 & (2, 2.5) & 0.00 & (2, 4.6) & 0.03 & (1, 3.5) & 0.04 \\
+D38 & (3, 1.7) & 0.05 & (1, 3) & 0.03 & (1, 1.2) & 0.09 & D89 & (1, 2.7) & 0.00 & (2, 1.9) & 0.00 & (1, 4.5) & -0.01 \\
+D39 & (1, 1.6) & 0.00 & (1, 1) & 0.01 & (1, 2.9) & 0.00 & D90 & (1, 1.1) & 0.06 & (1, 2.3) & 0.03 & (2, 1.2) & 0.13 \\
+D40 & (1, 1.6) & 0.03 & (3, 1.4) & -0.01 & (2, 3.4) & 0.09 & D91 & (1, 3.8) & 0.01 & (1, 1.5) & 0.00 & (1, 2.6) & 0.00 \\
+D41 & (1, 2.2) & 0.05 & (1, 1.2) & 0.06 & (1, 4.8) & 0.14 & D92 & (2, 3.4) & 0.00 & (1, 2.8) & -0.01 & (1, 3.6) & 0.00 \\
+D42 & (2, 3.5) & 0.03 & (1, 1.6) & 0.01 & (1, 1.5) & 0.00 & D93 & (1, 3.9) & 0.02 & (1, 1.6) & -0.10 & (1, 1.2) & 0.00 \\
+D43 & (1, 1.5) & -0.02 & (1, 1.2) & -0.01 & (1, 2.1) & 0.05 & D94 & (1, 3) & 0.02 & (2, 1.1) & 0.01 & (1, 2.4) & 0.00 \\
+D44 & (3, 2) & 0.00 & (1, 1.1) & -0.03 & (1, 3.5) & 0.01 & D95 & (1, 1.9) & 0.01 & (2, 1.3) & -0.04 & (1, 3.2) & 0.00 \\
+D45 & (1, 1) & 0.00 & (1, 1.3) & 0.00 & (1, 2.5) & 0.00 & D96 & (1, 4.5) & 0.01 & (1, 1.6) & -0.04 & (1, 1.5) & 0.00 \\
+D46 & (1, 2.7) & 0.00 & (1, 1.1) & 0.00 & (1, 2) & 0.05 & D97 & (1, 1.5) & 0.00 & (1, 3.6) & 0.00 & (1, 4.1) & 0.00 \\
+D47 & (1, 3) & 0.00 & (3, 2.8) & 0.00 & (3, 2.4) & 0.03 & D98 & (1, 2.1) & 0.13 & (3, 3.5) & 0.11 & (3, 1.5) & -0.11 \\
+D48 & (2, 5) & -0.01 & (1, 3) & -0.04 & (1, 2.1) & 0.02 & D99 & (1, 2.9) & -0.03 & (3, 2.7) & 0.00 & (1, 3) & 0.01 \\
+D49 & (2, 3.7) & 0.05 & (1, 1.8) & -0.03 & (1, 4.9) & 0.07 & D100 & (1, 4.7) & 0.04 & (1, 1.1) & 0.06 & (1, 3.6) & 0.03 \\
+D50 & (2, 4.9) & -0.01 & (1, 1.1) & 0.03 & (1, 2.9) & 0.04 & D101 & (2, 3.7) & 0.00 & (3, 2.2) & 0.01 & (1, 2.5) & -0.01 \\
+D51 & (1, 4.7) & 0.00 & (1, 2.3) & 0.00 & (1, 4.7) & 0.06 & D102 & (1, 1.7) & 0.02 & (1, 2.8) & -0.01 & (1, 1.1) & -0.03 \\
 \bottomrule
-\end{tabular}%
-}
-\end{table}
-
-\begin{table}[H]
-\centering
-% REVISED FOR TMLR (rebuttal C1)
-\caption{Best $(\text{iter.}, \alpha)$ configuration per dataset for the FCN classifier in \tablename~\ref{tab:best-config}, with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$).}\label{Tab:app:bestconfig:fcn}
-\setlength{\tabcolsep}{3pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lr | lr || lr | lr}
-\toprule
-\# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & \# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ \\
-\midrule
-D1 & ACSF1 & (2, 1.5) & 0.02 & D52 & Meat & (1, 1.7) & 0.02 \\
-D2 & Adiac & (1, 2.6) & 0.04 & D53 & MedicalImages & (1, 1.5) & -0.03 \\
-D3 & ArrowHead & (3, 1.4) & -0.02 & D54 & MiddlePhalanxOutlineAgeGroup & (1, 2) & -0.01 \\
-D4 & BME & (2, 1.7) & 0.01 & D55 & MiddlePhalanxOutlineCorrect & (1, 1.8) & 0.02 \\
-D5 & Beef & (1, 2.9) & 0.23 & D56 & MiddlePhalanxTW & (1, 1.7) & 0.03 \\
-D6 & BeetleFly & (1, 1.7) & 0.05 & D57 & MixedShapesRegularTrain & (1, 1.5) & 0.01 \\
-D7 & BirdChicken & (3, 2.3) & 0.20 & D58 & MixedShapesSmallTrain & (1, 1.3) & -0.05 \\
-D8 & Car & (1, 1) & -0.02 & D59 & MoteStrain & (1, 2.4) & 0.01 \\
-D9 & CBF & (1, 1.1) & 0.00 & D60 & NonInvasiveFetalECGThorax1 & (1, 1.2) & 0.06 \\
-D10 & ChlorineConcentration & (1, 1.3) & -0.02 & D61 & NonInvasiveFetalECGThorax2 & (2, 1.5) & 0.07 \\
-D11 & CinCECGTorso & (2, 1) & 0.03 & D62 & OSULeaf & (1, 1.8) & -0.16 \\
-D12 & Coffee & (1, 2.1) & 0.07 & D63 & OliveOil & (2, 1.6) & 0.07 \\
-D13 & Computers & (1, 1.5) & 0.09 & D64 & PhalangesOutlinesCorrect & (2, 2) & 0.01 \\
-D14 & Crop & (2, 1.3) & 0.01 & D65 & Plane & (1, 2.8) & 0.00 \\
-D15 & DistalPhalanxOutlineAgeGroup & (1, 1.1) & 0.01 & D66 & PowerCons & (1, 2.2) & -0.00 \\
-D16 & DistalPhalanxOutlineCorrect & (2, 1.2) & -0.01 & D67 & ProximalPhalanxOutlineAgeGroup & (1, 1.4) & 0.01 \\
-D17 & DistalPhalanxTW & (3, 1.2) & -0.01 & D68 & ProximalPhalanxOutlineCorrect & (1, 1.8) & 0.01 \\
-D18 & ECG200 & (3, 1.7) & -0.02 & D69 & ProximalPhalanxTW & (1, 4.7) & 0.00 \\
-D19 & ECG5000 & (1, 2.5) & 0.00 & D70 & RefrigerationDevices & (2, 1.1) & 0.03 \\
-D20 & ECGFiveDays & (3, 4) & 0.02 & D71 & Rock & (1, 3.2) & 0.04 \\
-D21 & EOGHorizontalSignal & (1, 1.4) & -0.01 & D72 & ScreenType & (1, 2.3) & -0.01 \\
-D22 & EOGVerticalSignal & (2, 1.2) & 0.02 & D73 & SemgHandGenderCh2 & (2, 1.5) & 0.07 \\
-D23 & Earthquakes & (1, 2.2) & -0.01 & D74 & SemgHandMovementCh2 & (1, 1.4) & -0.02 \\
-D24 & ElectricDevices & (1, 1.5) & 0.02 & D75 & SemgHandSubjectCh2 & (1, 1.6) & 0.00 \\
-D25 & EthanolLevel & (1, 4.8) & 0.43 & D76 & ShapeletSim & (1, 2.1) & 0.00 \\
-D26 & FaceAll & (1, 1.2) & 0.00 & D77 & ShapesAll & (3, 2.9) & 0.05 \\
-D27 & FaceFour & (1, 1.4) & -0.01 & D78 & SmallKitchenAppliances & (2, 1.3) & -0.00 \\
-D28 & FacesUCR & (1, 1.9) & 0.01 & D79 & SmoothSubspace & (2, 2.4) & 0.00 \\
-D29 & Fish & (2, 1.2) & -0.03 & D80 & SonyAIBORobotSurface1 & (1, 2.2) & 0.02 \\
-D30 & FordA & (1, 1.5) & -0.00 & D81 & SonyAIBORobotSurface2 & (2, 2.4) & 0.02 \\
-D31 & FordB & (1, 1.2) & -0.00 & D82 & StarlightCurves & (2, 1.3) & -0.02 \\
-D32 & FreezerRegularTrain & (1, 1.4) & 0.00 & D83 & Strawberry & (2, 4.9) & 0.01 \\
-D33 & FreezerSmallTrain & (1, 1) & -0.03 & D84 & SwedishLeaf & (1, 1.5) & -0.05 \\
-D34 & GunPoint & (2, 1.7) & 0.01 & D85 & Symbols & (1, 1.1) & 0.00 \\
-D35 & GunPointAgeSpan & (1, 3.4) & 0.00 & D86 & SyntheticControl & (2, 1.8) & 0.00 \\
-D36 & GunPointMaleVersusFemale & (2, 1) & 0.01 & D87 & ToeSegmentation1 & (1, 1.1) & 0.00 \\
-D37 & GunPointOldVersusYoung & (1, 4.4) & 0.00 & D88 & ToeSegmentation2 & (2, 4.6) & 0.03 \\
-D38 & Ham & (1, 3) & 0.03 & D89 & Trace & (2, 1.9) & 0.00 \\
-D39 & HandOutlines & (1, 1) & 0.01 & D90 & TwoLeadECG & (1, 2.3) & 0.03 \\
-D40 & Haptics & (3, 1.4) & -0.01 & D91 & TwoPatterns & (1, 1.5) & 0.00 \\
-D41 & Herring & (1, 1.2) & 0.06 & D92 & UMD & (1, 2.8) & -0.01 \\
-D42 & HouseTwenty & (1, 1.6) & 0.01 & D93 & UWaveGestureLibraryAll & (1, 1.6) & -0.10 \\
-D43 & InlineSkate & (1, 1.2) & -0.01 & D94 & UWaveGestureLibraryX & (2, 1.1) & 0.01 \\
-D44 & InsectWingbeatSound & (1, 1.1) & -0.03 & D95 & UWaveGestureLibraryY & (2, 1.3) & -0.04 \\
-D45 & InsectEPGRegularTrain & (1, 1.3) & 0.00 & D96 & UWaveGestureLibraryZ & (1, 1.6) & -0.04 \\
-D46 & InsectEPGSmallTrain & (1, 1.1) & 0.00 & D97 & Wafer & (1, 3.6) & -0.00 \\
-D47 & ItalyPowerDemand & (3, 2.8) & 0.00 & D98 & Wine & (3, 3.5) & 0.11 \\
-D48 & LargeKitchenAppliances & (1, 3) & -0.04 & D99 & WordSynonyms & (3, 2.7) & -0.00 \\
-D49 & Lightning2 & (1, 1.8) & -0.03 & D100 & Worms & (1, 1.1) & 0.06 \\
-D50 & Lightning7 & (1, 1.1) & 0.03 & D101 & WormsTwoClass & (3, 2.2) & 0.01 \\
-D51 & Mallat & (1, 2.3) & 0.00 & D102 & Yoga & (1, 2.8) & -0.01 \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
-
-\begin{table}[H]
-\centering
-% REVISED FOR TMLR (rebuttal C1)
-\caption{Best $(\text{iter.}, \alpha)$ configuration per dataset for the Moment classifier in \tablename~\ref{tab:best-config}, with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$).}\label{Tab:app:bestconfig:moment}
-\setlength{\tabcolsep}{3pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lr | lr || lr | lr}
-\toprule
-\# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ & \# & Dataset & (iter., $\alpha$) & $\overline{\Delta\mathrm{Acc}}$ \\
-\midrule
-D1 & ACSF1 & (1, 3.8) & 0.00 & D52 & Meat & (2, 3.5) & 0.05 \\
-D2 & Adiac & (1, 4.4) & 0.01 & D53 & MedicalImages & (1, 3.5) & 0.02 \\
-D3 & ArrowHead & (1, 1.9) & 0.01 & D54 & MiddlePhalanxOutlineAgeGroup & (1, 2.5) & 0.03 \\
-D4 & BME & (1, 1.9) & 0.08 & D55 & MiddlePhalanxOutlineCorrect & (2, 3.7) & 0.00 \\
-D5 & Beef & (1, 2.7) & 0.07 & D56 & MiddlePhalanxTW & (1, 3.2) & 0.04 \\
-D6 & BeetleFly & (3, 2.3) & 0.15 & D57 & MixedShapesRegularTrain & (1, 1.9) & 0.00 \\
-D7 & BirdChicken & (2, 1.7) & 0.10 & D58 & MixedShapesSmallTrain & (2, 1.9) & 0.00 \\
-D8 & Car & (1, 3.6) & -0.02 & D59 & MoteStrain & (2, 1.6) & 0.06 \\
-D9 & CBF & (1, 1.3) & -0.00 & D60 & NonInvasiveFetalECGThorax1 & (1, 2.3) & 0.00 \\
-D10 & ChlorineConcentration & (1, 4.3) & 0.06 & D61 & NonInvasiveFetalECGThorax2 & (1, 2.7) & 0.00 \\
-D11 & CinCECGTorso & (1, 3.7) & 0.00 & D62 & OSULeaf & (2, 2.9) & 0.05 \\
-D12 & Coffee & (1, 4.5) & 0.04 & D63 & OliveOil & (2, 2.9) & 0.00 \\
-D13 & Computers & (1, 2.5) & 0.03 & D64 & PhalangesOutlinesCorrect & (1, 3.2) & 0.03 \\
-D14 & Crop & (1, 4.4) & -0.00 & D65 & Plane & (1, 3) & 0.01 \\
-D15 & DistalPhalanxOutlineAgeGroup & (1, 2.7) & 0.06 & D66 & PowerCons & (2, 1.9) & -0.03 \\
-D16 & DistalPhalanxOutlineCorrect & (3, 1.5) & 0.03 & D67 & ProximalPhalanxOutlineAgeGroup & (2, 1.7) & 0.05 \\
-D17 & DistalPhalanxTW & (1, 4) & -0.01 & D68 & ProximalPhalanxOutlineCorrect & (1, 4.5) & 0.01 \\
-D18 & ECG200 & (1, 1.7) & 0.02 & D69 & ProximalPhalanxTW & (1, 3.2) & 0.02 \\
-D19 & ECG5000 & (1, 4.6) & -0.00 & D70 & RefrigerationDevices & (1, 3.9) & -0.01 \\
-D20 & ECGFiveDays & (1, 2.9) & 0.08 & D71 & Rock & (1, 4.4) & 0.12 \\
-D21 & EOGHorizontalSignal & (1, 2) & -0.01 & D72 & ScreenType & (1, 2.8) & 0.00 \\
-D22 & EOGVerticalSignal & (2, 2.9) & 0.03 & D73 & SemgHandGenderCh2 & (2, 1.2) & 0.01 \\
-D23 & Earthquakes & (3, 2.2) & 0.03 & D74 & SemgHandMovementCh2 & (1, 3.4) & -0.00 \\
-D24 & ElectricDevices & (1, 4.6) & 0.01 & D75 & SemgHandSubjectCh2 & (1, 1.3) & 0.01 \\
-D25 & EthanolLevel & (2, 3.2) & 0.01 & D76 & ShapeletSim & (1, 2.8) & -0.01 \\
-D26 & FaceAll & (1, 2.2) & 0.01 & D77 & ShapesAll & (1, 1.6) & 0.01 \\
-D27 & FaceFour & (1, 3.6) & 0.05 & D78 & SmallKitchenAppliances & (1, 3.5) & 0.02 \\
-D28 & FacesUCR & (1, 2.6) & -0.01 & D79 & SmoothSubspace & (1, 3) & 0.01 \\
-D29 & Fish & (1, 2.8) & -0.01 & D80 & SonyAIBORobotSurface1 & (3, 2.3) & 0.27 \\
-D30 & FordA & (1, 1.5) & 0.00 & D81 & SonyAIBORobotSurface2 & (2, 4.3) & 0.08 \\
-D31 & FordB & (1, 4) & -0.00 & D82 & StarlightCurves & (1, 4.3) & 0.01 \\
-D32 & FreezerRegularTrain & (1, 3.2) & 0.00 & D83 & Strawberry & (1, 5) & -0.03 \\
-D33 & FreezerSmallTrain & (2, 4.3) & 0.05 & D84 & SwedishLeaf & (1, 4.4) & 0.01 \\
-D34 & GunPoint & (1, 2.6) & 0.03 & D85 & Symbols & (1, 4.4) & 0.01 \\
-D35 & GunPointAgeSpan & (1, 4.4) & 0.01 & D86 & SyntheticControl & (1, 4.4) & 0.00 \\
-D36 & GunPointMaleVersusFemale & (2, 4.8) & 0.00 & D87 & ToeSegmentation1 & (1, 1.3) & 0.01 \\
-D37 & GunPointOldVersusYoung & (1, 3.6) & 0.00 & D88 & ToeSegmentation2 & (1, 3.5) & 0.04 \\
-D38 & Ham & (1, 1.2) & 0.09 & D89 & Trace & (1, 4.5) & -0.01 \\
-D39 & HandOutlines & (1, 2.9) & 0.00 & D90 & TwoLeadECG & (2, 1.2) & 0.13 \\
-D40 & Haptics & (2, 3.4) & 0.09 & D91 & TwoPatterns & (1, 2.6) & 0.00 \\
-D41 & Herring & (1, 4.8) & 0.14 & D92 & UMD & (1, 3.6) & 0.00 \\
-D42 & HouseTwenty & (1, 1.5) & 0.00 & D93 & UWaveGestureLibraryAll & (1, 1.2) & -0.00 \\
-D43 & InlineSkate & (1, 2.1) & 0.05 & D94 & UWaveGestureLibraryX & (1, 2.4) & 0.00 \\
-D44 & InsectWingbeatSound & (1, 3.5) & 0.01 & D95 & UWaveGestureLibraryY & (1, 3.2) & 0.00 \\
-D45 & InsectEPGRegularTrain & (1, 2.5) & 0.00 & D96 & UWaveGestureLibraryZ & (1, 1.5) & 0.00 \\
-D46 & InsectEPGSmallTrain & (1, 2) & 0.05 & D97 & Wafer & (1, 4.1) & -0.00 \\
-D47 & ItalyPowerDemand & (3, 2.4) & 0.03 & D98 & Wine & (3, 1.5) & -0.11 \\
-D48 & LargeKitchenAppliances & (1, 2.1) & 0.02 & D99 & WordSynonyms & (1, 3) & 0.01 \\
-D49 & Lightning2 & (1, 4.9) & 0.07 & D100 & Worms & (1, 3.6) & 0.03 \\
-D50 & Lightning7 & (1, 2.9) & 0.04 & D101 & WormsTwoClass & (1, 2.5) & -0.01 \\
-D51 & Mallat & (1, 4.7) & 0.06 & D102 & Yoga & (1, 1.1) & -0.03 \\
-\bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
 
@@ -1460,171 +1280,89 @@ D51 & Mallat & (1, 4.7) & 0.06 & D102 & Yoga & (1, 1.1) & -0.03 \\
 \section{Extended hyperparameter sensitivity analysis} \label{app:HPSA}
 
 \subsection{$\alpha$-scaling mechanism ablation study} \label{app:HPSA:alpha}
-Figures~\ref{fig:images/alpha_study_EOGVerticalSignal} and \ref{fig:images/alpha_study_BeetleFly} show 3D plots of classifiers' performance as a function of $\alpha$ and iteration count for ASCENSION$_{\text{Emb}}$, ASCENSION$_\text{FCN-Emb}$, and ASCENSION$_\text{ResNet-Emb}$. It appears that the relationship between $\alpha$, iteration count, and performance improvement is not trivial to generalise, although it remains relatively stable. Increasing $\alpha$ can facilitate more thorough boundary exploration, but excessive values may sometimes degrade performance, as evidenced e.g. in Figure~\ref{fig:images/alpha_study_EOGVerticalSignal} (see ASCENSION$_{\text{ResNet-Emb}}$) and Figure~\ref{fig:images/alpha_study_BeetleFly} (see ASCENSION$_{\text{Emb}}$ and ASCENSION$_{\text{ResNet-Emb}}$). 
+Figure~\ref{fig:alpha_study} shows 3D plots of classifiers' performance as a function of $\alpha$ and iteration count for ASCENSION$_{\text{Emb}}$, ASCENSION$_\text{FCN-Emb}$, and ASCENSION$_\text{ResNet-Emb}$. It appears that the relationship between $\alpha$, iteration count, and performance improvement is not trivial to generalise, although it remains relatively stable. Increasing $\alpha$ can facilitate more thorough boundary exploration, but excessive values may sometimes degrade performance, as evidenced e.g. in Figure~\ref{fig:images/alpha_study_EOGVerticalSignal} (see ASCENSION$_{\text{ResNet-Emb}}$) and Figure~\ref{fig:images/alpha_study_BeetleFly} (see ASCENSION$_{\text{Emb}}$ and ASCENSION$_{\text{ResNet-Emb}}$). 
 
 Using the range of $\alpha \in \{1, 2, 3, 4, 5\}$ and iteration counts $\in \{1, 2, \ldots, 9\}$, the $(\texttt{iteration}, \alpha)$ pair that yields the highest accuracy improvement for each dataset using the ASCENSION$_{\text{ResNet-Emb}}$ classifier is reported in \tablename~\ref{Tab:app:Ablation_clustering_alpha} -- see column $(\text{iter.}, \alpha)$. The corresponding accuracy gain from using the $\alpha$-scaling mechanism, compared to not using it, is shown in column ``Gain" and computed as the difference between the best and the worst accuracy over the steps. 
 
-\begin{figure}[htbp]
-    \centering
-      
-     ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-    \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_EOGVerticalSignal.png}
-    \caption{  \textbf{EOG:} Classifier performance against $\alpha$ and iteration count for \textbf{EOGVerticalSignal} datasets.}
-    \label{fig:images/alpha_study_EOGVerticalSignal}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-      
-    ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-    \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_BeetleFly.png}
-    \caption{  \textbf{Image:} Classifier performance against $\alpha$ and iteration count for \textbf{BeetleFly} dataset.}
-    \label{fig:images/alpha_study_BeetleFly}
+\begin{figure}[tbp]
+    \centering\footnotesize
+    \makebox[0.33\linewidth][c]{ASCENSION$_\text{Emb.}$}\makebox[0.33\linewidth][c]{ASCENSION$_\text{FCN-Emb.}$}\makebox[0.33\linewidth][c]{ASCENSION$_\text{ResNet-Emb.}$}\\[2pt]
+    \begin{subfigure}{\linewidth}\centering
+    \includegraphics[width=\linewidth,clip,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_EOGVerticalSignal.png}
+    \caption{EOGVerticalSignal (EOG)}\label{fig:images/alpha_study_EOGVerticalSignal}
+    \end{subfigure}\\[4pt]
+    \begin{subfigure}{\linewidth}\centering
+    \includegraphics[width=\linewidth,clip,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_BeetleFly.png}
+    \caption{BeetleFly (Image)}\label{fig:images/alpha_study_BeetleFly}
+    \end{subfigure}
+    \caption{Classifier accuracy against $\alpha$ and iteration count for the three ASCENSION variants on two datasets.}\label{fig:alpha_study}
 \end{figure}
 
 
-\begin{table*}[p]
+\begin{table}[p]
 \centering
- 
-\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, and the train--test discrepancy ratio (F24, column Ratio) with the intra-class dispersions of the test and train sets}\label{Tab:app:Ablation_clustering_alpha} 
-
-\setlength{\tabcolsep}{4pt} % Reduce space between columns
-
-\scalebox{.9}{
-\begin{tabular}{lr | r | lr | rrr}
-
+\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, and the train--test discrepancy ratio (F24, column Ratio). Dataset names for each D-id are given in \tablename~\ref{Tab:app:dataset_list}.}\label{Tab:app:Ablation_clustering_alpha}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l|r|lr|r||l|r|lr|r}
 \toprule
- &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
-\# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
- \midrule
-D1 & ACSF1 & -0.01 & (1, 2) & -0.01 & 0.96 & $1.01\times10^{3}$ & $1.04\times10^{3}$ \\
-D2 & Adiac & -0.01 & (1, 1) & -0.05 & 1.09 & $2.81\times10^{1}$ & $2.25\times10^{1}$ \\
-D3 & ArrowHead & -0.05 & (1, 4) & 0.11 & 1.16 & $1.71\times10^{0}$ & $1.88\times10^{0}$ \\
-D4 & BME & 0.03 & (1, 2) & -0.00 & 1.13 & $1.64\times10^{2}$	&	$1.26\times10^{2}$\\
-D5 & Beef & 0.13 & (1, 3) & 0.27 & 0.94 & $6.40\times10^{1}$ & $6.78\times10^{1}$ \\
-D6 & BeetleFly & 0.00 & (1, 1) & 0.32 & 0.89 & $5.79\times10^{1}$ & $5.30\times10^{1}$ \\
-D7 & BirdChicken & -0.02 & (1, 1) & 0.00 & 1.30 & $5.28\times10^{1}$ & $5.47\times10^{1}$ \\
-D8 & Car & 0.01 & (1, 4) & 0.00 & 1.51 & $3.94\times10^{2}$ & $3.95\times10^{2}$ \\
-D9 & CBF & -0.02 & (1, 1) & 0.01 & 1.09 & $6.69\times10^{4}$ & $8.63\times10^{4}$ \\
-D10 & ChlorineConcentration & 0.00 & (1, 3) & 0.00 & 1.05 & $9.02\times10^{1}$ & $9.00\times10^{1}$ \\
-D11 & CinCECGTorso & -0.00 & (1, 3) & 0.00 & 1.24 & $1.41\times10^{1}$ & $1.40\times10^{1}$ \\
-D12 & Coffee & -0.13 & (1, 4) & 0.03 & 1.07 & $8.05\times10^{0}$ & $8.45\times10^{0}$ \\
-D13 & Computers & 0.02 & (1, 1) & -0.01 & 0.97 & $1.94\times10^{2}$ & $1.98\times10^{2}$ \\
-D14 & Crop & -0.01 & (1, 4) & -0.00 & 1.00 & $1.28\times10^{4}$ & $1.35\times10^{4}$ \\
-D15 & DistalPhalanxOutlineAgeGroup & 0.03 & (1, 1) & -0.01 & 1.21 & $6.78\times10^{1}$ & $6.71\times10^{1}$ \\
-D16 & DistalPhalanxOutlineCorrect & 0.00 & (1, 2) & -0.00 & 0.96 & $5.31\times10^{0}$ & $6.94\times10^{0}$ \\
-D17 & DistalPhalanxTW & -0.02 & (1, 2) & -0.00 & 1.04 & $2.07\times10^{1}$ & $2.07\times10^{1}$ \\
-D18 & ECG200 & -0.01 & (1, 2) & 0.01 & 1.21 & $1.28\times10^{2}$ & $1.25\times10^{2}$ \\
-D19 & ECG5000 & -0.00 & (1, 2) & 0.02 & 1.19 & $4.17\times10^{1}$ & $4.77\times10^{1}$ \\
-D20 & ECGFiveDays & 0.00 & (1, 2) & -0.01 & 1.01 & $5.42\times10^{1}$ & $4.85\times10^{1}$ \\
-D21 & EOGHorizontalSignal & 0.00 & (1, 4) & -0.00 & 1.18 & $3.01\times10^{1}$ & $2.65\times10^{1}$ \\
-D22 & EOGVerticalSignal & -0.01 & (1, 3) & -0.00 & 0.77 & $6.38\times10^{3}$ & $5.62\times10^{3}$ \\
-D23 & Earthquakes & -0.02 & (1, 3) & 0.01 & 1.00 & $1.31\times10^{2}$ & $1.24\times10^{2}$ \\
-D24 & ElectricDevices & 0.01 & (1, 2) & -0.01 & 1.10 & $1.02\times10^{2}$ & $9.84\times10^{1}$ \\
-D25 & EthanolLevel & -0.00 & (1, 3) & 0.00 & 0.87 & $3.18\times10^{1}$ & $2.10\times10^{1}$ \\
-D26 & FaceAll & 0.02 & (1, 1) & 0.01 & 0.97 & $3.58\times10^{1}$ & $3.67\times10^{1}$ \\
-D27 & FaceFour & -0.06 & (1, 1) & -0.02 & 1.04 & $5.44\times10^{1}$ & $5.14\times10^{1}$ \\
-D28 & FacesUCR & -0.01 & (1, 1) & 0.00 & 1.12 & $1.20\times10^{3}$ & $1.08\times10^{3}$ \\
-D29 & Fish & -0.04 & (1, 3) & 0.00 & 1.00 & $1.13\times10^{3}$ & $9.94\times10^{2}$ \\
-D30 & FordA & -0.00 & (1, 2) & 0.00 & 0.99 & $3.73\times10^{3}$ & $3.83\times10^{3}$ \\
-D31 & FordB & -0.01 & (1, 4) & -0.01  & 0.98 & $2.81\times10^{0}$ & $2.80\times10^{0}$ \\
-D32 & FreezerRegularTrain & -0.00 & (1, 3) & 0.00 & 1.01 & $2.47\times10^{3}$ & $3.27\times10^{3}$ \\
-D33 & FreezerSmallTrain & 0.03 & (1, 4) & 0.00 & 1.11 & $2.29\times10^{2}$ & $2.35\times10^{2}$ \\
-D34 & GunPoint & -0.02 & (1, 2) & 0.00 & 1.04 & $3.83\times10^{2}$ & $3.91\times10^{2}$ \\
-D35 & GunPointAgeSpan & -0.00 & (1, 1) & 0.00 & 1.00 & $5.50\times10^{0}$ & $4.90\times10^{0}$ \\
-D36 & GunPointMaleVersusFemale & -0.01 & (1, 2) & 0.00 & 1.02 & $3.69\times10^{1}$ & $5.17\times10^{1}$ \\
-D37 & GunPointOldVersusYoung & 0.00 & (1, 1) & -0.00 & 1.02 & $5.70\times10^{2}$ & $6.35\times10^{2}$ \\
-D38 & Ham & -0.03 & (1, 3) & 0.00 & 1.07 & $4.23\times10^{2}$ & $3.75\times10^{2}$ \\
-D39 & HandOutlines & -0.00 & (1, 2) & 0.01 & 0.46 & $1.50\times10^{2}$ & $1.39\times10^{2}$ \\
-D40 & Haptics & -0.01 & (1, 4) & 0.01 & 1.08 & $3.27\times10^{1}$ & $2.98\times10^{1}$ \\
-D41 & Herring & 0.02 & (1, 2) & -0.01 & 1.01 & $1.02\times10^{1}$ & $1.07\times10^{1}$ \\
-D42 & HouseTwenty & 0.00 & (1, 2) & 0.01 & 0.99 & $2.44\times10^{0}$ & $2.79\times10^{0}$ \\
-D43 & InlineSkate & -0.02 & (1, 2) & 0.00 & 1.07 & $8.25\times10^{0}$ & $6.80\times10^{0}$ \\
-D44 & InsectWingbeatSound & -0.00 & (1, 1) & 0.00 & 1.06 & $7.54\times10^{2}$ & $7.85\times10^{2}$ \\
-D45 & InsectEPGRegularTrain & 0.00 & (3, 1) & 0.00 & 1.26 & $1.88\times10^{1}$ & $1.94\times10^{1}$ \\
-D46 & InsectEPGSmallTrain & 0.00 & (1, 1) & 0.00 & 1.10 & $1.63\times10^{2}$ & $1.64\times10^{2}$ \\
-D47 & ItalyPowerDemand & -0.00 & (1, 3) & 0.00 & 0.95 & $2.75\times10^{0}$ & $2.92\times10^{0}$ \\
-D48 & LargeKitchenAppliances & -0.01 & (1, 1) & 0.00 & 1.01 & $3.68\times10^{1}$ & $3.08\times10^{1}$ \\
- D49 & Lightning2 & -0.04 & (1, 2) & 0.01 & 1.02 & $5.96\times10^{1}$ & $1.31\times10^{2}$ \\
-D50 & Lightning7 & -0.04 & (1, 2) & -0.00 & 0.94 & $3.32\times10^{1}$ & $3.80\times10^{1}$ \\
- D51 & Mallat & 0.01 & (1, 4) & 0.00 & 1.11 & $2.40\times10^{1}$ & $2.32\times10^{1}$ \\
-D52 & Meat & -0.02 & (1, 3) & -0.02 & 0.94 & $2.80\times10^{3}$ & $1.35\times10^{3}$ \\
-D53 & MedicalImages & -0.01 & (1, 2) & -0.01 & 1.00 & $7.57\times10^{1}$ & $8.10\times10^{1}$ \\
+ & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 \\
+\# & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio & \# & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio \\
+\midrule
+D1 & -0.01 & (1, 2) & -0.01 & 0.96 & D52 & -0.02 & (1, 3) & -0.02 & 0.94 \\
+D2 & -0.01 & (1, 1) & -0.05 & 1.09 & D53 & -0.01 & (1, 2) & -0.01 & 1.00 \\
+D3 & -0.05 & (1, 4) & 0.11 & 1.16 & D54 & 0.01 & (1, 3) & -0.01 & 1.12 \\
+D4 & 0.03 & (1, 2) & 0.00 & 1.13 & D55 & -0.02 & (1, 2) & -0.01 & 0.77 \\
+D5 & 0.13 & (1, 3) & 0.27 & 0.94 & D56 & -0.03 & (1, 3) & 0.00 & 0.94 \\
+D6 & 0.00 & (1, 1) & 0.32 & 0.89 & D57 & 0.00 & (1, 2) & 0.01 & 0.98 \\
+D7 & -0.02 & (1, 1) & 0.00 & 1.30 & D58 & 0.01 & (1, 4) & 0.01 & 1.19 \\
+D8 & 0.01 & (1, 4) & 0.00 & 1.51 & D59 & 0.00 & (1, 2) & 0.00 & 0.96 \\
+D9 & -0.02 & (1, 1) & 0.01 & 1.09 & D60 & 0.00 & (1, 1) & 0.00 & 0.98 \\
+D10 & 0.00 & (1, 3) & 0.00 & 1.05 & D61 & 0.01 & (1, 1) & 0.01 & 0.97 \\
+D11 & 0.00 & (1, 3) & 0.00 & 1.24 & D62 & 0.01 & (1, 4) & 0.01 & 0.98 \\
+D12 & -0.13 & (1, 4) & 0.03 & 1.07 & D63 & 0.00 & (1, 1) & 0.00 & 0.91 \\
+D13 & 0.02 & (1, 1) & -0.01 & 0.97 & D64 & 0.00 & (1, 2) & 0.00 & 0.95 \\
+D14 & -0.01 & (1, 4) & 0.00 & 1.00 & D65 & 0.00 & (1, 1) & 0.00 & 0.94 \\
+D15 & 0.03 & (1, 1) & -0.01 & 1.21 & D66 & 0.00 & (1, 1) & 0.00 & 1.02 \\
+D16 & 0.00 & (1, 2) & 0.00 & 0.96 & D67 & -0.02 & (1, 1) & -0.02 & 0.94 \\
+D17 & -0.02 & (1, 2) & 0.00 & 1.04 & D68 & -0.01 & (1, 1) & -0.01 & 0.87 \\
+D18 & -0.01 & (1, 2) & 0.01 & 1.21 & D69 & 0.00 & (1, 1) & 0.00 & 0.94 \\
+D19 & 0.00 & (1, 2) & 0.02 & 1.19 & D70 & -0.01 & (1, 2) & -0.01 & 1.05 \\
+D20 & 0.00 & (1, 2) & -0.01 & 1.01 & D71 & -0.01 & (1, 4) & -0.01 & 1.27 \\
+D21 & 0.00 & (1, 4) & 0.00 & 1.18 & D72 & 0.02 & (1, 2) & 0.02 & 0.88 \\
+D22 & -0.01 & (1, 3) & 0.00 & 0.77 & D73 & 0.01 & (1, 3) & 0.01 & 0.97 \\
+D23 & -0.02 & (1, 3) & 0.01 & 1.00 & D74 & -0.03 & (1, 1) & -0.03 & 1.00 \\
+D24 & 0.01 & (1, 2) & -0.01 & 1.10 & D75 & -0.01 & (1, 1) & -0.01 & 0.95 \\
+D25 & 0.00 & (1, 3) & 0.00 & 0.87 & D76 & 0.00 & (1, 1) & -0.01 & 1.14 \\
+D26 & 0.02 & (1, 1) & 0.01 & 0.97 & D77 & -0.02 & (1, 1) & 0.05 & 0.94 \\
+D27 & -0.06 & (1, 1) & -0.02 & 1.04 & D78 & 0.01 & (1, 1) & 0.00 & 0.99 \\
+D28 & -0.01 & (1, 1) & 0.00 & 1.12 & D79 & 0.01 & (1, 2) & 0.00 & 1.04 \\
+D29 & -0.04 & (1, 3) & 0.00 & 1.00 & D80 & 0.00 & (1, 3) & 0.00 & 1.00 \\
+D30 & 0.00 & (1, 2) & 0.00 & 0.99 & D81 & -0.01 & (1, 1) & -0.01 & 1.18 \\
+D31 & -0.01 & (1, 4) & -0.01 & 0.98 & D82 & -0.01 & (1, 2) & -0.01 & 1.05 \\
+D32 & 0.00 & (1, 3) & 0.00 & 1.01 & D83 & -0.01 & (1, 1) & -0.01 & 0.91 \\
+D33 & 0.03 & (1, 4) & 0.00 & 1.11 & D84 & -0.01 & (1, 1) & -0.01 & 0.96 \\
+D34 & -0.02 & (1, 2) & 0.00 & 1.04 & D85 & -0.02 & (1, 3) & -0.02 & 1.53 \\
+D35 & 0.00 & (1, 1) & 0.00 & 1.00 & D86 & 0.00 & (1, 1) & 0.00 & 1.02 \\
+D36 & -0.01 & (1, 2) & 0.00 & 1.02 & D87 & -0.04 & (1, 1) & -0.04 & 1.18 \\
+D37 & 0.00 & (1, 1) & 0.00 & 1.02 & D88 & 0.02 & (1, 1) & 0.02 & 0.97 \\
+D38 & -0.03 & (1, 3) & 0.00 & 1.07 & D89 & -0.01 & (1, 1) & -0.01 & 0.88 \\
+D39 & 0.00 & (1, 2) & 0.01 & 0.46 & D90 & 0.01 & (1, 3) & 0.01 & 1.00 \\
+D40 & -0.01 & (1, 4) & 0.01 & 1.08 & D91 & -0.01 & (1, 1) & -0.01 & 1.00 \\
+D41 & 0.02 & (1, 2) & -0.01 & 1.01 & D92 & 0.02 & (1, 1) & 0.02 & 0.97 \\
+D42 & 0.00 & (1, 2) & 0.01 & 0.99 & D93 & -0.01 & (1, 3) & -0.01 & 1.04 \\
+D43 & -0.02 & (1, 2) & 0.00 & 1.07 & D94 & 0.00 & (1, 1) & 0.00 & 1.02 \\
+D44 & 0.00 & (1, 1) & 0.00 & 1.06 & D95 & 0.01 & (1, 2) & 0.01 & 1.05 \\
+D45 & 0.00 & (3, 1) & 0.00 & 1.26 & D96 & -0.01 & (1, 1) & -0.01 & 1.06 \\
+D46 & 0.00 & (1, 1) & 0.00 & 1.10 & D97 & 0.00 & (1, 3) & 0.00 & 1.12 \\
+D47 & 0.00 & (1, 3) & 0.00 & 0.95 & D98 & 0.01 & (1, 4) & 0.04 & 0.87 \\
+D48 & -0.01 & (1, 1) & 0.00 & 1.01 & D99 & -0.01 & (1, 4) & -0.01 & 1.11 \\
+D49 & -0.04 & (1, 2) & 0.01 & 1.02 & D100 & -0.02 & (1, 2) & -0.01 & 0.89 \\
+D50 & -0.04 & (1, 2) & 0.00 & 0.94 & D101 & -0.03 & (1, 2) & -0.03 & 0.93 \\
+D51 & 0.01 & (1, 4) & 0.00 & 1.11 & D102 & -0.02 & (1, 3) & -0.02 & 1.02 \\
 \bottomrule
 \end{tabular}
-}
-\end{table*}
-
-\setcounter{table}{16}
-\begin{table*}[p]
-\centering
- 
-\caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair (iter., $\alpha$) identified per dataset, and the train--test discrepancy ratio (F24, column Ratio) with the intra-class dispersions of the test and train sets}
-
-\setlength{\tabcolsep}{4pt} % Reduce space between columns
-
-\scalebox{.9}{
-\begin{tabular}{lr | r | lr | rrr}
-
-\toprule
- &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
-\# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & (iter., $\alpha$) & Gain & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
- \midrule
-D54 & MiddlePhalanxOutlineAgeGroup & 0.01 & (1, 3) & -0.01 & 1.12 & $2.70\times10^{1}$ & $2.24\times10^{1}$ \\
-D55 & MiddlePhalanxOutlineCorrect & -0.02 & (1, 2) & -0.01 & 0.77 & $1.01\times10^{6}$ & $1.02\times10^{6}$ \\
-D56 & MiddlePhalanxTW & -0.03 & (1, 3) & 0.00 & 0.94 & $4.74\times10^{0}$ & $5.02\times10^{0}$ \\
-D57 & MixedShapesRegularTrain & 0.00 & (1, 2) & 0.01 & 0.98 & $4.20\times10^{2}$ & $4.76\times10^{2}$ \\
-D58 & MixedShapesSmallTrain & 0.01 & (1, 4) & 0.01 & 1.19 & $1.59\times10^{2}$ & $1.55\times10^{2}$ \\
-D59 & MoteStrain & 0.00 & (1, 2) & -0.00 & 0.96 & $3.27\times10^{1}$ & $2.60\times10^{1}$ \\
-D60 & NonInvasiveFetalECGThorax1 & -0.00 & (1, 1) & -0.00 & 0.98 & $1.31\times10^{2}$ & $1.33\times10^{2}$ \\
-D61 & NonInvasiveFetalECGThorax2 & 0.01 & (1, 1) & 0.01 & 0.97 & $2.52\times10^{0}$ & $2.42\times10^{0}$ \\
-D62 & OSULeaf & 0.01 & (1, 4) & 0.01 & 0.98 & $8.85\times10^{3}$ & $6.43\times10^{3}$ \\
-D63 & OliveOil & 0.00 & (1, 1) & 0.00 & 0.91 & $5.64\times10^{0}$ & $5.94\times10^{0}$ \\
-D64 & PhalangesOutlinesCorrect & -0.00 & (1, 2) & -0.00 & 0.95 & $2.02\times10^{1}$ & $2.00\times10^{1}$ \\
-D65 & Plane & 0.00 & (1, 1) & 0.00 & 0.94 & $9.58\times10^{1}$ & $1.01\times10^{2}$ \\
-D66 & PowerCons & 0.00 & (1, 1) & 0.00 & 1.02 & $2.07\times10^{4}$ & $1.63\times10^{4}$ \\
-D67 & ProximalPhalanxOutlineAgeGroup & -0.02 & (1, 1) & -0.02 & 0.94 & $4.70\times10^{2}$ & $7.09\times10^{2}$ \\
-D68 & ProximalPhalanxOutlineCorrect & -0.01 & (1, 1) & -0.01  & 0.87 & $1.34\times10^{1}$ & $1.48\times10^{1}$ \\
-D69 & ProximalPhalanxTW & -0.00 & (1, 1) & -0.00 & 0.94 & $1.39\times10^{4}$ & $1.36\times10^{4}$ \\
-D70 & RefrigerationDevices & -0.01 & (1, 2) & -0.01 & 1.05 & $4.23\times10^{1}$ & $4.01\times10^{1}$ \\
-D71 & Rock & -0.01 & (1, 4) & -0.01 & 1.27 & $1.16\times10^{2}$ & $1.11\times10^{2}$ \\
-D72 & ScreenType & 0.02 & (1, 2) & 0.02 & 0.88 & $2.18\times10^{2}$ & $2.46\times10^{2}$ \\
-D73 & SemgHandGenderCh2 & 0.01 & (1, 3) & 0.01 & 0.97 & $1.47\times10^{2}$ & $1.53\times10^{2}$ \\
-D74 & SemgHandMovementCh2 & -0.03 & (1, 1) & -0.03 & 1.00 & $1.23\times10^{4}$ & $1.24\times10^{4}$ \\
-D75 & SemgHandSubjectCh2 & -0.01 & (1, 1) & -0.01 & 0.95 & $5.14\times10^{1}$ & $5.28\times10^{1}$ \\
-D76 & ShapeletSim & 0.00 & (1, 1) & -0.01 & 1.14 & $1.41\times10^{4}$ & $1.46\times10^{4}$ \\
-D77 & ShapesAll & -0.02 & (1, 1) & 0.05 & 0.94 & $4.40\times10^{1}$ & $3.95\times10^{1}$ \\
-D78 & SmallKitchenAppliances & 0.01 & (1, 1) & -0.00 & 0.99 & $2.49\times10^{1}$ & $2.61\times10^{1}$ \\
-D79 & SmoothSubspace & 0.01 & (1, 2) & -0.00 & 1.04 & $4.86\times10^{1}$ & $3.19\times10^{1}$ \\
-D80 & SonyAIBORobotSurface1 & -0.00 & (1, 3) & -0.00 & 1.00 & $8.36\times10^{0}$ & $8.36\times10^{0}$ \\
-D81 & SonyAIBORobotSurface2 & -0.01 & (1, 1) & -0.01 & 1.18 & $2.80\times10^{1}$ & $2.36\times10^{1}$ \\
-D82 & StarlightCurves & -0.01 & (1, 2) & -0.01 & 1.05 & $5.40\times10^{4}$ & $4.59\times10^{4}$ \\
-D83 & Strawberry & -0.01 & (1, 1) & -0.01 & 0.91 & $1.59\times10^{2}$ & $1.56\times10^{2}$ \\
-D84 & SwedishLeaf & -0.01 & (1, 1) & -0.01 & 0.96 & $4.69\times10^{2}$ & $4.37\times10^{2}$ \\
-D85 & Symbols & -0.02 & (1, 3) & -0.02 & 1.53 & $1.23\times10^{1}$ & $3.72\times10^{0}$ \\
-D86 & SyntheticControl & 0.00 & (1, 1) & 0.00 & 1.02 & $2.29\times10^{2}$ & $1.92\times10^{2}$ \\
-D87 & ToeSegmentation1 & -0.04 & (1, 1) & -0.04 & 1.18 & $2.19\times10^{2}$ & $2.16\times10^{2}$ \\
-D88 & ToeSegmentation2 & 0.02 & (1, 1) & 0.02 & 0.97 & $2.03\times10^{2}$ & $1.72\times10^{2}$ \\
-D89 & Trace & -0.01 & (1, 1) & -0.01 & 0.88 & $4.46\times10^{3}$ & $4.41\times10^{3}$ \\
-D90 & TwoLeadECG & 0.01 & (1, 3) & 0.01 & 1.00 & $2.28\times10^{1}$ & $2.32\times10^{1}$ \\
-D91 & TwoPatterns & -0.01 & (1, 1) & -0.01 & 1.00 & $5.83\times10^{2}$ & $3.90\times10^{2}$ \\
-D92 & UMD & 0.02 & (1, 1) & 0.02 &  0.97 &$1.89\times10^{1}$ & $1.89\times10^{1}$ \\
-D93 & UWaveGestureLibraryAll & -0.01 & (1, 3) & -0.01 & 1.04 & $5.73\times10^{1}$ & $5.46\times10^{1}$ \\
-D94 & UWaveGestureLibraryX & -0.00 & (1, 1) & -0.00 & 1.02 & $6.81\times10^{1}$ & $6.67\times10^{1}$ \\
-D95 & UWaveGestureLibraryY & 0.01 & (1, 2) & 0.01 & 1.05 & $2.00\times10^{1}$ & $1.73\times10^{1}$ \\
-D96 & UWaveGestureLibraryZ & -0.01 & (1, 1) & -0.01 & 1.06 & $8.64\times10^{0}$ & $9.18\times10^{0}$ \\
-D97 & Wafer & -0.00 & (1, 3) & -0.00 & 1.12 & $2.24\times10^{2}$ & $2.30\times10^{2}$ \\
-D98 & Wine & 0.01 & (1, 4) & 0.04 & 0.87 & $3.34\times10^{4}$ & $3.33\times10^{4}$ \\
-D99 & WordSynonyms & -0.01 & (1, 4) & -0.01 & 1.11 & $4.32\times10^{3}$ & $5.08\times10^{3}$ \\
-D100 & Worms & -0.02 & (1, 2) & -0.01 & 0.89 & $1.13\times10^{2}$ & $1.00\times10^{2}$ \\
-D101 & WormsTwoClass & -0.03 & (1, 2) & -0.03 & 0.93 & $4.09\times10^{1}$ & $4.26\times10^{1}$ \\
-D102 & Yoga & -0.02 & (1, 3) & -0.02 & 1.02 & $3.02\times10^{4}$ & $2.97\times10^{4}$ \\
-
-  
-\bottomrule
-\end{tabular}
-}
-\end{table*}
+\end{table}
 
 
 
@@ -1662,7 +1400,6 @@ D102 & Yoga & -0.02 & (1, 3) & -0.02 & 1.02 & $3.02\times10^{4}$ & $2.97\times10
 % \end{tabular}
 % }
 % \end{table*}
-\newpage
 
 
 %\textcolor{red}{INtroduce table column 1 (best pair); column ($\overline{Acc}_{\Delta_1 Step}$) + Comments (Q1, median, Q3)}
@@ -1761,7 +1498,7 @@ D102 & Yoga & -0.02 & (1, 3) & -0.02 & 1.02 & $3.02\times10^{4}$ & $2.97\times10
 
 
 \subsection{Clustering loss ablation study}\label{app:HPSA:clusterL}\label{app:loss_weights}
-\tablename~\ref{Tab:app:Ablation_clustering_alpha} illustrates the step-wise performance evolution given the clustering loss removal via setting the clustering loss weight parameter $\gamma_3$ to zero. To quantify this evolution, we compute the average step-wise improvement using Equation \eqref{Eq:Delta_Acc_Alpha_Cluster}. Removing the clustering loss results in a performance decrease from $2.1\%$ to $-0.05\%$ with ASCENSION$_{\text{ResNet-Emb}}$, and from $1.2\%$ to $-0.05\%$ with ASCENSION$_{\text{FCN-Emb}}$ (see \tablename~\ref{tab:embedded}).
+\tablename~\ref{Tab:app:Ablation_clustering_alpha} illustrates the step-wise performance evolution given the clustering loss removal via setting the clustering loss weight parameter $\gamma_3$ to zero. To quantify this evolution, we compute the average step-wise improvement using \eqref{Eq:Delta_Acc_Alpha_Cluster}. Removing the clustering loss results in a performance decrease from $2.1\%$ to $-0.05\%$ with ASCENSION$_{\text{ResNet-Emb}}$, and from $1.2\%$ to $-0.05\%$ with ASCENSION$_{\text{FCN-Emb}}$ (see \tablename~\ref{tab:embedded}).
 \begin{equation}\label{Eq:Delta_Acc_Alpha_Cluster}
 \overline{Acc}_{\Delta_1 Step} = \frac{1}{n - 1} \sum_{k = 2}^{n} \left( Acc_{Step\_k} - Acc_{Step\_1}\right),
 \end{equation}
@@ -1862,8 +1599,8 @@ where $n$ is the total number of augmentation steps, $Acc_{Step\_1}$ is the accu
 \subsection{Iteration count under a fixed generation budget}
 \label{app:budget-matched}
 
-\tablename s~\ref{Tab:app:bestconfig:resnet}--\ref{Tab:app:bestconfig:moment}
-show that in more than half the cases a single iteration already gives
+\tablename~\ref{Tab:app:bestconfig}
+shows that in more than half the cases a single iteration already gives
 the best result. To separate the effect of the iteration count from the
 effect of the total generation budget, we run a controlled experiment
 with a fixed generation budget on 10 datasets with ResNet and a single
@@ -1893,13 +1630,13 @@ configuration.
 
 
 % ========== Feature \& expansion risk analysis (ICML app:) ==========
-\section{Feature description \& Class expansion risk analysis}\label{app:feature_risk}
+\section{Dataset features}\label{app:feature_risk}
 
 \subsection{Time series features}\label{app:TSF}
 We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba2019catch22}, and the two additional features (denoted by F23 and F24 below) considered in this study.
 
-{ 
-\begin{description}
+{\footnotesize
+\begin{description}\setlength{\itemsep}{1pt}
     \item[\textbf{F1}: \texttt{DN\_HistogramMode\_5}] Top z-score range based on the highest count from a 5-bin histogram, representing the most frequent distribution range in the dataset.
     
     \item[\textbf{F2}: \texttt{DN\_HistogramMode\_10}] Similar to DN5, but this considers the top z-score range based on a 10-bin histogram, providing a finer resolution.
@@ -1949,6 +1686,14 @@ We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba20
     \label{app:desc:tsf}
 \end{description}
 }
+
+% ========== Train/test discrepancy (ICML app:PerfMetrics:Discrepancy) ==========
+\subsection{Discrepancy in distance between training and test sets}\label{app:discrepancy}\label{app:discrepancy:form}
+To quantify the discrepancy between training and test distributions, we assess intra-class dispersion using Dynamic Time Warping (DTW) as the distance metric. For each class \( k \in \{1, \ldots, K\} \), let the set of time series in class \( k \) be denoted by \( \mathcal{X}_k = \{x_{k,1}, \ldots, x_{k,n_k}\} \), where \( n_k \) is the number of instances in class \( k \). Let \( \mu_k \) denote the DTW barycenter (i.e., the average sequence under DTW alignment) of \( \mathcal{X}_k \). The intra-class dispersion for class \( k \) is then defined as $d_k = \frac{1}{n_k} \sum\nolimits_{i=1}^{n_k} \text{DTW}(x_{k,i}, \mu_k)$.
+
+The \textbf{Overall dataset dispersion} \( D \) is the mean intra-class dispersion across all \( K \) classes, defined by $D = \frac{1}{K} \sum\nolimits_{k=1}^{K} d_k$, and \textbf{Discrepancy} is measured as the ratio of test to train set dispersions: $V = D_{\text{test}}/D_{\text{train}}$.
+
+The ratio \( V \) captures train-test diversity: \( V \approx 1 \) implies similar variability, \( V < 1 \) more dispersion in training, and \( V > 1 \) in testing. Datasets with \( V > 1 \) are more challenging for generative DA, highlighting the need for augmentation methods that extrapolate beyond the training distribution.
 
 
 
@@ -2177,12 +1922,10 @@ We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba20
 % ========== Feature importances for all DA methods (camera-ready) ==========
 \section{Feature importances for all DA methods}\label{app:feature_importance_all}
 % ADDED FOR CAMERA-READY (rebuttal C1: companion to Figure fig:catch22-importance)
-Figures~\ref{fig:feature-importance-all-resnet},
-\ref{fig:feature-importance-all-fcn} and
-\ref{fig:feature-importance-all-moment} extend
+Figure~\ref{fig:feature-importance-all} extends
 Figure~\ref{fig:catch22-importance} to VaDE, FAA, TTS-GAN, KoVAE,
-Time-DDPM, LA, ImagenTime and Diffusion-TS, for ResNet, FCN and
-Moment respectively. The protocol is the one of
+Time-DDPM, LA, ImagenTime and Diffusion-TS (columns), for ResNet, FCN
+and Moment (rows). The protocol is the one of
 Section~\ref{sec:analysis:features}: one shallow random forest
 (1000 trees of depth 2) per DA method, classifier and run, predicting
 the per-dataset accuracy gain from the averaged F1--F24 features,
@@ -2192,45 +1935,16 @@ horizontal axis is shared across all panels.
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=\linewidth]{figures/feature_importance_all_resnet.pdf}
+\includegraphics[width=\linewidth]{figures/feature_importance_all.pdf}
 \caption{Feature importance of F1--F24 for predicting the per-dataset
-accuracy gain of each DA method with ResNet. Bars give the mean
-importance over the three fixed-configuration runs, whiskers the
-minimum and maximum across runs. F24 (train--test distribution
-discrepancy) in red, F23 (train/test size ratio) in orange.}
-\label{fig:feature-importance-all-resnet}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\linewidth]{figures/feature_importance_all_fcn.pdf}
-\caption{Feature importance of F1--F24 for predicting the per-dataset
-accuracy gain of each DA method with FCN. Bars give the mean
-importance over the three fixed-configuration runs, whiskers the
-minimum and maximum across runs. F24 (train--test distribution
-discrepancy) in red, F23 (train/test size ratio) in orange.}
-\label{fig:feature-importance-all-fcn}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\linewidth]{figures/feature_importance_all_moment.pdf}
-\caption{Feature importance of F1--F24 for predicting the per-dataset
-accuracy gain of each DA method with Moment. Bars give the mean
-importance over the three fixed-configuration runs, whiskers the
-minimum and maximum across runs. F24 (train--test distribution
-discrepancy) in red, F23 (train/test size ratio) in orange.}
-\label{fig:feature-importance-all-moment}
+accuracy gain of each DA method, rows ResNet, FCN, Moment. Bars give
+the mean importance over the three fixed-configuration runs, whiskers
+the minimum and maximum across runs. F24 in red, F23 in orange, as in the legend of
+Figure~\ref{fig:catch22-importance}.}
+\label{fig:feature-importance-all}
 \end{figure}
 
 
-% ========== Train/test discrepancy (ICML app:PerfMetrics:Discrepancy) ==========
-\section{Discrepancy in distance between Training and Test sets}\label{app:discrepancy}\label{app:discrepancy:form}
-To quantify the discrepancy between training and test distributions, we assess intra-class dispersion using Dynamic Time Warping (DTW) as the distance metric. For each class \( k \in \{1, \ldots, K\} \), let the set of time series in class \( k \) be denoted by \( \mathcal{X}_k = \{x_{k,1}, \ldots, x_{k,n_k}\} \), where \( n_k \) is the number of instances in class \( k \). Let \( \mu_k \) denote the DTW barycenter (i.e., the average sequence under DTW alignment) of \( \mathcal{X}_k \). The intra-class dispersion for class \( k \) is then defined as $d_k = \frac{1}{n_k} \sum_{i=1}^{n_k} \text{DTW}(x_{k,i}, \mu_k)$
-
-The \textbf{Overall dataset dispersion} \( D \) is the mean intra-class dispersion across all \( K \) classes, defined by $D = \frac{1}{K} \sum_{k=1}^{K} d_k$, and \textbf{Discrepancy} is measured as the ratio of test to train set dispersions:$V = \frac{D_{\text{test}}}{D_{\text{train}}}$
-
-The ratio \( V \) captures train-test diversity: \( V \approx 1 \) implies similar variability, \( V < 1 \) more dispersion in training, and \( V > 1 \) in testing. Datasets with \( V > 1 \) are more challenging for generative DA, highlighting the need for augmentation methods that extrapolate beyond the training distribution.
 
 
 % \subsection{Experimental results}\label{app:discrepancy:results}
