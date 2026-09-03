@@ -535,26 +535,17 @@ results now appears in the main text
 companion, this section reports the same analysis computed on the
 best-per-dataset configuration reference of
 Appendix~\ref{app:best-config} (\tablename~\ref{tab:best-config},
-single run). We report Friedman tests and CD diagrams (Nemenyi
-post-hoc at the $5\%$ significance level)
-following~\citep{demsar2006statistical}, computed over per-dataset
-accuracies for each of the three classifiers. The Friedman test
+single run). We report Friedman tests and Nemenyi post-hoc
+comparisons at the $5\%$ significance
+level~\citep{demsar2006statistical}, computed over per-dataset
+accuracies for each of the three classifiers. Only the ranks and the
+outcome of the comparisons are given here, the diagrams themselves
+being reserved for the fixed configuration the paper reports. The Friedman test
 rejects the null hypothesis that all DA methods perform equally with
 $p < 10^{-18}$ on every classifier, and the critical-difference
 threshold for $k = 9$ methods and $N = 102$ datasets is
 $\mathrm{CD} \approx 1.19$.
-Figure~\ref{fig:cd-best-config} shows the resulting CD diagrams for
-ResNet, FCN, and Moment.
 
-\begin{figure}[!htb]
-\centering
-% REVISED FOR TMLR (rebuttal C3)
-\subcaptionbox{ResNet\label{fig:cd-resnet}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_resnet.pdf}}\\[2pt]
-\subcaptionbox{FCN\label{fig:cd-fcn}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_fcn.pdf}}\\[2pt]
-\subcaptionbox{Moment\label{fig:cd-moment}}{\includegraphics[width=0.7\linewidth,trim=12 14 14 10,clip]{figures/cd_diagram_moment.pdf}}
-\caption{Critical-difference diagrams (Friedman + Nemenyi at the $5\%$ significance level) for the ResNet, FCN and Moment classifiers, computed on the best-per-dataset configuration reference of \tablename~\ref{tab:best-config}, single run.}
-\label{fig:cd-best-config}
-\end{figure}
 
 % REVISED FOR TMLR (rebuttal C3)
 On this best-configuration reference, ASCENSION achieves the lowest
