@@ -79,50 +79,6 @@ D51 & Mallat & Simulated & D102 & Yoga & Image \\
 
 
 
-% ========== Domain coverage (moved from §4.1, TMLR addition) ==========
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (review-driven) — macro-domain grouping,
-% responding to ICML reviewer siJn W1.  Previously sat in §4.1
-% of the main text; moved here for the TMLR resubmission to keep
-% §4 focused on the headline experimental story.  The per-macro
-% analysis in Section~\ref{sec:analysis:domains} cites this section.
-% -----------------------------------------------------------------
-\section{Domain coverage of the UCR datasets}
-\label{app:domain-coverage}
-
-The 102 datasets span 11 UCR domain categories, visualised in
-Figure~\ref{fig:domain-coverage}. The raw counts are
-Image (30), Sensor (19), Motion (14), Spectro (8), Simulated (8),
-Device (8), ECG (6), Spectrum (4), EPG (2), EOG (2), Power (1).
-For the macro-domain breakdown in
-\tablename~\ref{Tab:Macro_all} we additionally
-group these 11 categories into five macro-domains: Industrial (35.3\%),
-Image (29.4\%), Motion (13.7\%), Spectral (11.8\%) and
-Biomedical (9.8\%). All tasks are closed-set, supervised,
-fixed-label TSC (not anomaly detection, forecasting, or risk
-assessment).
-%\vspace{-2pt}
-
-
-% \begin{figure*}[H]
-%   \centering
-%   \includegraphics[trim=0cm 0cm 0cm 0cm,clip,width=.8\textwidth]{figures/fig_domain_coverage}
-% \caption{Domain coverage of the 102 UCR datasets used in our
-% experiments. Inner ring: the five macro-domains (true percentages
-% shown). Outer ring: the 11 raw UCR categories with absolute counts.}
-%   \label{fig:domain-coverage}
-% \end{figure*}
-
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.8\textwidth]{figures/fig_domain_coverage.pdf}
-\caption{Domain coverage of the 102 UCR datasets used in our
-experiments. Inner ring: the five macro-domains (true percentages
-shown). Outer ring: the 11 raw UCR categories with absolute counts.}
-\label{fig:domain-coverage}
-\end{figure}
-
 % ========== Extended related work discussion (TMLR rebuttal Q1) ==========
 % ADDED FOR TMLR (rebuttal Q1)
 \section{Extended related work discussion}
@@ -935,6 +891,51 @@ not offer downstream gain
 (\tablename~\ref{tab:main-results}).
 
 
+
+% ========== Domain coverage (moved from §4.1, TMLR addition) ==========
+% -----------------------------------------------------------------
+% ADDED FOR TMLR (review-driven) — macro-domain grouping,
+% responding to ICML reviewer siJn W1.  Previously sat in §4.1
+% of the main text; moved here for the TMLR resubmission to keep
+% §4 focused on the headline experimental story.  The per-macro
+% Moved again on 3 sept 2026 to sit immediately before the
+% per-domain results that use these macro-domains.
+% -----------------------------------------------------------------
+\section{Domain coverage of the UCR datasets}
+\label{app:domain-coverage}
+
+The 102 datasets span 11 UCR domain categories, visualised in
+Figure~\ref{fig:domain-coverage}. The raw counts are
+Image (30), Sensor (19), Motion (14), Spectro (8), Simulated (8),
+Device (8), ECG (6), Spectrum (4), EPG (2), EOG (2), Power (1).
+For the macro-domain breakdown in
+\tablename~\ref{Tab:Macro_all} we additionally
+group these 11 categories into five macro-domains: Industrial (35.3\%),
+Image (29.4\%), Motion (13.7\%), Spectral (11.8\%) and
+Biomedical (9.8\%). All tasks are closed-set, supervised,
+fixed-label TSC (not anomaly detection, forecasting, or risk
+assessment).
+%\vspace{-2pt}
+
+
+% \begin{figure*}[H]
+%   \centering
+%   \includegraphics[trim=0cm 0cm 0cm 0cm,clip,width=.8\textwidth]{figures/fig_domain_coverage}
+% \caption{Domain coverage of the 102 UCR datasets used in our
+% experiments. Inner ring: the five macro-domains (true percentages
+% shown). Outer ring: the 11 raw UCR categories with absolute counts.}
+%   \label{fig:domain-coverage}
+% \end{figure*}
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=.70\textwidth]{figures/fig_domain_coverage.pdf}
+\caption{Domain coverage of the 102 UCR datasets used in our
+experiments. Inner ring: the five macro-domains (true percentages
+shown). Outer ring: the 11 raw UCR categories with absolute counts.}
+\label{fig:domain-coverage}
+\end{figure}
 
 % ========== Detailed classification performance (ICML app:Exp:large:Classif) ==========
 \section{Detailed classification performance} \label{app:per_dataset}
