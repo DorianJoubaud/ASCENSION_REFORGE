@@ -341,8 +341,9 @@ covers the same $\alpha$ range as the best-configuration reference
 All three cVAE variants use the identical fully connected backbone as
 ASCENSION (Section~\ref{sec:method:vae}), with the one-hot class label
 concatenated to both the encoder and the decoder inputs.
+\tablename~\ref{tab:cvae} reports the comparison.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \caption{ASCENSION vs.\ three cVAE variants (no contrastive loss)
 on 102 UCR datasets.}
@@ -644,9 +645,10 @@ $y$. This is the empirical counterpart of the acceptance rate
 plotted in Figure~\ref{fig:prop1-heatmap}: same quantity, real
 encoded UCR data instead of an analytic Gaussian model. We
 estimate $\mathcal{C}_y^{\,k}$ by sampling $n=1000$ latents per
-class.
+class, and report its distribution over the 102 datasets in
+\figurename~\ref{fig:risk-boxplot}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
 \resizebox{0.55\textwidth}{!}{\input{images/boxPlot_risk.tex}}
 % REVISED FOR TMLR (erratum)
@@ -690,7 +692,7 @@ hidden width, $S$ the number of synthetic samples, and $T$ the
 number of outer iterations. \tablename~\ref{tab:complexity} summarises
 the asymptotic training and generation costs by method family.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \small
 \caption{Asymptotic training and generation complexity by method
@@ -730,7 +732,7 @@ per-dataset best $\alpha$ values across our sweep
 All measurements on the same NVIDIA RTX 4080 Super used
 for the main-results experiments.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \small
 \caption{Wall-clock time (seconds) for generative-model training
@@ -1419,7 +1421,7 @@ with a fixed generation budget on 10 datasets with ResNet and a single
 seed. \tablename~\ref{tab:budget-matched} reports the mean gain of each
 configuration.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
 \small
 \caption{Mean accuracy gain (accuracy points) under a controlled
