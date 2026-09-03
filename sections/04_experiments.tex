@@ -370,13 +370,6 @@ Moment, on FCN only the smallest group is positive, and above 50
 samples per class ASCENSION is close to neutral everywhere.
 Appendix~\ref{app:gain-vs-spc} shows the per-dataset scatter of gain
 against samples per class.
-% ADDED FOR TMLR (additional analysis, deployment rule; details in appendix)
-Appendix~\ref{app:valselect} complements this profile with a
-deployment analysis in which the number of augmentation iterations is
-selected per dataset on an internal validation fold, with the test set
-never consulted for any choice. The selected rule abstains from
-augmenting on about half of the cases, and its gains concentrate on
-the smallest training sets for ResNet and FCN.
 
 \subsubsection{Embedded classifier performance}
 \label{sec:results:embedded}
