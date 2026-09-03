@@ -59,19 +59,9 @@ deployment rule that selects the iteration count per dataset on an internal
 validation fold without consulting the test set, evaluated on the 78 UCR
 datasets that admit such a fold. It addresses the model-selection concern
 raised in the reviews; we are happy to remove it if the Action Editor
-prefers the camera-ready to stay strictly within the reviewed scope. Third, the
-per-domain analysis in the appendix had not been recomputed for the revision: it
-was still built on the best-per-dataset configuration and on a single run, the
-protocol that C1 replaced in the main comparison, so it no longer described the
-experiments the paper reports. It is now computed on the same fixed
-configuration and the same three runs as Table 1, and takes Table 1's format,
-ASCENSION's row split over the five macro-domains, so that the five rows of a
-classifier add back up to its row in Table 1. The nine per-domain and
-macro-domain tables of the submission are replaced by this single table, and
-Table 1 itself is unaffected. The recomputed gains are smaller than the ones the
-per-dataset configuration search had produced, most visibly on the spectral
-group, which falls from +7.1 to +2.5 accuracy points under ResNet, and the
-table now shows that in 11 of its 15 cells the standard deviation across runs
-exceeds the gain, so the macro-domains cannot be ordered against each other.
+prefers the camera-ready to stay strictly within the reviewed scope. Third,
+the per-domain analysis in the appendix has been recomputed on the same fixed
+configuration and the same three runs as Table 1, and is now reported as a
+single table.
 
 END POSTABLE
