@@ -196,7 +196,7 @@ at $-0.68\,(0.73)\%$ on Moment.
 KoVAE is the best-behaved generative baseline on ResNet and FCN, with
 a mean accuracy change close to zero, yet never positive in any run.
 Generating faithful samples from the learned distribution is
-therefore not sufficient, and ASCENSION's gains come precisely from
+therefore not sufficient, and ASCENSION's gains come from
 the controlled expansion beyond the learned class distributions. Time-DDPM pairs the highest mean
 gains on its winning datasets ($7.7\%$ ResNet, $9.2\%$ FCN) with
 severe drops on the rest ($-11.1\%$, $-15.2\%$), yielding heavily
@@ -358,7 +358,7 @@ significant (Spearman $\rho = -0.16$, $-0.05$, $-0.11$ with
 $p = 0.10$, $0.63$, $0.27$), yet the smallest group's mean gain is
 positive in all nine classifier-run combinations, ranging from
 $+0.2$ to $+2.7$ points. The concentration on the smallest training
-sets aligns with \citet{gonen2025time}, who identify precisely this
+sets aligns with \citet{gonen2025time}, who identify this
 regime as the hardest for generative TS models trained on the
 target dataset alone. Gain correlates positively with class
 count: Spearman $\rho = +0.18$ ($p = 0.063$) on ResNet, $+0.22$
