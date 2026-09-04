@@ -126,14 +126,15 @@ the empirical consequence of this difference in
 Section~\ref{sec:results:main}.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
 % precedents)
-None of these approaches controls how far generation goes beyond the
-learned distribution. ASCENSION's $\alpha$-scaling does, progressively
-and by a tunable amount.
+None of these approaches controls the extent of generation beyond the
+learned distribution. ASCENSION's $\alpha$-scaling does, by
+progressively expanding the per-class posterior covariances while
+preserving class identity.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
 % precedents)
 Outside TS classification, expanding class representations through
 their covariance has precedents in image classification
 \citep{wang2019implicit}, speaker recognition \citep{wang2020data}
-and agronomic data \citep{lan2025cotton}, where the expansion is
-neither progressive nor tunable. Appendix~\ref{app:related-extended}
-extends this discussion to further VAE variants.
+and agronomic data \citep{lan2025cotton}.
+Appendix~\ref{app:related-extended} extends this discussion to further
+VAE variants.
