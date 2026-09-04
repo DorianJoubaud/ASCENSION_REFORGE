@@ -126,13 +126,14 @@ the empirical consequence of this difference in
 Section~\ref{sec:results:main}.
 % ADDED FOR TMLR (AE request: covariance-based latent expansion
 % precedents)
-Expanding class representations through their covariance has
-precedents outside TS classification, in image classification
-\citep{wang2019implicit}, speaker recognition \citep{wang2020data},
-and agronomic data \citep{lan2025cotton}, discussed in
-Appendix~\ref{app:related-extended}. Other VAE variants target
-specific priors or modalities \citep{goubeaud2021using, dang2024vae,
-bogojeski2025data}. However, none of these approaches explore a
-progressive, tunable expansion of class representations in the
-latent space, as proposed in ASCENSION. The complete discussion is provided in
-Appendix~\ref{app:related-extended}.
+None of these approaches controls how far generation goes beyond the
+learned distribution. ASCENSION's $\alpha$-scaling does, progressively
+and by a tunable amount.
+% ADDED FOR TMLR (AE request: covariance-based latent expansion
+% precedents)
+Outside TS classification, expanding class representations through
+their covariance has precedents in image classification
+\citep{wang2019implicit}, speaker recognition \citep{wang2020data}
+and agronomic data \citep{lan2025cotton}, where the expansion is
+neither progressive nor tunable. Appendix~\ref{app:related-extended}
+extends this discussion to further VAE variants.
