@@ -100,10 +100,10 @@ fine-tuning it on the target one.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
-space, are less prone to collapse than GANs, and are less
-computationally expensive than both alternatives
-\citep{thanh2020catastrophic}, which motivates our choice of this
-family. Within VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
+space, as evidenced by \cite{cheung2020modals}. Additionally, VAEs are
+less prone to collapse than GANs and are less computationally
+expensive than both alternatives \citep{thanh2020catastrophic}, which
+motivates our choice of this family. Within VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
 \textbf{GMVAE} \citep{dilokthanakul2017gmvae} structure the latent
 space with a Gaussian Mixture Model (GMM). In both cases, the mixture
 is an unsupervised inductive bias: it is part of the generative model
