@@ -58,11 +58,11 @@ and summarised in Figure~\ref{fig:SoTa}.
 \paragraph{Traditional DA methods}
 Traditional methods such as window slicing, jittering, and scaling
 apply predefined transformations adapted from computer vision, and
-automated successors such as \textbf{AutoAugment (AA)}
+automated successors such as AutoAugment (AA)
 \citep{cubuk2019autoaugment}, \textbf{Fast AutoAugment (FAA)}
-\citep{lim2019fast}, \textbf{RandAugment} \citep{cubuk2020randaugment},
-\textbf{Deep AutoAugment} \citep{zheng_deep_2022}, and \textbf{Trivial
-Augment} \citep{muller2021trivialaugment} automate the search for
+\citep{lim2019fast}, RandAugment \citep{cubuk2020randaugment},
+Deep AutoAugment \citep{zheng_deep_2022}, and Trivial
+Augment \citep{muller2021trivialaugment} automate the search for
 transformation policies. Because the transformations remain
 predefined, they can disrupt the semantic integrity of TS data and
 struggle to preserve intra-class consistency. For instance, reversing
@@ -75,19 +75,19 @@ Generative models, such as Generative Adversarial Networks (GANs)
 \citep{yang2023diffusion}, and VAEs \citep{kingma2013auto}, learn a
 probabilistic representation of the data distribution and can
 generate TS that retain temporal dependencies and class-specific
-characteristics \citep{fu2020data}. GAN-based DA methods, from TimeGAN
-\citep{zhang2022data} and TS-GAN \citep{yang2023ts} to GT-GAN
-\citep{jeon2022gt}, TTS-GAN and its conditional variant
-\citep{li2022tts, li2022ttsc}, LatentAugment
-\citep{tronchin2023latentaugment}, LISGAN \citep{seon2024least},
-and TTS-WGAN-GP \citep{mousavi2025transformer}, generate realistic
+characteristics \citep{fu2020data}. GAN-based DA methods for TS include TimeGAN
+\citep{zhang2022data}, TS-GAN \citep{yang2023ts}, GT-GAN
+\citep{jeon2022gt}, \textbf{TTS-GAN} and its conditional variant
+\citep{li2022tts, li2022ttsc}, \textbf{LatentAugment}
+\citep{tronchin2023latentaugment}, LISGAN \citep{seon2024least} and
+TTS-WGAN-GP \citep{mousavi2025transformer}. They generate realistic
 sequences but are notoriously unstable to train and prone to mode
 collapse \citep{lei2019mode}.
 
 Diffusion-based DA methods for TS include SE-DDPM
 \citep{liu2024adaptive}, DiffRUL \citep{wang2024diffrul}, D3A-TS
-\citep{solis2023}, Time-DDPM \citep{dai2023timeddpm}, Diffusion-TS
-\citep{yuandiffusion}, ImagenTime \citep{naiman2024utilizing}, DiffAT
+\citep{solis2023}, \textbf{Time-DDPM} \citep{dai2023timeddpm}, \textbf{Diffusion-TS}
+\citep{yuandiffusion}, \textbf{ImagenTime} \citep{naiman2024utilizing}, DiffAT
 \citep{yu2025diffat} and Diff-TI \citep{zhang2025time}. They produce
 stable outputs but still face challenges with long-range dependencies,
 error accumulation, and slow inference \citep{feng2024latent}.
@@ -104,7 +104,7 @@ space, as evidenced by \cite{cheung2020modals}. Additionally, VAEs are
 less prone to collapse than GANs and are less computationally
 expensive than both alternatives \citep{thanh2020catastrophic}, which
 motivates our choice of this family. Within VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
-\textbf{GMVAE} \citep{dilokthanakul2017gmvae} structure the latent
+GMVAE \citep{dilokthanakul2017gmvae} structure the latent
 space with a Gaussian Mixture Model (GMM). In both cases, the mixture
 is an unsupervised inductive bias: it is part of the generative model
 and appears in the evidence lower bound (ELBO), and neither method
