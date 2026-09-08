@@ -1,5 +1,5 @@
 % -----------------------------------------------------------------
-% Compact L&FW section, mirroring Mai & Lin (TMLR 2026, §6) — two
+% Compact L&FW section, mirroring Mai & Lin (TMLR 2026, §6) — four
 % concrete limitations with future-work hooks woven in. ICML hooks
 % kept: univariate scope, single global α-factor.
 % -----------------------------------------------------------------
@@ -24,7 +24,8 @@ low-risk rather than as broadly beneficial.
 % ADDED FOR TMLR (AE request: alpha-tuning asymmetry)
 Fourth, the main comparison is not symmetric in how
 hyperparameters were chosen. ASCENSION uses a single fixed
-configuration ($\alpha = 1.5$, one iteration) while the baselines
+configuration ($\alpha = 1.5$, one iteration, the default of our
+implementation) while the baselines
 use their authors' recommended defaults, and none of the methods
 was tuned per dataset on UCR. Using recommended defaults is
 standard evaluation practice, but the reported gains are small
@@ -39,6 +40,6 @@ design. ASCENSION could handle regression targets by conditioning
 the latent space on the continuous target, or by binning the
 target into pseudo-classes that take the role of labels in the
 contrastive clustering loss. It could also apply beyond univariate
-TS to other input domains, since only the encoder is
-domain-specific. We have evaluated neither extension and claim no
+TS to other input domains, since only the input and output layers
+are domain-specific. We have evaluated neither extension and claim no
 benefit for either without supporting evidence.
