@@ -39,11 +39,10 @@ under distribution discrepancies.
 \label{sec:setup:experimental}
 
 % REVISED FOR TMLR (dataset selection fix)
-We use the UCR Archive of 128 univariate TSC datasets (see Appendix~\ref{app:datasets}), retaining 102 of the 128.
-We exclude 15 datasets with missing values or variable lengths, 4
-datasets with single-instance classes, and 7 further datasets that
-our experimental campaign does not cover, kept out for comparability
-across all methods.
+We use the UCR Archive of 128 univariate TSC datasets (see
+Appendix~\ref{app:datasets}), retaining 102 of the 128. We exclude
+datasets with missing values and datasets too small to ensure
+sufficient training data.
 
 
 Following \citep{fawaz2019deep}, which identifies ResNet-50 and
