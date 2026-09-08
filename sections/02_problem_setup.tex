@@ -61,7 +61,7 @@ apply predefined transformations adapted from computer vision. Automated success
 \citep{cubuk2019autoaugment}, \textbf{Fast AutoAugment (FAA)}
 \citep{lim2019fast}, RandAugment \citep{cubuk2020randaugment},
 Deep AutoAugment \citep{zheng_deep_2022}, and Trivial
-Augment \citep{muller2021trivialaugment} automate the search for theses
+Augment \citep{muller2021trivialaugment} automate the search for these
 transformation policies. Because the transformations remain
 predefined, they can disrupt the semantic integrity of TS data and
 struggle to preserve intra-class consistency. For instance, reversing
@@ -90,7 +90,7 @@ inference \citep{feng2024latent}.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
-space \cite{cheung2020modals}. Additionally, VAEs are
+space \citep{cheung2020modals}. Additionally, VAEs are
 less prone to collapse than GANs and are less computationally
 expensive than both alternatives \citep{thanh2020catastrophic}, which
 motivates our choice of this family. In VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
@@ -105,7 +105,7 @@ data generation, though it lacks a mechanism to control the extent of
 this expansion.
 \textbf{KoVAE} \citep{naiman2023generative} places a linear
 Koopman prior on the latent dynamics, which yields an interpretable
-model and high-fidelity samples generation
+model of both regular and irregular TS and high-fidelity samples
 from the learned distribution. Like VaDE and GMVAE, however, it
 provides no mechanism to generate beyond that distribution: its
 samples remain confined to the density it has learned. We analyse
@@ -115,7 +115,7 @@ ASCENSION introduces an $\alpha$-scaling mechanism that progressively
 expands the per-class posterior covariances while preserving class
 identity.
 Outside TS classification, expanding class representations through
-their covariance has precedents in computer vision classification
+their covariance has precedents in image classification
 \citep{wang2019implicit}, speaker recognition \citep{wang2020data}
 and agronomic data \citep{lan2025cotton}.
 Appendix~\ref{app:related-extended} extends this discussion to further
