@@ -88,11 +88,6 @@ Diffusion-based DA methods for TS, such as
 challenges with long-range dependencies, error accumulation, and slow
 inference \citep{feng2024latent}.
 % ADDED FOR TMLR (AE request: small-sample generative benchmark)
-In the first large-scale study of generative TS models under data
-scarcity, \citet{gonen2025time} report a substantial gap between the
-full-data and data-scarce regimes, and mitigate it by pretraining a
-unified diffusion model on a large collection of datasets before
-fine-tuning it on the target one.
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
@@ -127,3 +122,11 @@ their covariance has precedents in image classification
 and agronomic data \citep{lan2025cotton}.
 Appendix~\ref{app:related-extended} extends this discussion to further
 VAE variants.
+
+% ADDED FOR TMLR (AE request: Gonen et al. as the small-sample
+% benchmark; placed after the three families, which their study spans)
+Across these families, \citet{gonen2025time} benchmark four
+representative models, one GAN, one VAE and two diffusion models,
+under data scarcity, and report a substantial gap between the
+full-data and data-scarce regimes. We examine the same regime for
+ASCENSION in Section~\ref{sec:results:applicability}.
