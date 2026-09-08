@@ -222,7 +222,10 @@ retraining the model from scratch on the augmented dataset.
 % ADDED FOR TMLR (rebuttal Q3)
 Each iteration re-estimates the class mixtures $d_y^{\,\alpha}$
 on the already-augmented data, so the expansion compounds in
-small steps that the Bayes-region filter keeps in-class.
+small steps that the Bayes-region filter keeps in-class. Appendix~\ref{app:budget-matched}
+separates this from the effect of the total budget, by comparing
+several iterations against a single one at a fixed number of generated
+samples.
 The full procedure is given in
 Algorithm~\ref{alg:ascension}.
 \end{minipage}
