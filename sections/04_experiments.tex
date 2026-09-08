@@ -88,12 +88,12 @@ every method and to the no-augmentation baseline in every ResNet and
 FCN experiment, so absolute accuracies are optimistic for every
 method. Moment uses a single deterministic fit with no epoch-based
 selection (full specification in Appendix~\ref{app:moment-spec}).
-% ADDED FOR TMLR (rebuttal Q2)
+
 All methods use the same generation budget, which follows the
 empirical class distribution: at each iteration we draw
 $|\mathcal{I}_y|$ candidate samples per class $y$, one per real
 sample, $n$ in total.
-Baselines add all $n$ candidates to the training set, doubling it,
+Baselines all add $n$ candidates to the training set,
 whereas ASCENSION keeps only the candidates that pass the
 Bayes-region filter (Definition~\ref{def:bayes-region}) and therefore
 adds fewer, by an amount that varies across datasets (median
