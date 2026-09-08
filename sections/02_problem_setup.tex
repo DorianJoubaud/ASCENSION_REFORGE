@@ -103,7 +103,7 @@ diversity of generated samples through manipulation of the latent
 space, as evidenced by \cite{cheung2020modals}. Additionally, VAEs are
 less prone to collapse than GANs and are less computationally
 expensive than both alternatives \citep{thanh2020catastrophic}, which
-motivates our choice of this family. Within VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
+motivates our choice of this family. In VAE-based DA, \textbf{VaDE} \citep{jiang2016variational} and
 GMVAE \citep{dilokthanakul2017gmvae} structure the latent
 space with a Gaussian Mixture Model (GMM). In both cases, the mixture
 is an unsupervised inductive bias: it is part of the generative model
@@ -113,8 +113,6 @@ learned distribution. \textbf{MODALS} \citep{cheung2020modals} was
 the first study to explore class boundary expansion during synthetic
 data generation, though it lacks a mechanism to control the extent of
 this expansion.
-% ADDED FOR TMLR (AE request: discuss KoVAE as the VAE generation
-% baseline)
 \textbf{KoVAE} \citep{naiman2023generative} places a linear
 Koopman prior on the latent dynamics, which yields an interpretable
 model of both regular and irregular TS and high-fidelity samples
@@ -123,13 +121,10 @@ provides no mechanism to generate beyond that distribution: its
 samples remain confined to the density it has learned. We analyse
 the empirical consequence of this difference in
 Section~\ref{sec:results:main}.
-% ADDED FOR TMLR (AE request: covariance-based latent expansion
-% precedents)
 ASCENSION introduces an $\alpha$-scaling mechanism that progressively
 expands the per-class posterior covariances while preserving class
 identity.
-% ADDED FOR TMLR (AE request: covariance-based latent expansion
-% precedents)
+
 Outside TS classification, expanding class representations through
 their covariance has precedents in image classification
 \citep{wang2019implicit}, speaker recognition \citep{wang2020data}
