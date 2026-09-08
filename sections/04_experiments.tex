@@ -93,7 +93,7 @@ All methods use the same generation budget, which follows the
 empirical class distribution: at each iteration we draw
 $|\mathcal{I}_y|$ candidate samples per class $y$, one per real
 sample, $n$ in total.
-Baselines all add $n$ candidates to the training set,
+Baselines all add $n$ candidates to the training set, doubling it,
 whereas ASCENSION keeps only the candidates that pass the
 Bayes-region filter (Definition~\ref{def:bayes-region}) and therefore
 adds fewer, by an amount that varies across datasets (median
