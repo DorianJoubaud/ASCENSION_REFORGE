@@ -113,6 +113,14 @@
 \def\openreview{\url{https://openreview.net/forum?id=7KFXjf7K2o}}
 
 \begin{document}
+
+% tmlr.sty sets \flushbottom, which stretches the glue between floats,
+% algorithms and headings whenever a page falls short. With this many
+% floats that put 30 to 40pt holes in the middle of a dozen pages (41pt
+% between the heatmap figure and Algorithm 1, for one). Ragged bottoms
+% keep those gaps at their natural size and collect the slack under the
+% last line instead.
+\raggedbottom
 \maketitle
 
 \begin{abstract}
