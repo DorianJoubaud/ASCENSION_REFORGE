@@ -1,7 +1,3 @@
-% --- Manual DA-method legend used by Figure \ref{fig:cumsum-disc}.
-% The original ICML legend.eps only contains
-% colour markers; its gnuplot wrapper has the text labels commented out,
-% so we render the legend natively in LaTeX with matching colours.
 \providecolor{daASC}{RGB}{31,67,142}
 \providecolor{daDif}{RGB}{67,144,196}
 \providecolor{daFAA}{RGB}{154,194,222}
@@ -38,7 +34,6 @@ under distribution discrepancies.
 \subsection{Experimental setup}
 \label{sec:setup:experimental}
 
-% REVISED FOR TMLR (dataset selection fix)
 We use the UCR Archive of 128 univariate TSC datasets (see
 Appendix~\ref{app:datasets}), retaining 102 of the 128. We exclude
 datasets with missing values and datasets too small to ensure
@@ -54,7 +49,6 @@ test splits). We apply ASCENSION to augment the training data and
 assess whether augmentation still helps an encoder that has
 already seen this data. As the test splits are held out from
 Moment's pretraining, any test-set improvement reflects a performance benefit.
-% ADDED FOR TMLR (rebuttal C5/WS9)
 Moment also probes a distinct regime: the classifier is a frozen
 foundation-model encoder with a shallow head, so synthetic samples
 cannot reshape the learned features and can only move the decision
@@ -72,7 +66,6 @@ defunct and unmaintained, we benchmark it on the HAR dataset from
 \citep{cheung2020modals} instead of UCR.
 
 
-% REVISED FOR TMLR (rebuttal C1)
 \tablename~\ref{tab:main-results} reports every method under a
 single fixed hyperparameter configuration, applied uniformly across
 all 102 datasets and repeated over three independent runs. ASCENSION
@@ -81,7 +74,6 @@ weights ($\gamma_1 = \gamma_2 = \gamma_3 = \gamma_4 = 1$), while
 baselines use their authors' recommended defaults. The complementary
 analysis with ASCENSION at its best per-dataset configuration is
 given in Appendix~\ref{app:best-config}.
-% ADDED FOR TMLR (rebuttal C7)
 As the UCR archive provides no validation split, our protocol uses
 the best epoch on the test set. We apply this rule identically to
 every method and to the no-augmentation baseline in every ResNet and
@@ -108,7 +100,6 @@ We rely on the UCR archive protocol~\citep{dau2019ucr} and use
 classification accuracy as the primary metric, quantifying each
 DA method's gain as the change in accuracy before and after
 augmentation.
-% REVISED FOR TMLR (rebuttal C1)
 \tablename~\ref{tab:main-results} reports the number of datasets with
 improved, unchanged, or worsened accuracy, along with the mean
 accuracy change over each subset, both given as mean (std) over the
@@ -117,8 +108,6 @@ three runs. Full results appear in Appendix~\ref{app:per_dataset}.
 \subsubsection{Performance comparison analysis}
 \label{sec:results:main}
 
-% REVISED FOR TMLR (rebuttal C1): fixed-configuration table over three runs
-% replaces the best-per-dataset-configuration table, now Appendix tab:best-config.
 \begin{table}[t]
 \centering
 \caption{Main comparison under a \emph{single fixed configuration}
@@ -182,7 +171,6 @@ direction.}
 }
 \end{table}
 
-% REVISED FOR TMLR (rebuttal C1/C2)
 \tablename~\ref{tab:main-results} shows that no baseline reaches a
 positive three-run mean total on any classifier: 0 of the 24
 baseline method--classifier pairs are positive, and across individual
@@ -191,8 +179,6 @@ combinations, with no single baseline exceeding 3 of its 9. The
 strongest baselines stay slightly below zero, KoVAE at
 $-0.32\,(0.04)\%$ on ResNet, LA at $-0.18\,(0.20)\%$ on FCN, and FAA
 at $-0.68\,(0.73)\%$ on Moment.
-% ADDED FOR TMLR (AE request, KoVAE analysed here rather than in the
-% related work)
 KoVAE is the strongest generative baseline on ResNet, with
 a mean accuracy change close to zero, yet never positive in any run.
 Generating faithful samples from the learned distribution is
@@ -213,7 +199,6 @@ $3\%$ throughout. These totals are modest in absolute terms, so we
 next characterise how the gains are distributed across datasets
 rather than claiming uniform improvement.
 
-% ADDED FOR TMLR (rebuttal C2)
 \tablename~\ref{tab:gain-distribution} details the distribution of
 ASCENSION's per-dataset gains, run by run. The median gain is
 moderate on ResNet ($+0.32\%$ to $+0.84\%$ across runs), zero on FCN
@@ -231,8 +216,6 @@ while ResNet is the favourable case and Moment sits in between.
 \begin{table}[t]
 \centering
 \small
-% ADDED FOR TMLR (rebuttal C2), compact form: the three runs are
-% slash-separated within each cell
 \caption{Distribution of ASCENSION's per-dataset accuracy gains under
 the fixed configuration. Each cell reports the three runs as
 run\,1\,/\,run\,2\,/\,run\,3: median gain, interquartile range
@@ -251,7 +234,6 @@ Moment & $0.00$ / $+1.03$ / $+0.35$  & $3.15$ / $5.10$ / $3.96$ & 41 / 22 / 31 &
 \end{tabular}
 \end{table}
 
-% ADDED FOR TMLR (rebuttal C4)
 The per-dataset standard deviation of ASCENSION's gain across runs
 has a median of $1.6$ (ResNet), $1.6$ (FCN), and $2.1$ (Moment)
 accuracy points but reaches roughly $20$ points on individual
@@ -266,8 +248,6 @@ Section~\ref{sec:setup:experimental}). Using MODALS improves
 baseline accuracy by $3.23\%$, while ASCENSION achieves a $4.78\%$
 improvement over the baseline. 
 
-% REVISED FOR TMLR (layout): Table tab:modals transposed and paired with
-% tab:gain-by-group (Section sec:results:applicability) in one float.
 \begin{table}[t]
 \centering
 \small
@@ -288,7 +268,6 @@ No Augmentation    & $88.64$ \\
 \end{minipage}\hfill
 \begin{minipage}[t]{0.56\textwidth}
 \centering
-% ADDED FOR TMLR (rebuttal WS8)
 \caption{Median ASCENSION gain (accuracy points) per group of
 training samples per class, with each dataset's gain averaged over
 the three fixed-configuration runs.}
@@ -305,7 +284,6 @@ Fewer than 20 & 32 & $+1.65$ & $+0.24$ & $+2.07$ \\
 \end{minipage}
 \end{table}
 
-% ADDED FOR TMLR (rebuttal C3)
 \subsubsection{Statistical significance}
 \label{sec:results:significance}
 
@@ -330,7 +308,6 @@ Appendix~\ref{app:cd} repeats the analysis on the best-per-dataset
 configuration reference, where ASCENSION again holds the best mean
 rank on all three classifiers.
 
-% ADDED FOR TMLR (rebuttal C3), one float for the three CD diagrams
 \begin{figure}[t]
 \centering
 \subcaptionbox{ResNet\label{fig:cd-resnet-main}}{%
@@ -346,7 +323,6 @@ runs.}
 \label{fig:cd-main}
 \end{figure}
 
-% ADDED FOR TMLR (rebuttal WS8/Q4)
 \subsubsection{Applicability profile}
 \label{sec:results:applicability}
 
@@ -440,13 +416,6 @@ drop), while ASCENSION$_{\text{FCN-Emb}}$ offers moderate gains
 largest gains but is less stable. FCN and the default classifier are
 more consistent.
 
-% -----------------------------------------------------------------
-% NOTE — the cVAE comparison subsection (table + discussion)
-% and the macro-$F_1$ subsection previously sat here; both moved
-% to the appendix (Appendix~\ref{app:cvae_baseline}, Appendix~\ref{app:f1})
-% for the TMLR resubmission to keep §4 focused on headline
-% experimental results.
-% -----------------------------------------------------------------
 
 
 
@@ -548,7 +517,6 @@ choice.
 \subsection{Ablation 2: Feature-based gain analysis}
 \label{sec:analysis:features}
 
-% REVISED FOR TMLR (rebuttal C2)
 As shown in Section~\ref{sec:results:main}, ASCENSION is the only
 method with a positive mean gain on each classifier, but a
 substantial share of datasets shows no gain or even degradation
@@ -582,9 +550,6 @@ runs.
 
 \begin{figure}[!t]
 \centering
-% REVISED FOR TMLR (rebuttal C1: figure regenerated on the
-% fixed-configuration runs, ASCENSION only, three runs shown; the
-% other DA methods are in Appendix app:feature_importance_all)
 \includegraphics[width=\linewidth]{figures/feature_importance_ascension.pdf}
 \caption{Feature importance of the 24 dataset features (F1--F24,
 Appendix~\ref{app:feature_risk}) for predicting ASCENSION's
@@ -593,8 +558,6 @@ the three fixed-configuration runs.}
 \label{fig:catch22-importance}
 \end{figure}
 
-% REVISED FOR TMLR (rebuttal C1: the feature-importance analysis was
-% recomputed on the fixed-configuration runs)
 \paragraph{Results}
 Figure~\ref{fig:catch22-importance} reports the importances for
 ASCENSION. The leading features change with the classifier and, as
@@ -610,7 +573,6 @@ importances of the other DA methods are reported in
 Appendix~\ref{app:feature_importance_all}.
 
 \label{sec:analysis:discrepancy}
-% REVISED FOR TMLR (direct discrepancy statistics)
 Examining this axis directly, ASCENSION's per-dataset gain shows at
 most a weak monotone relation with F24 (Spearman $\rho$ between
 $-0.04$ and $+0.24$ across the nine classifier-run combinations, not
@@ -626,7 +588,6 @@ this order (Figure~\ref{fig:cumsum-disc}).
 
 \begin{figure}[!t]
 \centering
-% REVISED FOR TMLR (minor: figure spacing)
 \daLegendBlock\par\smallskip
 \resizebox{\linewidth}{!}{\input{images/cumulative_sum_discrepency_resnet.tex}}\\
 \resizebox{\linewidth}{!}{\input{images/cumulative_sum_discrepancy_fcn.tex}}\\
@@ -639,10 +600,7 @@ discrepancy. Per-dataset gains are averaged over the three
 fixed-configuration runs.}
 \label{fig:cumsum-disc}
 \end{figure}
-% \vspace{-12pt}
 
-% REVISED FOR TMLR (rebuttal C2; curves regenerated on the fixed
-% configuration, per-dataset gains averaged over the three runs)
 Computed per run, ASCENSION's cumulative curve ends positive in
 eight of the nine classifier-run combinations, while 65 of the 72
 baseline curves end negative. Crucially, the gap between ASCENSION and
@@ -655,14 +613,4 @@ progressive expansion into under-represented latent regions
 yields beneficial augmentations \emph{regardless} of whether the
 test distribution differs from training.
 
-% -----------------------------------------------------------------
-% Ablation 3 (Empirical acceptance rate / qualitative confidence
-% study) was moved to Appendix~\ref{sec:analysis:confidence} as a
-% robustness check.  The Prop 1 connection is already established
-% by Ablation 1 (clustering-loss ablation), so the boxplot did not
-% earn its place in the main paper.
-% -----------------------------------------------------------------
 
-% Per-macro-domain breakdown lives in App. I
-% (\tablename~\ref{Tab:Macro_all}); not
-% promoted to the main paper.

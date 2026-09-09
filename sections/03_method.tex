@@ -53,7 +53,6 @@ $\Sigma_\phi(x) = \mathrm{diag}\bigl(\sigma_\phi(x)^{2}\bigr)$
 vector),
 and the decoder $p_\theta(x \mid z)$ defines a likelihood under
 the prior $p(z) = \mathcal{N}(0, I_{d_z})$.
-% ADDED FOR TMLR (rebuttal C6)
 Concretely, both networks are fully connected. The encoder
 applies two layers of width 1000 with ReLU activations, followed
 by separate linear heads for the posterior mean and log-variance
@@ -65,7 +64,6 @@ class conditioning (cVAE), which can amplify posterior collapse
 when $x$ is highly correlated with $y$
 \citep{dang2023posteriorcollapse}; an empirical comparison with
 cVAE baselines is reported in
-% REVISED FOR TMLR (rebuttal C6)
 Appendix~\ref{app:cvae_baseline}, where the cVAE baselines use
 the identical backbone with the one-hot label concatenated to
 both the encoder and the decoder inputs. To encourage class-discriminative
@@ -208,7 +206,6 @@ from $d_y^{\,\alpha}$ and rejecting candidates that fall outside
 $\mathcal{R}_y^{\,\alpha}$. At each iteration, the VAE is first
 trained using $\mathcal{L}_{\text{VAE}}$
 (Eq.~\ref{eq:total-loss}) on the current dataset.
-% REVISED FOR TMLR (rebuttal Q2)
 We then draw $|\mathcal{I}_y|$ candidate latent points from
 $d_y^{\,\alpha}$ for each class $y$, one per real sample of the
 class and $n$ in total across classes, and keep only the
@@ -219,7 +216,6 @@ $n$ synthetic samples.
 Accepted candidates are decoded through $p_\theta(x \mid z)$
 and folded into the training set; the loop iterates by
 retraining the model from scratch on the augmented dataset.
-% ADDED FOR TMLR (rebuttal Q3)
 Each iteration re-estimates the class mixtures $d_y^{\,\alpha}$
 on the already-augmented data, so the expansion compounds in
 small steps that the Bayes-region filter keeps in-class. Appendix~\ref{app:budget-matched}
@@ -286,7 +282,6 @@ gain to near zero across the 102 UCR datasets.
                 \mathcal{L}_{\text{VAE}}$
                 using $(\mathbf{X}_{\text{aug}}, \mathbf{Y}_{\text{aug}})$
       \For{\textbf{all} classes $y$}
-        % REVISED FOR TMLR (rebuttal Q2)
         \State Sample $|\mathcal{I}_y|$ candidates
           $\mathbf{Z}_{\text{new}}^{y} \sim d_y^{\,\alpha}$,
           one per real sample of class $y$
@@ -305,10 +300,3 @@ gain to near zero across the 102 UCR datasets.
   \end{algorithmic}
 \end{algorithm}
 
-% -----------------------------------------------------------------
-% NOTE — the discussion of cVAE baselines previously sat here as
-% §3.5 ("Why not a class-conditional VAE?"). Moved to the appendix
-% for TMLR resubmission to keep §3 focused on the method itself.
-% Discussion now lives in Appendix~\ref{app:cvae_baseline}; the
-% comparison table is in Section~\ref{sec:results:cvae}.
-% -----------------------------------------------------------------

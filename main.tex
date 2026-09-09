@@ -1,62 +1,36 @@
-%% ============================================================
-%% ASCENSION: Autoencoder-Based Latent Space Class Expansion
-%%            for Time Series Data Augmentation
-%% ============================================================
-
 \documentclass[10pt]{article}
 
-% Default: anonymous review version. For preprint / camera-ready,
-% swap to one of the lines below.
 % \usepackage{tmlr}             % anonymous, for submission
 % \usepackage[preprint]{tmlr}   % de-anonymise for arXiv / preprints
-\usepackage[accepted]{tmlr}     % camera-ready (also set \month/\year)
-% Compact reference list: natbib hooks (\bibfont is natbib's font hook,
-% \bibsep is read at \begin{thebibliography}). tmlr.sty loads natbib.
+\usepackage[accepted]{tmlr}
 \renewcommand{\bibfont}{\small}
 \setlength{\bibsep}{3pt plus 1pt minus 1pt}
 
-% TMLR's optional notation shortcuts
 \input{math_commands.tex}
 
-% ---- Packages ----
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{graphicx}
-\graphicspath{{images/}}  % gnuplot \input{} files reference graphics by basename;
-                          % without this, \includegraphics{cumulative_sum_*} fails
-                          % silently (axis labels render but curve images don't).
-\usepackage{wrapfig}    % side-by-side figure beside the Reading paragraph in §3.3
-\usepackage{pstricks}   % ICML appendix uses pspicture envs for PSTricks figures
-\usepackage{morefloats} % raises the 18-float queue to ~256; detailed classif
-                        % appendix has many large tables whose floats would
-                        % otherwise overflow at \clearpage ("Float(s) lost")
+\graphicspath{{images/}}
+\usepackage{wrapfig}
+\usepackage{pstricks}
+\usepackage{morefloats}
 
-% Custom commands ported from ICML main.tex preamble
 \newcommand{\NA}{--}
 \newcommand{\imgsize}{0.15\linewidth}
 
-% Figures directory is named `images/` (matches the `images/...` path prefix
-% used in the ICML-ported \includegraphics calls).
 \usepackage{subcaption}
 \usepackage{amsmath, amssymb, amsthm, mathtools}
-% Theorem environments for the formal description in
-% Section~\ref{sec:method:alpha} (Definitions 1--2 + Proposition 1).
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}
-% Gray box around Definition and Proposition environments (visual
-% emphasis; TMLR has no rule against this --- mdframed is widely
-% used in accepted papers).
 \usepackage{mdframed}
 \mdfdefinestyle{definitionbox}{%
   backgroundcolor=black!5,
   linewidth=0pt,
-  % 3pt left only 0.7pt of clearance above Proposition 1, whose first
-  % line carries a tall inline fraction and sum: it read as overflowing
-  % the box. 6pt is the template's original value.
   innertopmargin=6pt,
   innerbottommargin=3pt,
   innerleftmargin=10pt,
@@ -68,28 +42,21 @@
 \surroundwithmdframed[style=definitionbox]{proposition}
 \usepackage{svg}
 \usepackage{bm}
-\usepackage{float}          % enables [H] float placement
+\usepackage{float}
 \usepackage{algorithm}
 \usepackage{placeins}
 \usepackage{algpseudocode}
 \usepackage{xcolor}
-% todonotes warns if marginparwidth < 2cm — set it before loading.
-% `textsize` must be a package load-time option; the remaining knobs
-% are configured via \setuptodonotes{} once the package is loaded.
 \setlength{\marginparwidth}{2cm}
 \usepackage[textsize=footnotesize]{todonotes}
 \setuptodonotes{linecolor=orange!50,backgroundcolor=orange!10,bordercolor=orange}
 
-% ---- Drafting shortcuts ----
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
-\newcommand{\rev}[2]{\textit{[R\##1:}~#2\textit{]}}     % mark review-driven additions inline
+\newcommand{\rev}[2]{\textit{[R\##1:}~#2\textit{]}}
 
-% ---- Title & metadata ----
 \title{ASCENSION: Autoencoder-Based Latent Space Class Expansion for Time Series Data Augmentation}
 
-% Camera-ready author block. Addresses and affiliations confirmed by
-% Dorian on 3 sept 2026.
 \author{\name Dorian Joubaud \email dorian.joubaud@uni.lu \\
       \addr University of Luxembourg, SnT, Luxembourg \AND
       \name Matthieu Olekhnovitch \email matthieu.olekhnovitch@polytechnique.edu \\
@@ -107,23 +74,12 @@
       \name Yves Le Traon \email yves.letraon@uni.lu \\
       \addr University of Luxembourg, SnT, Luxembourg}
 
-% The month prints in the running header of every page. The camera
-% ready is due 18 Sep 2026 and TMLR publishes as soon as the Action
-% Editor verifies it, so 09/2026 is the expected publication month.
-% The forum id was read from the OpenReview page metadata on 7 sept
-% 2026 and matches the title and the eight authors.
 \def\month{09}
 \def\year{2026}
 \def\openreview{\url{https://openreview.net/forum?id=7KFXjf7K2o}}
 
 \begin{document}
 
-% tmlr.sty sets \flushbottom, which stretches the glue between floats,
-% algorithms and headings whenever a page falls short. With this many
-% floats that put 30 to 40pt holes in the middle of a dozen pages (41pt
-% between the heatmap figure and Algorithm 1, for one). Ragged bottoms
-% keep those gaps at their natural size and collect the slack under the
-% last line instead.
 \raggedbottom
 \maketitle
 
@@ -146,7 +102,6 @@ training distribution. We evaluate ASCENSION on 102 univariate datasets
 from the UCR benchmark using two established deep TS
 classifiers and a recent TS foundation model, comparing
 it against eight state-of-the-art DA methods. Empirical results
-% REVISED FOR TMLR (rebuttal C2/C3)
 demonstrate that, under a single fixed configuration and
 averaged over three runs, ASCENSION increases mean
 classification accuracy by $+1.3\%$ and $+0.6\%$ on the two deep
@@ -167,44 +122,20 @@ requiring prior knowledge of
 method suitability.
 \end{abstract}
 
-% ==========================================================
-% 1. Introduction
-% ==========================================================
 \input{sections/01_introduction}
 
-% ==========================================================
-% 2. Problem Setup (folds Related Work — TMLR DA paper convention)
-% ==========================================================
 \input{sections/02_problem_setup}
 
-% ==========================================================
-% 3. Proposed Method (with new 3.1 Motivation subsection)
-% ==========================================================
 \input{sections/03_method}
 
-% ==========================================================
-% 4. Experiments (setup + results + analysis merged)
-% ==========================================================
 \input{sections/04_experiments}
 
-% ==========================================================
-% 5. Conclusion
-% ==========================================================
 \input{sections/05_conclusion}
 
-% ==========================================================
-% 6. Limitations and Future Work
-% ==========================================================
 \input{sections/06_limitations}
 
-% ==========================================================
-% Broader Impact Statement (TMLR-required)
-% ==========================================================
 \input{sections/07_broader_impact}
 
-% ==========================================================
-% Reproducibility Statement + Acknowledgements
-% ==========================================================
 \input{sections/08_reproducibility}
 
 \bibliography{references}

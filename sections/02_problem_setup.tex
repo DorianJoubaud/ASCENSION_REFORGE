@@ -5,11 +5,6 @@ This section formalises the TS DA setting and surveys the landscape of existing 
 Section~\ref{sec:setup:ts-da} fixes notation. The remainder
 positions ASCENSION in the broader literature.
 
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (structural — TMLR DA paper convention folds
-% related work into a Problem Setup section, cf.~Mai \& Lin
-% TMLR 2024, \S2).
-% -----------------------------------------------------------------
 \subsection{Time-series data augmentation}
 \label{sec:setup:ts-da}
  DA aims to expand the training set with synthetic samples to increase the generalisation ability of the trained model \citep{shorten2019survey}, primarily by
@@ -48,9 +43,6 @@ positions ASCENSION in the broader literature.
   \label{fig:SoTa}
 \end{figure*}
 
-% REVISED FOR TMLR (rebuttal Q1): survey condensed to its positioning
-% essentials, the complete discussion moves verbatim to
-% Appendix~\ref{app:related-extended}.
 TS DA methods can be classified as traditional or
 generative according to \citep{iglesias2023data, iwana2021empirical}
 and summarised in Figure~\ref{fig:SoTa}.
@@ -86,7 +78,6 @@ Diffusion-based DA methods for TS, such as
 \citep{naiman2024utilizing}, produce stable outputs but still face
 challenges with long-range dependencies, error accumulation, and slow
 inference \citep{feng2024latent}.
-% ADDED FOR TMLR (AE request: small-sample generative benchmark)
 
 VAEs allow explicit control over the
 diversity of generated samples through manipulation of the latent
@@ -122,8 +113,6 @@ augment agronomic regression data \citep{lan2025cotton}.
 Appendix~\ref{app:related-extended} extends this discussion to further
 VAE variants.
 
-% ADDED FOR TMLR (AE request: Gonen et al. as the small-sample
-% benchmark; placed after the three families, which their study spans)
 Across these three families, \citet{gonen2025time} benchmark four
 representative models, one GAN, one VAE and two diffusion models,
 under data scarcity, and report a substantial gap between the

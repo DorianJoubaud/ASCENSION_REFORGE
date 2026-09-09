@@ -1,12 +1,3 @@
-% ==========================================================
-% Appendix
-% ==========================================================
-% Content below is ported verbatim from the ICML 2026 submission
-% appendix (ICML2026_ASCENSION/appendix.tex), with minor relabeling
-% from `app:...` → `app:...` for consistency with main-text \ref{}
-% calls, and a new Complexity appendix added per the TMLR rebuttal.
-% ==========================================================
-
 \section{Dataset list}
 \label{app:datasets}
 \tablename~\ref{Tab:app:dataset_list} lists the 102 UCR datasets used in
@@ -79,13 +70,9 @@ D51 & Mallat & Simulated & D102 & Yoga & Image \\
 
 
 
-% ========== Extended related work discussion (TMLR rebuttal Q1) ==========
-% ADDED FOR TMLR (rebuttal Q1)
 \section{Extended related work discussion}
 \label{app:related-extended}
 
-% ADDED FOR TMLR (rebuttal Q1): full related-work discussion moved verbatim from sections/02_problem_setup.tex Section 2.2.
-% Note: Figure~\ref{fig:SoTa} (images/SoTa_evolution_DA) remains in the main text Section 2.2 and is not duplicated here.
 TS DA methods can be classified as traditional or
 generative according to \citep{iglesias2023data, iwana2021empirical}
 and summarised in Figure~\ref{fig:SoTa}.
@@ -261,10 +248,6 @@ dataset from its own training set alone.
 
 
 
-% ========== Proof of Proposition 1 (TMLR addition) ==========
-% Single chain of equalities computing Cov[Z] directly on d_y^alpha.
-% One conceptual operation per line; large jumps from the earlier
-% version split into atomic substitutions.
 \section{Proof of Proposition~\ref{prop:variance}}
 \label{app:variance-proof}
 
@@ -308,15 +291,6 @@ $\bar\mu_y = \tfrac{1}{|\mathcal{I}_y|}\sum_{i \in \mathcal{I}_y} \mu_i$ for com
 \qed
 
 
-% ========== cVAE baseline discussion (moved from §3.5) ==========
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (review-driven) — cVAE baselines discussion.
-% Previously sat in main text §3.5 ("Why not a class-conditional
-% VAE?"); moved to appendix per the TMLR resubmission to keep §3
-% focused on the method. The empirical comparison table is in
-% Section~\ref{sec:results:cvae}.
-% Source: Publication/ASCENSION/ASCENSION_Response_CVAEBaseline.md
-% -----------------------------------------------------------------
 \section{Comparison with class-conditional VAE baselines}
 \label{app:cvae_baseline}
 \label{sec:results:cvae}
@@ -334,12 +308,10 @@ The single $\alpha = 2.6$ matches the value used for wall-clock
 comparisons in Appendix~\ref{sec:complexity:wallclock}, the mean
 of the per-dataset best $\alpha$ values across the 102 UCR datasets
 (\tablename~\ref{Tab:app:bestconfig}).
-% REVISED FOR TMLR (rebuttal C1)
 Variant (i) provides the no-scaling endpoint ($\alpha = 1$), variant
 (iii) uses ASCENSION's per-dataset $\alpha$ values and therefore
 covers the same $\alpha$ range as the best-configuration reference
 (\tablename~\ref{tab:best-config}).
-% ADDED FOR TMLR (rebuttal C6)
 All three cVAE variants use the identical fully connected backbone as
 ASCENSION (Section~\ref{sec:method:vae}), with the one-hot class label
 concatenated to both the encoder and the decoder inputs.
@@ -398,19 +370,9 @@ collapses the mean augmentation gain from $+2.1\%$ to $-0.05\%$).
 
 
 
-% ========== Best per-dataset configuration reference results ==========
-% -----------------------------------------------------------------
-% REVISED FOR TMLR (rebuttal C1)
-% The former "Single-configuration reference results" section became
-% redundant once the fixed-configuration comparison took over the
-% main-text \tablename~\ref{tab:main-results}. This section now hosts
-% the originally submitted Table 1 (ASCENSION at its best per-dataset
-% configuration), moved here verbatim from Section 4 with its label
-% changed to tab:best-config.
-% -----------------------------------------------------------------
 \section{Best per-dataset configuration reference results}
 \label{app:best-config}
-\label{app:single-config}% kept so stale references keep resolving
+\label{app:single-config}
 
 This reference evaluates per-dataset hyperparameter selection.
 \tablename~\ref{tab:best-config} reports ASCENSION
@@ -483,8 +445,6 @@ the only method with a positive net total on every classifier.
 
 
 
-% ========== Statistical significance (Friedman + CD diagrams) ==========
-% REVISED FOR TMLR (rebuttal C3)
 \section{Statistical significance on the best-configuration reference}
 \label{app:cd}
 
@@ -506,7 +466,6 @@ threshold for $k = 9$ methods and $N = 102$ datasets is
 $\mathrm{CD} \approx 1.19$.
 
 
-% REVISED FOR TMLR (rebuttal C3)
 On this best-configuration reference, ASCENSION achieves the lowest
 mean rank on every classifier (2.87, 3.72, 2.79 for ResNet, FCN,
 Moment), consistent with the fixed-configuration analysis of
@@ -522,8 +481,6 @@ ASCENSION at its lower edge.
 
 
 
-% ========== Per-dataset variability across runs (TMLR rebuttal C4) ==========
-% ADDED FOR TMLR (rebuttal C4)
 \section{Per-dataset variability across runs}
 \label{app:per-dataset-std}
 
@@ -589,8 +546,6 @@ GunPoint & 2.0 & 2.3 & 3.2 & ProximalPhalanxOutlineCorrect & 1.2 & 1.3 & 1.4 & Y
 \end{table}
 
 
-% ========== Moment classifier specification (TMLR rebuttal C5/WS9) ==========
-% ADDED FOR TMLR (rebuttal C5/WS9)
 \section{Moment classifier specification}
 \label{app:moment-spec}
 
@@ -607,8 +562,6 @@ with a shallow head: synthetic samples cannot reshape the learned
 features and can only move the decision boundary.
 
 
-% ========== Gain against training-set size (TMLR rebuttal WS8) ==========
-% ADDED FOR TMLR (rebuttal WS8)
 \section{Gain against training-set size}
 \label{app:gain-vs-spc}
 
@@ -627,7 +580,6 @@ reports the per-classifier Spearman correlation.}
 \end{figure}
 
 
-% ========== Empirical acceptance rate across iterations =========
 
 \section{Empirical acceptance rate of the rejection step}
 \label{app:acceptance}
@@ -653,7 +605,6 @@ class, and report its distribution over the 102 datasets in
 \begin{figure}[!htb]
 \centering
 \resizebox{0.55\textwidth}{!}{\input{images/boxPlot_risk.tex}}
-% REVISED FOR TMLR (erratum)
 \caption{Empirical acceptance rate $\mathcal{C}$
 across six expansion iterations on the 102 UCR datasets.
 Median $\mathcal{C}$ stays in the $0.71$-$0.73$ band with
@@ -668,7 +619,6 @@ Proposition~\ref{prop:variance}: the contrastive margin enforced
 by $\mathcal{L}_{\text{cluster}}$ keeps $m/\sigma_w$ above
 $2\sqrt{\alpha}$ across iterations, so the operating point stays in
 the class-preserving regime of Figure~\ref{fig:prop1-heatmap}.
-% REVISED FOR TMLR (erratum)
 At $\alpha \approx 2.6$, this places the operating point
 slightly above the bold curve $m/\sigma_w = 2\sqrt{\alpha} \approx
 3.2$, in the region where the theoretical heatmap predicts
@@ -676,14 +626,6 @@ acceptance close to $0.7$, consistent with the empirical
 $0.71$-$0.73$ band observed here.
 
 
-% ========== Complexity & wall-clock (TMLR addition) ==========
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (review-driven) — complexity + wall-clock analysis.
-% Not present in the ICML version. Responds to ICML reviewers
-% uqH7 W3 and siJn W3.
-% Rebuttal source: Publication/ASCENSION/
-%   ASCENSION_Response_Realism_Anisotropy.md (wall-clock table).
-% -----------------------------------------------------------------
 
 \section{Complexity}
 \label{sec:complexity:big_o}
@@ -766,15 +708,6 @@ not offer downstream gain
 
 
 
-% ========== Domain coverage (moved from §4.1, TMLR addition) ==========
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (review-driven) — macro-domain grouping,
-% responding to ICML reviewer siJn W1.  Previously sat in §4.1
-% of the main text; moved here for the TMLR resubmission to keep
-% §4 focused on the headline experimental story.
-% Moved again on 3 sept 2026 to sit immediately before the
-% per-domain results that use these macro-domains.
-% -----------------------------------------------------------------
 \section{Domain coverage of the UCR datasets}
 \label{app:domain-coverage}
 
@@ -789,17 +722,8 @@ Image (29.4\%), Motion (13.7\%), Spectral (11.8\%) and
 Biomedical (9.8\%). All tasks are closed-set, supervised,
 fixed-label TSC (not anomaly detection, forecasting, or risk
 assessment).
-%\vspace{-2pt}
 
 
-% \begin{figure*}[H]
-%   \centering
-%   \includegraphics[trim=0cm 0cm 0cm 0cm,clip,width=.8\textwidth]{figures/fig_domain_coverage}
-% \caption{Domain coverage of the 102 UCR datasets used in our
-% experiments. Inner ring: the five macro-domains (true percentages
-% shown). Outer ring: the 11 raw UCR categories with absolute counts.}
-%   \label{fig:domain-coverage}
-% \end{figure*}
 
 
 \begin{figure}[!htb]
@@ -811,20 +735,13 @@ shown). Outer ring: the 11 raw UCR categories with absolute counts.}
 \label{fig:domain-coverage}
 \end{figure}
 
-% ========== Detailed classification performance (ICML app:Exp:large:Classif) ==========
 \section{Detailed classification performance} \label{app:per_dataset}
-%\subsection{Detailed classification performance} \label{app:per_dataset}
 This section asks where ASCENSION's gain comes from, by splitting its row of \tablename~\ref{tab:main-results} over the five macro-domains defined in Appendix~\ref{app:domain-coverage} (\tablename~\ref{Tab:Macro_all}). The raw UCR domain of every dataset is given in \tablename~\ref{Tab:app:dataset_list}.
-% ADDED FOR TMLR (rebuttal C4)
 The net change is positive on all five macro-domains for ResNet, on four for Moment and on three for FCN. It is negative only on Motion, under FCN and Moment, and on Industrial under FCN, where it stays within $0.05$ points of zero. Three runs are not enough to order the macro-domains against each other: the two largest gains, Spectral under ResNet and under FCN, are also the two noisiest, at $+2.47\,(3.44)$ and $+2.20\,(3.80)$, and in $10$ of the $15$ cells the standard deviation exceeds the gain itself, so the emphasis in \tablename~\ref{Tab:Macro_all} marks the largest mean rather than a resolved ranking. \tablename s~\ref{Tab:MeanImprov_ResNet}--\ref{Tab:MeanNegative_Moment} break the nine DA methods down over the same macro-domains, separating the datasets each method improves from those it worsens. The per-dataset spread behind these averages is reported in Appendix~\ref{app:per-dataset-std}.
 
 
 
 
-% REVISED FOR TMLR (rebuttal C1): the per-domain breakdown is recomputed on
-% the three fixed-configuration runs of tab:main-results. The previous
-% per-domain and macro-domain tables were built on the best-per-dataset
-% configuration protocol that C1 replaced, and were single-run.
 \begin{table}[!htb]
 \centering
 \caption{Net accuracy change ($\overline{\Delta\mathrm{Acc}}$, accuracy points) of ASCENSION per macro-domain, under the single fixed configuration and the three runs of \tablename~\ref{tab:main-results}, as mean\,(std) over the runs. Each cell averages over every dataset of the macro-domain, so datasets left unchanged contribute $0$, and weighting the five rows by their dataset counts returns the ASCENSION row of the Total column of \tablename~\ref{tab:main-results}. \textbf{Bold} and \underline{underline} mark the best and second-best macro-domain per classifier.}
@@ -965,13 +882,10 @@ Biomedical (10) & \textbf{2.3} & \textbf{-1.5\,(1.3)} & 6.7 & -5.2\,(3.6) & 2.3 
 
 
 
-% Hyperparameter Sensitivity Analysis
-%\input{sections/appendix/hyperparameter_sensibility_analysis}
 
 
 \begin{table}[p]
 \centering
-% REVISED FOR TMLR (rebuttal C1)
 \caption{Best $(\text{iter.}, \alpha)$ configuration per dataset for each of the three classifiers in \tablename~\ref{tab:best-config}, with the corresponding accuracy improvement ($\overline{\Delta\mathrm{Acc}} = \mathrm{augmentation\_accuracy} - \mathrm{base\_accuracy}$). Dataset names for each D-id are given in \tablename~\ref{Tab:app:dataset_list}.}\label{Tab:app:bestconfig}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -1036,7 +950,6 @@ D51 & (1, 4.7) & 0.00 & (1, 2.3) & 0.00 & (1, 4.7) & 0.06 & D102 & (1, 1.7) & 0.
 \end{table}
 
 
-% ========== Extended hyperparameter sensitivity (ICML app:HPSA) ==========
 \section{Extended hyperparameter sensitivity analysis} \label{app:HPSA}
 
 \subsection{$\alpha$-scaling mechanism ablation study} \label{app:HPSA:alpha}
@@ -1127,134 +1040,33 @@ D51 & 0.01 & (1, 4) & 0.00 & 1.11 & D102 & -0.02 & (1, 3) & -0.02 & 1.02 \\
 
 
 
-% \begin{table*}[t]
-% \centering
  
-% \caption{Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies, along with best pair ( iter., $\alpha$) identified per dataset}
 
 
-% \scalebox{.85}{
-% \begin{tabular}{lr | r | rr | rrr}
 
-% \toprule
-%  &  & $\mathcal{L}_{\text{cluster}}$ ablation & \multicolumn{2}{c|}{$\alpha$-scaling ablation} & F24 & \multicolumn{2}{c}{Dispersion}\\
-% \# & Dataset & $\overline{Acc}_{\Delta_1 Step}$ & ( iter., $\alpha$) & $\overline{Acc}_{\Delta_1 Step}$ & Ratio & Disp$_{\text{Test}}$ & Disp$_{\text{Train}}$\\
-%  \midrule
-% D90 & TwoLeadECG & 0.01 & (1, 3) & 0.01 & 1.00 & $2.28\times10^{1}$ & $2.32\times10^{1}$ \\
-% D91 & TwoPatterns & -0.01 & (1, 1) & -0.01 & 1.00 & $5.83\times10^{2}$ & $3.90\times10^{2}$ \\
-% D92 & UMD & 0.02 & (1, 1) & 0.02 &  0.97 &$1.89\times10^{1}$ & $1.89\times10^{1}$ \\
-% D93 & UWaveGestureLibraryAll & -0.01 & (1, 3) & -0.01 & 1.04 & $5.73\times10^{1}$ & $5.46\times10^{1}$ \\
-% D94 & UWaveGestureLibraryX & -0.00 & (1, 1) & -0.00 & 1.02 & $6.81\times10^{1}$ & $6.67\times10^{1}$ \\
-% D95 & UWaveGestureLibraryY & 0.01 & (1, 2) & 0.01 & 1.05 & $2.00\times10^{1}$ & $1.73\times10^{1}$ \\
-% D96 & UWaveGestureLibraryZ & -0.01 & (1, 1) & -0.01 & 1.06 & $8.64\times10^{0}$ & $9.18\times10^{0}$ \\
-% D97 & Wafer & -0.00 & (1, 3) & -0.00 & 1.12 & $2.24\times10^{2}$ & $2.30\times10^{2}$ \\
-% D98 & Wine & 0.01 & (1, 4) & 0.04 & 0.87 & $3.34\times10^{4}$ & $3.33\times10^{4}$ \\
-% D99 & WordSynonyms & -0.01 & (1, 4) & -0.01 & 1.11 & $4.32\times10^{3}$ & $5.08\times10^{3}$ \\
-% D100 & Worms & -0.02 & (1, 2) & -0.01 & 0.89 & $1.13\times10^{2}$ & $1.00\times10^{2}$ \\
-% D101 & WormsTwoClass & -0.03 & (1, 2) & -0.03 & 0.93 & $4.09\times10^{1}$ & $4.26\times10^{1}$ \\
-% D102 & Yoga & -0.02 & (1, 3) & -0.02 & 1.02 & $3.02\times10^{4}$ & $2.97\times10^{4}$ \\
 
 
   
-% \bottomrule
-% \end{tabular}
-% }
-% \end{table*}
-
-
-%\textcolor{red}{INtroduce table column 1 (best pair); column ($\overline{Acc}_{\Delta_1 Step}$) + Comments (Q1, median, Q3)}
 
 
 
 
-% % ECG
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
+
+
     
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_ECG200.png}
     
-%     \caption{\textbf{ECG:} Classifier performance against $\alpha$ and iteration number for \textbf{ECG200} dataset.}
-%     \label{fig:images/alpha_study_ECG200}
-% \end{figure}
-
-% EOG
 
 
-% % Hemodynamics
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_PigArtPressure.png}
-%     \caption{\textbf{Hemodynamics:} Classifier performance against $\alpha$ and iterations for \textbf{PigArtPressure}. }
-%     \label{fig:images/alpha_study_PigArtPressure}
-% \end{figure}
-
-% Image
 
 
-% % Motion
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_Worms.png}
-%     \caption{\textbf{Motion:} Classifier performance against $\alpha$ and iteration number for \textbf{Worms} dataset.}
-%     \label{fig:images/alpha_study_Worms}
-% \end{figure}
 
-% % Sensor
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_Car.png}
-%     \caption{\textbf{Sensor:} Classifier performance against $\alpha$ and iteration number for \textbf{Car} dataset.}
-%     \label{fig:images/alpha_study_Car}
-% \end{figure}
 
-% % Simulated
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_UMD.png}
-%     \caption{\textbf{Simulated:} Classifier performance against $\alpha$ and iteration number for \textbf{UMD} dataset.}
-%     \label{fig:images/alpha_study_UMD}
-% \end{figure}
 
-% % Spectro
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_Ham.png}
-%     \caption{\textbf{Spectro:} Classifier performance against $\alpha$ and iteration number for \textbf{Ham} dataset.}
-%     \label{fig:images/alpha_study_Ham}
-% \end{figure}
 
-% % Spectrum
-% \begin{figure}[H]
-%     \centering
-%           
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
+
+
     
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_SemgHandMovementCh2.png}
-%     \caption{\textbf{Spectrum:} Classifier performance against $\alpha$ and iteration number for \textbf{SemgHandMovementCh2} dataset.}
-%     \label{fig:images/alpha_study_SemgHandMovementCh2}
-% \end{figure}
 
-% % Device
-% \begin{figure}[H]
-%     \centering
-%       
-%     \hspace{1.5cm} ASCENSION$_\text{Emb.}$ \hfill ASCENSION$_\text{FCN-Emb.}$ \hfill ASCENSION$_\text{ResNet-Emb.}$ \hspace{1cm}
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 3cm 0cm 5cm]{images/alpha_study_combined_ACSF1.png}
-%     \caption{\textbf{Device:} Classifier performance against $\alpha$ and iteration number for \textbf{ACSF1} dataset.}
-%     \label{fig:images/alpha_study_ACSF1}
-% \end{figure}
 
 
 \subsection{Clustering loss ablation study}\label{app:HPSA:clusterL}\label{app:loss_weights}
@@ -1264,75 +1076,6 @@ D51 & 0.01 & (1, 4) & 0.00 & 1.11 & D102 & -0.02 & (1, 3) & -0.02 & 1.02 \\
 \end{equation}
 where $n$ is the total number of augmentation steps, $Acc_{Step\_1}$ is the accuracy at the first augmentation step (taken as the reference), and the sum averages the per-step accuracy delta over subsequent steps $k = 2, \ldots, n$.
 
-%$$\overline{Acc}_{\Delta_1 Step} = \frac{1}{n - 1} \sum_{k = 2}^{n - 1} \left( Acc_{Step\_k}\right) - Acc_{Step\_1} $$,
-
-%where n denotes the total number of adaptation steps and  $Acc_{\text{Step\_k}}$ is the classification accuracy at step k.
-
-
-% \begin{table*}[p]
-% \centering
-%  
-% \caption{  \red Accuracy gain ($\overline{Acc}_{\Delta_1 Step}$) after first augmentation step per dataset for the $\alpha$-scaling mechanism and clustering loss ablation studies}\label{Table:app:Ablation_clustering}
-% \begin{tabular}{@{}ll|ll@{}}
-% \toprule
-% \# & $\overline{Acc}_{\Delta_1 Step}$ & \# & $\overline{Acc}_{\Delta_1 Step}$ \\
-% \midrule
-% D1 & -0.01 & D54 & 0.01 \\
-% D2 & -0.01 & D55 & -0.02 \\
-% D3 & -0.05 & D56 & -0.03 \\
-% D4 & 0.03 & D57 & 0.00 \\
-% D5 & 0.13 & D58 & 0.01 \\
-% D6 & 0.00 & D59 & 0.00 \\
-% D7 & -0.02 & D60 & -0.00 \\
-% D8 & -0.02 & D61 & 0.01 \\
-% D9 & 0.01 & D62 & 0.01 \\
-% D10 & 0.00 & D63 & 0.00 \\
-% D11 & -0.00 & D64 & -0.00 \\
-% D12 & -0.13 & D65 & 0.00 \\
-% D13 & 0.02 & D66 & 0.00 \\
-% D14 & -0.01 & D67 & -0.02 \\
-% D15 & 0.03 & D68 & -0.01 \\
-% D16 & 0.00 & D69 & -0.00 \\
-% D17 & -0.02 & D70 & -0.01 \\
-% D18 & -0.01 & D71 & -0.01 \\
-% D19 & -0.00 & D72 & 0.02 \\
-% D20 & 0.00 & D73 & 0.01 \\
-% D21 & 0.00 & D74 & -0.03 \\
-% D22 & -0.01 & D75 & -0.01 \\
-% D23 & -0.02 & D76 & 0.00 \\
-% D24 & 0.01 & D77 & -0.02 \\
-% D25 & -0.00 & D78 & 0.01 \\
-% D26 & 0.02 & D79 & 0.01 \\
-% D27 & -0.06 & D80 & -0.00 \\
-% D28 & -0.01 & D81 & -0.01 \\
-% D29 & -0.04 & D82 & -0.01 \\
-% D30 & -0.00 & D83 & -0.01 \\
-% D31 & -0.01 & D84 & -0.01 \\
-% D32 & -0.00 & D85 & -0.02 \\
-% D33 & 0.03 & D86 & 0.00 \\
-% D34 & -0.02 & D87 & -0.04 \\
-% D35 & -0.00 & D88 & 0.02 \\
-% D36 & -0.01 & D89 & -0.01 \\
-% D37 & 0.00 & D90 & 0.01 \\
-% D38 & -0.03 & D91 & -0.01 \\
-% D39 & -0.00 & D92 & 0.02 \\
-% D40 & -0.01 & D93 & -0.01 \\
-% D41 & 0.02 & D94 & -0.00 \\
-% D42 & 0.00 & D95 & 0.01 \\
-% D43 & -0.02 & D96 & -0.01 \\
-% D44 & -0.00 & D97 & -0.00 \\
-% D45 & 0.00 & D98 & 0.01 \\
-% D46 & 0.00 & D99 & -0.01 \\
-% D47 & -0.00 & D100 & -0.02 \\
-% D48 & -0.01 & D101 & -0.03 \\
-% D49 & -0.04 & D102 & -0.02 \\
-% D50 & -0.04 & & \\
-% D51 & 0.01 & & \\
-% D52 & -0.02 & & \\
-% D53 & -0.01 & & \\
-% \bottomrule
-% \end{tabular}
-% \end{table*}
 
 
 
@@ -1345,17 +1088,14 @@ where $n$ is the total number of augmentation steps, $Acc_{Step\_1}$ is the accu
 
 
 
-% \subsection{Loss weights' tuning} \label{app:HPSA:lossW}
-% \textcolor{red}{TEST In this section, we describe the 22~time series features (Catch22) presented in  and the two additional features (denoted by F23 and F24 below) considered in this study. In this section, we describe the 22~time series features (Catch22) presented, and the two additional features (denoted by F23 and F24 below) considered in this study. TEST}
-
-
-% Trust Results Analysis
-%\input{sections/appendix/trust_analysis}
 
 
 
-% ========== Iteration count under a fixed budget (TMLR rebuttal Q3) ==========
-% ADDED FOR TMLR (rebuttal Q3)
+
+
+
+
+
 \subsection{Iteration count under a fixed generation budget}
 \label{app:budget-matched}
 
@@ -1389,7 +1129,6 @@ advantage, and quadrupling the budget does not improve on the deployed
 configuration.
 
 
-% ========== Feature \& expansion risk analysis (ICML app:) ==========
 \section{Dataset features}\label{app:feature_risk}
 
 \subsection{Time series features}\label{app:TSF}
@@ -1435,7 +1174,7 @@ We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba20
     
     \item[\textbf{F19}: \texttt{SC\_FluctAnal\_2\_rsrangefit\_50\_1}] Proportion of slower timescale fluctuations that scale with rescaled range fits, indicating long-term memory in the data.
     
-    \item[\textbf{F20}: \texttt{SC\_FluctAnal\_2\_dfa\_50\_1\_2\_logi\_prop}] Proportion of slower timescale fluctuations that scale with detrended fluctuation analysis (DFA) under 50% sampling.
+    \item[\textbf{F20}: \texttt{SC\_FluctAnal\_2\_dfa\_50\_1\_2\_logi\_prop}] Proportion of slower timescale fluctuations that scale with detrended fluctuation analysis (DFA) under 50
     
     \item[\textbf{F21}: \texttt{SP\_Summaries\_welch\_rect\_centroid}] The centroid of the Fourier power spectrum, which offers a measure of the central frequency or the dominant pattern in the time series.
     
@@ -1447,7 +1186,6 @@ We describe hereinafter the 22~TS features (Catch22) presented in \citep{lubba20
 \end{description}
 }
 
-% ========== Train/test discrepancy (ICML app:PerfMetrics:Discrepancy) ==========
 \subsection{Discrepancy in distance between training and test sets}\label{app:discrepancy}\label{app:discrepancy:form}
 To quantify the discrepancy between training and test distributions, we assess intra-class dispersion using Dynamic Time Warping (DTW) as the distance metric. For each class \( k \in \{1, \ldots, K\} \), let the set of time series in class \( k \) be denoted by \( \mathcal{X}_k = \{x_{k,1}, \ldots, x_{k,n_k}\} \), where \( n_k \) is the number of instances in class \( k \). Let \( \mu_k \) denote the DTW barycenter (i.e., the average sequence under DTW alignment) of \( \mathcal{X}_k \). The intra-class dispersion for class \( k \) is then defined as $d_k = \frac{1}{n_k} \sum\nolimits_{i=1}^{n_k} \text{DTW}(x_{k,i}, \mu_k)$.
 
@@ -1458,230 +1196,7 @@ The ratio \( V \) captures train-test diversity: \( V \approx 1 \) implies simil
 
 
 
-% -----------------------------------------------------------------
-% NOTE (commented out 2026-05-11): App. K.2 (Extended analysis of
-% class assignment confidence) was orphaned -- no \ref pointed at it
-% from outside the subsection, and its conclusion ('no clear linear or
-% polynomial correlation between confidence and accuracy delta') is
-% weakly informative. Pairs with the already-commented App. F
-% (Empirical acceptance rate). Body kept here for potential revival
-% during TMLR rebuttal.
-% -----------------------------------------------------------------
-% \subsection{Extended analysis of the class assignment confidence}\label{app:TrustAnalysis}
-% Figures~\ref{fig:trust_perf_resnet} and \ref{fig:trust_perf_fcn} visualize the relationship between the confidence of synthetic sample class assignments (i.e., confidence that a generated sample is correctly labeled) and the resulting change in classifier accuracy using ASCENSION with ResNet and FCN as external classifiers. Confidence is plotted on the $y$-axis and accuracy delta on the $x$-axis. For both classifiers the relationship appears complex. A weak positive trend may exist, but there is no clear linear or polynomial correlation.
-% 
-% To deepen the analysis, Figures~\ref{fig:trust_perf_resnet_clustering} and \ref{fig:trust_perf_fcn_clustering} apply \texttt{DBSCAN} clustering to uncover patterns. Two main clusters emerge: one (orange / cluster1) suggests that confidence remains largely constant regardless of performance, while the second (blue / cluster2) shows no clear trend. These clusters likely reflect differences in the intrinsic features of the time series datasets. To investigate this, we assess the influence of the 24~dataset features (F1-F24, see Appendix~\ref{app:desc:tsf}) with ASCENSION (ResNet) on confidence scores using a shallow random forest with many estimators, as in Section~\ref{sec:analysis:features}. Feature importance results in Figure~\ref{fig:trust_feature_importance} highlight seven dominant features (importance $\geq 0.6$), supporting the hypothesis that certain dataset characteristics affect confidence levels in the expansion mechanism.
-% 
-% 
-% \begin{figure*}[h]
-%     \centering  
-%     \psset{xunit=1mm,yunit=1mm,runit=1mm}
-% 
-% 
-%     
-% \scalebox{1.0}{
-% \begin{pspicture}(0,0)(140,31.5)
-%     
-%     \put(-5.5,-2){\input{images/FI_risk_formatted}}
-% 
-%     \end{pspicture}
-%     }
-%     \caption{\textbf{Feature importance in regards to confidence:} Overview of the impact of every dataset feature (F1-F24, see Appendix~\ref{app:desc:tsf}) on the mean confidence over the augmentation steps.}.
-%     \label{fig:trust_feature_importance}
-% \end{figure*}
-% 
-% 
-% \begin{figure*}[t]
-% \scalebox{1}{
-% \centering
-% 
-% --- Row 1 ---
-% \begin{subfigure}[t]{0.49\linewidth}
-%   \centering
-%   \psset{xunit=1mm,yunit=1mm,runit=1mm}
-%   \begin{pspicture}(0,0)(65,60)
-%     \put(1,5){
-%       \put(3,3){\includegraphics[width=62mm,clip=true,trim=1.7cm 1.2cm .2cm .2cm]{images/trust_perf_resnet.png}}
-% 
-%       \put(-4,22){\rotatebox{90}{\footnotesize Mean confidence}}
-%       \put(-.5,0){
-%         \put(0,46){\footnotesize 0.6}
-%         \put(0,35.5){\footnotesize 0.4}
-%         \put(0,25){\footnotesize 0.2}
-%         \put(0,14.5){\footnotesize 0.0}
-%         \put(0,4){\footnotesize -0.2}
-%       }
-% 
-%       \put(27,-4){\footnotesize Final delta in accuracy}
-%       \put(-.75,0){
-%         \put(56.7,0){\footnotesize 0.06}
-%         \put(48,0){\footnotesize 0.04}
-%         \put(39.5,0){\footnotesize 0.02}
-%         \put(31.5,0){\footnotesize 0.00}
-%         \put(21.9,0){\footnotesize -0.02}
-%         \put(13.7,0){\footnotesize -0.04}
-%         \put(5.5,0){\footnotesize -0.06}
-%       }
-%     }
-%   \end{pspicture}
-%   \caption{Confidence vs. Performance (ResNet)}
-%   \label{fig:trust_perf_resnet}
-% \end{subfigure}
-% \hfill
-% \begin{subfigure}[t]{0.49\linewidth}
-%   \centering
-%   \psset{xunit=1mm,yunit=1mm,runit=1mm}
-%   \begin{pspicture}(0,0)(65,63)
-%     \put(1,5){
-%       \put(3,3){\includegraphics[width=62mm,clip=true,trim=1.7cm 1.2cm .2cm .2cm]{images/trust_perf_fcn.png}}
-% 
-%       \put(-4,22){\rotatebox{90}{\footnotesize Mean confidence}}
-%       \put(-.5,0){
-%         \put(0,46){\footnotesize 0.6}
-%         \put(0,35.5){\footnotesize 0.4}
-%         \put(0,25){\footnotesize 0.2}
-%         \put(0,14.5){\footnotesize 0.0}
-%         \put(0,4){\footnotesize -0.2}
-%       }
-% 
-%       \put(27,-4){\footnotesize Final delta in accuracy}
-%       \put(-.75,0){
-%         \put(56.7,0){\footnotesize 0.06}
-%         \put(48,0){\footnotesize 0.04}
-%         \put(39.5,0){\footnotesize 0.02}
-%         \put(31.5,0){\footnotesize 0.00}
-%         \put(21.9,0){\footnotesize -0.02}
-%         \put(13.7,0){\footnotesize -0.04}
-%         \put(5.5,0){\footnotesize -0.06}
-%       }
-%     }
-%   \end{pspicture}
-%   \caption{Confidence vs. Performance (FCN)}
-%   \label{fig:trust_perf_fcn}
-% \end{subfigure}
-% }
-% 
-% \vspace{2mm}
-% 
-% \scalebox{1}{
-% --- Row 2 ---
-% \begin{subfigure}[t]{0.49\linewidth}
-%   \centering
-%   \psset{xunit=1mm,yunit=1mm,runit=1mm}
-%   \begin{pspicture}(0,0)(65,63)
-%     \put(0,5){
-%       \put(3,3){\includegraphics[width=62mm,clip=true,trim=1.7cm 1.2cm .2cm .2cm]{images/trust_perf_resnet_clustering.png}}
-% 
-%       \put(-4,22){\rotatebox{90}{\footnotesize Mean confidence}}
-%       \put(-.5,0){
-%         \put(0,51){\footnotesize 0.5}
-%         \put(0,43.5){\footnotesize 0.4}
-%         \put(0,36){\footnotesize 0.3}
-%         \put(0,28.5){\footnotesize 0.2}
-%         \put(0,21.2){\footnotesize 0.1}
-%         \put(0,14){\footnotesize 0.0}
-%         \put(0,6.5){\footnotesize -0.1}
-%       }
-% 
-%       \put(27,-4){\footnotesize Final delta in accuracy}
-%       \put(0,0){
-%         \put(54.7,0){\footnotesize 0.06}
-%         \put(46.5,0){\footnotesize 0.04}
-%         \put(38.3,0){\footnotesize 0.02}
-%         \put(30.1,0){\footnotesize 0.00}
-%         \put(21.9,0){\footnotesize -0.02}
-%         \put(13.7,0){\footnotesize -0.04}
-%         \put(5.5,0){\footnotesize -0.06}
-%       }
-%     }
-%   \end{pspicture}
-%   \caption{Confidence vs. Perf. (ResNet) using \texttt{DBSCAN}}
-%   \label{fig:trust_perf_resnet_clustering}
-% \end{subfigure}
-% \hfill
-% \begin{subfigure}[t]{0.49\linewidth}
-%   \centering
-%   \psset{xunit=1mm,yunit=1mm,runit=1mm}
-%   \begin{pspicture}(0,0)(65,60)
-%     \put(2,5){
-%       \put(3,3){\includegraphics[width=62mm,clip=true,trim=1.7cm 1.2cm .2cm .2cm]{images/trust_perf_fcn_clustering.png}}
-% 
-%       \put(-.5,0){
-%         \put(0,51){\footnotesize 0.5}
-%         \put(0,43.5){\footnotesize 0.4}
-%         \put(0,36){\footnotesize 0.3}
-%         \put(0,28.5){\footnotesize 0.2}
-%         \put(0,21.2){\footnotesize 0.1}
-%         \put(0,14){\footnotesize 0.0}
-%         \put(0,7){\footnotesize -0.1}
-%       }
-% 
-%       \put(27,-4){\footnotesize Final delta in accuracy}
-%       \put(0,0){
-%         \put(54.7,0){\footnotesize 0.06}
-%         \put(46.5,0){\footnotesize 0.04}
-%         \put(38.3,0){\footnotesize 0.02}
-%         \put(30.1,0){\footnotesize 0.00}
-%         \put(21.9,0){\footnotesize -0.02}
-%         \put(13.7,0){\footnotesize -0.04}
-%         \put(5.5,0){\footnotesize -0.06}
-%       }
-%     }
-%   \end{pspicture}
-%   \caption{Confidence vs. Perf. (FCN) using \texttt{DBSCAN}}
-%   \label{fig:trust_perf_fcn_clustering}
-% \end{subfigure}
-% }
-% \caption{Confidence vs. delta in accuracy over augmentation steps using DBSCAN}
-% \label{Fig:Trust_confidence}
-% \end{figure*}
-% 
-% 
-% Figure~\ref{fig:trust_perf_fcn_clustering} and \ref{fig:trust_perf_resnet_clustering} reveal the emergence of two primary clusters. As discussed earlier, these clusters likely reflect variations in the initial augmentation conditions: the specific dataset and its inherent characteristics.
-% 
-% %All the figures in this section have been computed after removing outlier data samples. All four 
-% 
-% Both Figures~\ref{fig:trust_perf_fcn} and \ref{fig:trust_perf_resnet} show a complex relationship between confidence and performance. A slight positive correlation appears to be present, however it is clear that no linear or polynomial relationship exists between the two.
-% 
-% % From the previous analysis, we perform a clustering using \verb|DBSCAN| to extract patterns. Figures~\ref{fig:trust_perf_fcn_clustering} and \ref{fig:trust_perf_resnet_clustering} reveal two main clusters. As mentioned previously, we infer that these clusters may depend on the initial conditions of the augmentation, that is to say, the dataset and its characteristics.
-% Based on the previous analysis, we apply \verb|DBSCAN| clustering to identify underlying patterns. Figure~\ref{fig:trust_perf_fcn_clustering} and \ref{fig:trust_perf_resnet_clustering} reveal the emergence of two primary clusters. As discussed earlier, these clusters likely reflect variations in the initial augmentation conditions: the specific dataset and its inherent characteristics.
-% 
-% Feature importance plot
-% \begin{figure*}[h]
-%     \centering
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 0cm 0cm 0cm]{images/feature_importances_trust.png}
-%     \caption{\textbf{Feature importance in regards to confidence:} Overview of the impact of every dataset feature on the mean confidence over the augmentation steps. The red color denotes the negative correlation these features hold with confidence.}.
-%     \label{fig:trust_feature_importance}
-% \end{figure*}
-% 
-% 
-%\textcolor{red}{(The full tables of results are available in the supplementary materials in csv and json format.) DO WE DO THAT ?}
-% 
-% Discrepancy metrics
-%\input{sections/appendix/discrepancy_metrics}
-% 
-%\section{Performance metric formalization}\label{app:PerfMetrics}
-% 
-% \begin{figure*}[t]
-%     \centering  
-%     \psset{xunit=1mm,yunit=1mm,runit=1mm}
-% \scalebox{1.0}{
-% \begin{pspicture}(0,0)(170,34)
-%     
-%     %\includegraphics[width=\linewidth,clip=true,trim=0cm 0cm 0cm 0cm]{images/datasets_variability.pdf}
-%     \put(0,2){\input{images/hist_f42_with_Dx}}
-% 
-%     \end{pspicture}
-%     }
-%     \caption{\textbf{Distribution discrepancy ratio:} Training–testing discrepancy differences across 102 UCR datasets, computed using metric equations introduced in Appendix~\ref{app:discrepancy:form}.}
-%     \label{fig:datasets_variability}
-% \end{figure*}
-% 
-% 
-% 
-% ========== Feature importances for all DA methods (camera-ready) ==========
 \section{Feature importances for all DA methods}\label{app:feature_importance_all}
-% ADDED FOR CAMERA-READY (rebuttal C1: companion to Figure fig:catch22-importance)
 Figure~\ref{fig:feature-importance-all} extends
 Figure~\ref{fig:catch22-importance} to VaDE, FAA, TTS-GAN, KoVAE,
 Time-DDPM, LA, ImagenTime and Diffusion-TS (columns), for ResNet, FCN
@@ -1707,8 +1222,6 @@ Figure~\ref{fig:catch22-importance}.}
 
 
 
-% \subsection{Experimental results}\label{app:discrepancy:results}
-% The discrepancy ratios of the 102~UCR datasets have been plotted in ascending order in Figure~\ref{fig:datasets_variability}. Specifically, three datasets exemplify the extremes: \textbf{(i) Discrepancy towards test:} Dataset D8, \verb|Car| (ratio=1.53); \textbf{(ii) No discrepancy:} Dataset D20, \verb|ECGFiveDays| (1.00); \textbf{(iii) Discrepancy towards train:} Dataset D22, \verb|EOGVerticalSignal| (0.77). Detailed results of the discrepancies across the datasets are available in \tablename~\ref{Tab:app:Ablation_clustering_alpha}.
 
 
 
@@ -1717,69 +1230,19 @@ Figure~\ref{fig:catch22-importance}.}
 
 
 
-% \begin{table*}
-% \centering
-%  
-% \label{tab:rounded_variability_metrics_part_3}
-% \begin{tabular}{rlccc}
-%                  \# &      $Dataset$ &  Ratio &    $Dispersion_{TEST}$ &   $Dispersion_{TRAIN}$ \\
-% \toprule
-% D101 & FacesUCR & 1.12 & $1.20\times10^{3}$ & $1.08\times10^{3}$ \\
-% D102 & MiddlePhalanxOutlineAgeGroup & 1.12 & $2.70\times10^{1}$ & $2.24\times10^{1}$ \\
-% D103 & Wafer & 1.12 & $2.24\times10^{2}$ & $2.30\times10^{2}$ \\
-% D104 & ShapeletSim & 1.14 & $1.41\times10^{4}$ & $1.46\times10^{4}$ \\
-% D105 & ArrowHead & 1.16 & $1.71\times10^{0}$ & $1.88\times10^{0}$ \\
-% D106 & EOGHorizontalSignal & 1.18 & $3.01\times10^{1}$ & $2.65\times10^{1}$ \\
-% D107 & ToeSegmentation1 & 1.18 & $2.19\times10^{2}$ & $2.16\times10^{2}$ \\
-% D108 & SonyAIBORobotSurface2 & 1.18 & $2.80\times10^{1}$ & $2.36\times10^{1}$ \\
-% D109 & MixedShapesSmallTrain & 1.19 & $1.59\times10^{2}$ & $1.55\times10^{2}$ \\
-% D110 & ECG5000 & 1.19 & $4.17\times10^{1}$ & $4.77\times10^{1}$ \\
-% D111 & ECG200 & 1.21 & $1.28\times10^{2}$ & $1.25\times10^{2}$ \\
-% D112 & DistalPhalanxOutlineAgeGroup & 1.21 & $6.78\times10^{1}$ & $6.71\times10^{1}$ \\
-% D113 & CinCECGTorso & 1.24 & $1.41\times10^{1}$ & $1.40\times10^{1}$ \\
-% D114 & PickupGestureWiimoteZ & 1.25 & $5.23\times10^{0}$ & $5.98\times10^{0}$ \\
-% D115 & InsectEPGRegularTrain & 1.26 & $1.88\times10^{1}$ & $1.94\times10^{1}$ \\
-% D116 & Rock & 1.27 & $1.16\times10^{2}$ & $1.11\times10^{2}$ \\
-% D117 & BirdChicken & 1.30 & $5.28\times10^{1}$ & $5.47\times10^{1}$ \\
-% D118 & PigArtPressure & 1.38 & $1.03\times10^{2}$ & $9.85\times10^{1}$ \\
-% D119 & Phoneme & 1.50 & $5.18\times10^{1}$ & $4.70\times10^{1}$ \\
-% D120 & Car & 1.51 & $3.94\times10^{2}$ & $3.95\times10^{2}$ \\
-% D121 & PigCVP & 1.52 & $6.68\times10^{1}$ & $6.54\times10^{1}$ \\
-% D122 & Symbols & 1.53 & $1.23\times10^{1}$ & $3.72\times10^{0}$ \\
-% D123 & PigAirwayPressure & 2.07 & $7.11\times10^{2}$ & $5.72\times10^{2}$ \\
-% D124 & DiatomSizeReduction & 3.30 & $1.52\times10^{3}$ & $1.00\times10^{3}$ \\
-% \bottomrule
-% \end{tabular}
-% \end{table*}
 
 
 
-% % Dataset Diversity
-% \begin{figure*}[t]
-%     \centering 
-%     \includegraphics[width=\linewidth,clip=true,trim=0cm 0cm 0cm 0cm]{images/datasets_variability.pdf}
-%     %\input{images/cumulative_sum_discrepency}
-%     \caption{\textbf{Distribution discrepancy ratio:} Overview of the difference in discrepancy between training and testing sets of the $102$ UCR datasets; discrepancy ratio computed using \eqref{eq:variability_ratio}}.
-%     \label{fig:datasets_variability}
-% \end{figure*}
 
 
-% % Time-series features
-% \input{sections/appendix/time_series_features}
-% \newpage
-% Latent Space Evolution
-% \input{sections/appendix/latent_space_evolution}
 
 
-% ========== Latent space evolution (ICML app:Exp:LatentS_Evolution) ==========
-\iffalse  % --- Appendix L (Latent space evolution) commented out ---
+\iffalse
 \section{Evolution of latent space through learning phase} \label{app:latent_evolution}
 Latent space visualizations via PCA projection in \tablename~\ref{Fig:LatentS} highlight how augmentation affects distribution modeling: initial clusters are well-separated, but iterative steps increase density and exploration. Later, inter-class distances shrink, making further exploration harder. These insights are limited by the 3D projection of the original 50-dimensional space.
 
 
-%A progressive visualization of the latent space offers valuable insights into the evolving distribution modeling and exploration process. Initially, the latent space representations exhibit fine clustering, but as we iterate in the augmentation loop, the latent space distributions become denser, enhancing the exploration part of these distributions. However, in the later stages of augmentation, the exploration process becomes increasingly challenging as the inter-class distances appear to shrink due to prior augmentation steps. It is important to note that these visualizations provide only a limited view of the actual distributions, as they are restricted to three dimensions (from an original 50-dimensional space).
 
-% Synthetic data diversity by method
 
 \begin{table*}[t]
 \centering
@@ -1891,7 +1354,6 @@ Step 5 &
 \includegraphics[width=\imgsize]{images/latent_space_viz_dataset_SemgHandMovementCh2_augmented_step_5.png}\\ 
 \bottomrule
 \end{tabular}
-%\caption{Latent Space Evolution: EOGVerticalSignal, Ham, PigArtPressure, SemgHandMovementCh2}
 \end{table*}
 
 \newpage
@@ -1931,136 +1393,9 @@ Step 5 &
 \includegraphics[width=\imgsize]{images/latent_space_viz_dataset_Worms_augmented_step_5.png}  \\ 
 \bottomrule
 \end{tabular}
-%\caption{Latent Space Evolution: UMD, Worms}
 \end{table*}
-\fi  % --- end Appendix L ---
+\fi
 
 
 
-% \begin{table*}[p]
-% \centering
-%
-% \caption{Discrepancy Metrics Across Datasets}
-% \label{tab:discrepancy_metrics}
-% \begin{tabular}{rlccc}
-% \# &      Dataset &  Ratio &    Dispersion$_{TEST}$ &   Dispersion$_{TRAIN}$ \\
-% \toprule
-% D1 & ACSF1 & 0.96 & $1.01\times10^{3}$ & $1.04\times10^{3}$ \\
-% D2 & Adiac & 1.09 & $2.81\times10^{1}$ & $2.25\times10^{1}$ \\
-% D3 & ArrowHead & 1.16 & $1.71\times10^{0}$ & $1.88\times10^{0}$ \\
-% D4 & BME & 1.13 & $1.64\times10^{2}$	&	$1.26\times10^{2}$\\
-% D5 & Beef & 0.94 & $6.40\times10^{1}$ & $6.78\times10^{1}$ \\
-% D6 & BeetleFly & 0.89 & $5.79\times10^{1}$ & $5.30\times10^{1}$ \\
-% D7 & BirdChicken & 1.30 & $5.28\times10^{1}$ & $5.47\times10^{1}$ \\
-% D8 & Car & 1.51 & $3.94\times10^{2}$ & $3.95\times10^{2}$ \\
-% D9 & CBF & 1.09 & $6.69\times10^{4}$ & $8.63\times10^{4}$ \\
-% D10 & ChlorineConcentration & 1.05 & $9.02\times10^{1}$ & $9.00\times10^{1}$ \\
-% D11& CinCECGTorso & 1.24 & $1.41\times10^{1}$ & $1.40\times10^{1}$ \\
-% D12 & Coffee & 1.07 & $8.05\times10^{0}$ & $8.45\times10^{0}$ \\
-% D13& Computers & 0.97 & $1.94\times10^{2}$ & $1.98\times10^{2}$ \\
-% D14 & Crop & 1.00 & $1.28\times10^{4}$ & $1.35\times10^{4}$ \\
-% D15 & DistalPhalanxOutlineAgeGroup & 1.21 & $6.78\times10^{1}$ & $6.71\times10^{1}$ \\
-% D16 & DistalPhalanxOutlineCorrect & 0.96 & $5.31\times10^{0}$ & $6.94\times10^{0}$ \\
-% D17 & DistalPhalanxTW & 1.04 & $2.07\times10^{1}$ & $2.07\times10^{1}$ \\
-% D18 & Earthquakes & 1.00 & $1.31\times10^{2}$ & $1.24\times10^{2}$ \\
-% D19 & ECG200 & 1.21 & $1.28\times10^{2}$ & $1.25\times10^{2}$ \\
-% D20 & ECG5000 & 1.19 & $4.17\times10^{1}$ & $4.77\times10^{1}$ \\
-% D21 & ECGFiveDays & 1.01 & $5.42\times10^{1}$ & $4.85\times10^{1}$ \\
-% D22 & ElectricDevices & 1.10 & $1.02\times10^{2}$ & $9.84\times10^{1}$ \\
-% D23 & EOGHorizontalSignal & 1.18 & $3.01\times10^{1}$ & $2.65\times10^{1}$ \\
-% D24 & EOGVerticalSignal & 0.77 & $6.38\times10^{3}$ & $5.62\times10^{3}$ \\
-% D25& EthanolLevel & 0.87 & $3.18\times10^{1}$ & $2.10\times10^{1}$ \\
-% D26 & FaceAll & 0.97 & $3.58\times10^{1}$ & $3.67\times10^{1}$ \\
-% D27 & FaceFour & 1.04 & $5.44\times10^{1}$ & $5.14\times10^{1}$ \\
-% D28 & FacesUCR & 1.12 & $1.20\times10^{3}$ & $1.08\times10^{3}$ \\
-% D29 & Fish & 1.00 & $1.13\times10^{3}$ & $9.94\times10^{2}$ \\
-% D30 & FordA & 0.99 & $3.73\times10^{3}$ & $3.83\times10^{3}$ \\
-% D31 & FordB & 0.98 & $2.81\times10^{0}$ & $2.80\times10^{0}$ \\
-% D32 & FreezerRegularTrain & 1.01 & $2.47\times10^{3}$ & $3.27\times10^{3}$ \\
-% D33 & FreezerSmallTrain & 1.11 & $2.29\times10^{2}$ & $2.35\times10^{2}$ \\
-% D34 & GunPoint & 1.04 & $3.83\times10^{2}$ & $3.91\times10^{2}$ \\
-% D35 & GunPointAgeSpan & 1.00 & $5.50\times10^{0}$ & $4.90\times10^{0}$ \\
-% D36 & GunPointMaleVersusFemale & 1.02 & $3.69\times10^{1}$ & $5.17\times10^{1}$ \\
-% D37 & GunPointOldVersusYoung & 1.02 & $5.70\times10^{2}$ & $6.35\times10^{2}$ \\
-% D38 & Ham & 1.07 & $4.23\times10^{2}$ & $3.75\times10^{2}$ \\
-% D39 & HandOutlines & 0.46 & $1.50\times10^{2}$ & $1.39\times10^{2}$ \\
-% D40 & Haptics & 1.08 & $3.27\times10^{1}$ & $2.98\times10^{1}$ \\
-% D41 & Herring & 1.01 & $1.02\times10^{1}$ & $1.07\times10^{1}$ \\
-% D42 & HouseTwenty & 0.99 & $2.44\times10^{0}$ & $2.79\times10^{0}$ \\
-% D43 & InlineSkate & 1.07 & $8.25\times10^{0}$ & $6.80\times10^{0}$ \\
-% D44 & InsectEPGRegularTrain & 1.26 & $1.88\times10^{1}$ & $1.94\times10^{1}$ \\
-% D45 & InsectEPGSmallTrain & 1.10 & $1.63\times10^{2}$ & $1.64\times10^{2}$ \\
-% D46 & InsectWingbeatSound & 1.06 & $7.54\times10^{2}$ & $7.85\times10^{2}$ \\
-% D47 & ItalyPowerDemand & 0.95 & $2.75\times10^{0}$ & $2.92\times10^{0}$ \\
-% D48 & LargeKitchenAppliances & 1.01 & $3.68\times10^{1}$ & $3.08\times10^{1}$ \\
-% D49 & Lightning2 & 1.02 & $5.96\times10^{1}$ & $1.31\times10^{2}$ \\
-% D50 & Lightning7 & 0.94 & $3.32\times10^{1}$ & $3.80\times10^{1}$ \\
-% D51 & Mallat & 1.11 & $2.40\times10^{1}$ & $2.32\times10^{1}$ \\
-% D52 & Meat & 0.94 & $2.80\times10^{3}$ & $1.35\times10^{3}$ \\
-% D53 & MedicalImages & 1.00 & $7.57\times10^{1}$ & $8.10\times10^{1}$ \\
 
-% \bottomrule
-% \end{tabular}
-% \end{table*}
-
-% \setcounter{table}{7}
-% \begin{table*}[p]
-% \centering
-%  
-% \caption{Discrepancy Metrics Across Datasets}
-% \label{tab:discrepancy_metrics}
-% \begin{tabular}{rlccc}
-% \# &      Dataset &  Ratio &    Dispersion$_{TEST}$ &   Dispersion$_{TRAIN}$ \\
-% \toprule
-% D54 & MiddlePhalanxOutlineAgeGroup & 1.12 & $2.70\times10^{1}$ & $2.24\times10^{1}$ \\
-% D55 & MiddlePhalanxOutlineCorrect & 0.77 & $1.01\times10^{6}$ & $1.02\times10^{6}$ \\
-% D56 & MiddlePhalanxTW & 0.94 & $4.74\times10^{0}$ & $5.02\times10^{0}$ \\
-% D57 & MixedShapesRegularTrain & 0.98 & $4.20\times10^{2}$ & $4.76\times10^{2}$ \\
-% D58 & MixedShapesSmallTrain & 1.19 & $1.59\times10^{2}$ & $1.55\times10^{2}$ \\
-% D59 & MoteStrain & 0.96 & $3.27\times10^{1}$ & $2.60\times10^{1}$ \\
-% D60 & NonInvasiveFetalECGThorax1 & 0.98 & $1.31\times10^{2}$ & $1.33\times10^{2}$ \\
-% D61 & NonInvasiveFetalECGThorax2 & 0.97 & $2.52\times10^{0}$ & $2.42\times10^{0}$ \\
-% D62 & OliveOil & 0.91 & $5.64\times10^{0}$ & $5.94\times10^{0}$ \\
-% D63 & OSULeaf & 0.98 & $8.85\times10^{3}$ & $6.43\times10^{3}$ \\
-% D64 & PhalangesOutlinesCorrect & 0.95 & $2.02\times10^{1}$ & $2.00\times10^{1}$ \\
-% D65 & Plane & 0.94 & $9.58\times10^{1}$ & $1.01\times10^{2}$ \\
-% D66 & PowerCons & 1.02 & $2.07\times10^{4}$ & $1.63\times10^{4}$ \\
-% D67 & ProximalPhalanxOutlineAgeGroup & 0.94 & $4.70\times10^{2}$ & $7.09\times10^{2}$ \\
-% D68 & ProximalPhalanxOutlineCorrect & 0.87 & $1.34\times10^{1}$ & $1.48\times10^{1}$ \\
-% D69 & ProximalPhalanxTW & 0.94 & $1.39\times10^{4}$ & $1.36\times10^{4}$ \\
-% D70 & RefrigerationDevices & 1.05 & $4.23\times10^{1}$ & $4.01\times10^{1}$ \\
-% D71 & Rock & 1.27 & $1.16\times10^{2}$ & $1.11\times10^{2}$ \\
-% D72 & ScreenType & 0.88 & $2.18\times10^{2}$ & $2.46\times10^{2}$ \\
-% D73 & SemgHandGenderCh2 & 0.97 & $1.47\times10^{2}$ & $1.53\times10^{2}$ \\
-% D74 & SemgHandMovementCh2 & 1.00 & $1.23\times10^{4}$ & $1.24\times10^{4}$ \\
-% D75 & SemgHandSubjectCh2 & 0.95 & $5.14\times10^{1}$ & $5.28\times10^{1}$ \\
-% D76 & ShapeletSim & 1.14 & $1.41\times10^{4}$ & $1.46\times10^{4}$ \\
-% D77 & ShapesAll & 0.94 & $4.40\times10^{1}$ & $3.95\times10^{1}$ \\
-% D78 & SmallKitchenAppliances & 0.99 & $2.49\times10^{1}$ & $2.61\times10^{1}$ \\
-% D79 & SmoothSubspace & 1.04 & $4.86\times10^{1}$ & $3.19\times10^{1}$ \\
-% D80 & SonyAIBORobotSurface1 & 1.00 & $8.36\times10^{0}$ & $8.36\times10^{0}$ \\
-% D81 & SonyAIBORobotSurface2 & 1.18 & $2.80\times10^{1}$ & $2.36\times10^{1}$ \\
-% D82 & StarLightCurves & 1.05 & $5.40\times10^{4}$ & $4.59\times10^{4}$ \\
-% D83 & Strawberry & 0.91 & $1.59\times10^{2}$ & $1.56\times10^{2}$ \\
-% D84 & SwedishLeaf & 0.96 & $4.69\times10^{2}$ & $4.37\times10^{2}$ \\
-% D85 & Symbols & 1.53 & $1.23\times10^{1}$ & $3.72\times10^{0}$ \\
-% D86 & SyntheticControl & 1.02 & $2.29\times10^{2}$ & $1.92\times10^{2}$ \\
-% D87 & ToeSegmentation1 & 1.18 & $2.19\times10^{2}$ & $2.16\times10^{2}$ \\
-% D88 & ToeSegmentation2 & 0.97 & $2.03\times10^{2}$ & $1.72\times10^{2}$ \\
-% D89 & Trace & 0.88 & $4.46\times10^{3}$ & $4.41\times10^{3}$ \\
-% D90 & TwoLeadECG & 1.00 & $2.28\times10^{1}$ & $2.32\times10^{1}$ \\
-% D91 & TwoPatterns & 1.00 & $5.83\times10^{2}$ & $3.90\times10^{2}$ \\
-% D92 & UMD & 0.97 & $1.89\times10^{1}$ & $1.89\times10^{1}$ \\
-% D93 & UWaveGestureLibraryAll & 1.04 & $5.73\times10^{1}$ & $5.46\times10^{1}$ \\
-% D94 & UWaveGestureLibraryX & 1.02 & $6.81\times10^{1}$ & $6.67\times10^{1}$ \\
-% D95 & UWaveGestureLibraryY & 1.05 & $2.00\times10^{1}$ & $1.73\times10^{1}$ \\
-% D96 & UWaveGestureLibraryZ & 1.06 & $8.64\times10^{0}$ & $9.18\times10^{0}$ \\
-% D97 & Wafer & 1.12 & $2.24\times10^{2}$ & $2.30\times10^{2}$ \\
-% D98 & Wine & 0.87 & $3.34\times10^{4}$ & $3.33\times10^{4}$ \\
-% D99 & WordSynonyms & 1.11 & $4.32\times10^{3}$ & $5.08\times10^{3}$ \\
-% D100 & Worms & 0.89 & $1.13\times10^{2}$ & $1.00\times10^{2}$ \\
-% D101& WormsTwoClass & 0.93 & $4.09\times10^{1}$ & $4.26\times10^{1}$ \\
-% D102 & Yoga & 1.02 & $3.02\times10^{4}$ & $2.97\times10^{4}$ \\
-% \bottomrule
-% \end{tabular}
-% \end{table*}

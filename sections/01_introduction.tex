@@ -6,7 +6,6 @@ dependencies, non-stationarity, or scarce labelled data, often
 limited by acquisition costs and privacy. Data augmentation (DA)
 mitigates these issues by enriching the training set with
 synthetic samples.
-% REVISED FOR TMLR (rebuttal Hzd4 minor, duplication with Section 2.1)
 In practice, however, no DA method is reliable across the
 heterogeneous datasets that TSC covers
 \citep{iwana2021empirical, iglesias2023data}, an inconsistency
@@ -42,7 +41,6 @@ introduces a tunable $\alpha$-scaling mechanism to gradually
 explore these under-represented regions while maintaining
 intra-class compactness and inter-class separation.
 Figure~\ref{fig:SoTaVSASCENSION} illustrates the core concept.
-% REVISED FOR TMLR (rebuttal C2)
 This strategy yields more diverse synthetic data and improved
 mean classification performance, as shown in
 Section~\ref{sec:results:main}.
@@ -55,7 +53,6 @@ The key contributions of this paper are:
     $\alpha$-scaling mechanism, with ablations mapping the
     dataset conditions where it is most beneficial.
 
-    % REVISED FOR TMLR (rebuttal C2)
     \item \textbf{Comprehensive benchmark \& low-risk gains.}
     ASCENSION is evaluated across 102 UCR datasets against one
     traditional (FAA) and eight generative baselines
@@ -71,23 +68,3 @@ The key contributions of this paper are:
     single most impactful component.
 \end{itemize}
 
-% -----------------------------------------------------------------
-% ADDED FOR TMLR (no ICML page limit; addresses reviewers'
-% "consistency" framing directly)
-% -----------------------------------------------------------------
-% Beyond the three contributions above, we leverage the TMLR
-% format to add, on top of the ICML submission, a series of
-% additions prompted by ICML reviewers:
-% \begin{itemize}
-%   \item A direct \textbf{cVAE-with-matched-$\alpha$ baseline} on
-%         all 102 UCR datasets, isolating the contribution of the
-%         contrastive loss (Section~\ref{sec:results:cvae}).
-%   \item \textbf{Macro-$F_1$} companion tables alongside accuracy
-%         (Section~\ref{sec:results:f1}).
-%   \item A \textbf{complexity and wall-clock} analysis against
-%         the nine baselines (Section~\ref{sec:complexity}).
-%   \item A sharpened positioning against GMM-structured VAEs
-%         (Section~\ref{sec:related:positioning}) and an
-%         OOD-discussion subsection
-%         (Section~\ref{sec:limitations:ood}).
-% \end{itemize}
