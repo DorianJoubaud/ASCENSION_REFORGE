@@ -234,11 +234,13 @@ enabling DA that preserves cross-modal temporal dependencies.
 Expanding class representations through their covariance also has
 precedents outside TS classification: \citet{wang2019implicit}
 implicitly augment deep features along class-conditional covariance
-directions for image classification, \citet{wang2020data} augment
-speaker embeddings with deep generative models, and
-\citet{lan2025cotton} sample from the Gaussian statistics of
-agronomic data before encoding them with a VAE. These methods
-operate in a feature space and apply a single expansion step,
+directions for image classification, and \citet{wang2020data} augment
+speaker embeddings with deep generative models. Covariance-based
+sampling is also used outside classification: \citet{lan2025cotton}
+sample from the Gaussian statistics of agronomic data before
+encoding them with a VAE for yield regression. The first two
+operate in a feature space and the third in the input space, and
+all three apply a single expansion step,
 whereas ASCENSION decodes its samples back to the input space,
 filters them with the Bayes-region test to preserve class identity,
 and applies the expansion progressively over iterations.
