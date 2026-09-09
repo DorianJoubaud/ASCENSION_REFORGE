@@ -63,10 +63,6 @@
 }
 \surroundwithmdframed[style=definitionbox]{definition}
 \surroundwithmdframed[style=definitionbox]{proposition}
-% `lscape` is already pulled in by `pdflscape` above; loading it a second
-% time here caused \begin{landscape} to be redefined to the non-rotating
-% variant, breaking float placement and triggering "Float(s) lost" at
-% \clearpage. Keep only pdflscape.
 \usepackage{svg}
 \usepackage{bm}
 \usepackage{float}          % enables [H] float placement
