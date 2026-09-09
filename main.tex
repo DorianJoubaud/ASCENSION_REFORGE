@@ -54,7 +54,10 @@
 \mdfdefinestyle{definitionbox}{%
   backgroundcolor=black!5,
   linewidth=0pt,
-  innertopmargin=3pt,
+  % 3pt left only 0.7pt of clearance above Proposition 1, whose first
+  % line carries a tall inline fraction and sum: it read as overflowing
+  % the box. 6pt is the template's original value.
+  innertopmargin=6pt,
   innerbottommargin=3pt,
   innerleftmargin=10pt,
   innerrightmargin=10pt,
