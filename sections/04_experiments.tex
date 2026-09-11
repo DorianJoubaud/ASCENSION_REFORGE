@@ -28,7 +28,7 @@
 
 In this section, we evaluate ASCENSION against leading state-of-the-art DA methods to validate our central hypothesis
 that progressively exploring under-represented latent regions and
-expanding the initial data distribution improves DA, particularly
+expanding the initial data distribution improves DA, including
 under distribution discrepancies.
 
 \subsection{Experimental setup}
@@ -40,9 +40,9 @@ datasets with missing values and datasets too small to ensure
 sufficient training data.
 
 
-Following \citep{fawaz2019deep}, which identifies ResNet-50 and
-FCN (Fully Convolutional Network) as top UCR performers, we use these architectures as in
-\citep{koonce2021resnet50, scabini2023networks}. We also evaluate
+Following \citep{fawaz2019deep}, which identifies ResNet and
+FCN (Fully Convolutional Network) as top UCR performers, we use these
+architectures as introduced for TS classification by \citep{wang2017time}. We also evaluate
 Moment \citep{goswami2024moment}, a transformer-based multi-task
 foundation model pretrained on the UCR training splits (excluding
 test splits). We apply ASCENSION to augment the training data and
@@ -288,7 +288,7 @@ Fewer than 20 & 32 & $+1.65$ & $+0.24$ & $+2.07$ \\
 \label{sec:results:significance}
 
 We assess significance with the Friedman test followed by a Nemenyi
-post-hoc analysis at the $5\%$ level ($k = 9$ methods, $N = 102$
+post-hoc analysis \citep{demsar2006statistical} at the $5\%$ level ($k = 9$ methods, $N = 102$
 datasets, critical difference $\mathrm{CD} = 1.19$), applied
 separately to each of the nine classifier-run combinations. The
 Friedman test is significant in all nine combinations, with the
@@ -534,7 +534,7 @@ We use the 22 \textbf{CA}nonical \textbf{T}ime-series
 to featurise TS, and add two
 additional features: (F23) the train/test split ratio, and (F24)
 the distribution discrepancy ratio between train and test sets
-(see metric definitions in Appendix~\ref{app:feature_risk}). A full
+(see metric definitions in Appendix~\ref{app:discrepancy:form}). A full
 description of the 24 features (F1--F24) is provided in
 Appendix~\ref{app:feature_risk}. F23 is computable from dataset
 sizes and F24 requires the test set and is used here as a
@@ -608,7 +608,7 @@ the strongest generative baseline does not close on the
 high-discrepancy datasets, \textit{i.e.}, where
 in-distribution generative augmentation cannot help. This
 robustness across the full discrepancy range, not concentration
-in any one quartile, validates our central hypothesis:
+in any one quartile, supports our central hypothesis:
 progressive expansion into under-represented latent regions
 yields beneficial augmentations \emph{regardless} of whether the
 test distribution differs from training.
