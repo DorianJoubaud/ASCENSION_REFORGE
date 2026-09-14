@@ -41,8 +41,9 @@ sufficient training data.
 
 
 Following \citep{fawaz2019deep}, which identifies ResNet and
-FCN (Fully Convolutional Network) as top UCR performers, we use these
-architectures as introduced for TS classification by \citep{wang2017time}. We also evaluate
+FCN (Fully Convolutional Network) as top UCR performers, we use these two
+architectures, introduced for TS classification by \citep{wang2017time},
+in our own implementation. We also evaluate
 Moment \citep{goswami2024moment}, a transformer-based multi-task
 foundation model pretrained on the UCR training splits (excluding
 test splits). We apply ASCENSION to augment the training data and
@@ -88,8 +89,7 @@ sample, $n$ in total.
 Baselines all add $n$ candidates to the training set, doubling it,
 whereas ASCENSION keeps only the candidates that pass the
 Bayes-region filter (Definition~\ref{def:bayes-region}) and therefore
-adds fewer, by an amount that varies across datasets (median
-acceptance rate $0.71$ to $0.73$, Appendix~\ref{app:acceptance}).
+adds fewer (Appendix~\ref{app:acceptance}).
 
 
 
