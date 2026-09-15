@@ -229,16 +229,15 @@ encoding them with a VAE for yield regression. The first two
 operate in a feature space and the third in the input space, and
 all three apply a single expansion step,
 whereas ASCENSION decodes its samples back to the input space,
-filters them with the Bayes-region test to preserve class identity,
+filters them with the Bayes-region filter to preserve class identity,
 and applies the expansion progressively over iterations.
 
 However, none of these approaches explore a
 progressive, tunable expansion of class representations in the
 latent space, as proposed in ASCENSION.
 
-Closest to our evaluation setting, \citet{gonen2025time} present
-the first large-scale study of generative TS models under data
-scarcity: the generation quality of models trained on the target
+\citet{gonen2025time} present the first large-scale study of
+generative TS models under data scarcity: the generation quality of models trained on the target
 dataset alone shows a substantial gap between the full-data and
 data-scarce regimes, precisely where augmentation is most needed. Their answer transfers
 knowledge from a large collection of TS datasets, pretraining a
