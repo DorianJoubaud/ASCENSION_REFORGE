@@ -366,8 +366,10 @@ head, with no external classifier.
 \emph{ASCENSION$_{c}$}, with $c \in \{\text{ResNet}, \text{FCN}\}$,
 attaches an external classifier directly to the latent space
 (after encoder and reparameterisation) rather than to the decoder
-output. \tablename~\ref{tab:embedded} reports both alternative
-configurations. The ablation studies in
+output. Both variants test augmentation directly in the
+representation space the contrastive loss shapes, which is why they
+carry the component ablation. \tablename~\ref{tab:embedded} reports
+both alternative configurations. The ablation studies in
 Section~\ref{sec:analysis:ablation} use
 ASCENSION$_{\text{ResNet-Emb}}$ and ASCENSION$_{\text{FCN-Emb}}$.
 For the embedded variants, augmentation gain is defined as the
